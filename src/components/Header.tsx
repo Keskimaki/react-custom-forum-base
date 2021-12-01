@@ -1,23 +1,27 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import styles from '../styles'
 
 const Header = () => {
   return (
     <div style={styles.header}>
-      <HeaderTab text="Placeholder" />
-      <HeaderTab text="content" />
-      <HeaderTab text="for" />
-      <HeaderTab text="the" />
-      <HeaderTab text="time" />
-      <HeaderTab text="being" />
+      <HeaderTab text="Forum" />
+      <HeaderTab text="Login" />
     </div>
   )
+}
+
+const linkStyle = {
+  textDecoration: 'inherit',
+  color: 'inherit'
 }
 
 const HeaderTab = ({ text }: { text: string }) => {
   return (
     <div style={styles.headerTab}>
-      {text}
+      <Link to={text} style={linkStyle}>
+        {text}
+      </Link>
     </div>
   )
 }

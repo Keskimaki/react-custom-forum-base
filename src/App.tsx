@@ -1,4 +1,5 @@
 import React from 'react'
+import { Routes, Route, Link } from "react-router-dom";
 import styles from './styles'
 
 import Header from './components/Header'
@@ -10,7 +11,9 @@ function App() {
   return (
     <div style={styles.app}>
       <Header />
-      <Login />
+      <Routes>
+        <Route path="login" element={<Login />} />
+      </Routes>
       <Footer />
     </div>
   )
