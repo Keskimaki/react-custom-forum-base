@@ -6,7 +6,7 @@ const app: CSS.Properties = {
 const header: CSS.Properties = {
   backgroundColor: '#24292e',
   paddingRight: '50%',
-  height: '80px',
+  height: '8vh',
   alignItems: 'center',
   display: 'flex',
   flexDirection: 'row',
@@ -22,7 +22,8 @@ const headerTab: CSS.Properties = {
 const board: CSS.Properties = {
   backgroundColor: '#FFF',
   padding: '5px',
-  marginBottom: '10px'
+  marginBottom: '10px',
+  fontSize: '20px'
 }
 
 const link: CSS.Properties = {
@@ -31,7 +32,12 @@ const link: CSS.Properties = {
 }
 
 const login: CSS.Properties = {
-  textAlign: 'center'
+  height: '85vh',
+  width: '600px',
+  backgroundColor: '#FFF',
+  paddingTop: '50px',
+  textAlign: 'center',
+  margin: 'auto'
 }
 
 const textInput: CSS.Properties = {
@@ -59,7 +65,7 @@ const button: CSS.Properties = {
 const footer: CSS.Properties = {
   backgroundColor: '#24292e',
   color: '#FFF',
-  height: '40px',
+  height: '4vh',
   width: '100%',
   alignItems: 'center',
   display: 'flex',

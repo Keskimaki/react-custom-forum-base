@@ -20,12 +20,14 @@ const Login = () => {
       <form onSubmit={handleLogin}>
         <input
           style={styles.textInput}
+          placeholder="username"
           value={username}
           onChange={({ target }) => setUsername(target.value) } />
         <br />
         <input
           style={styles.textInput}
           type="password"
+          placeholder="password"
           value={password}
           onChange={({ target }) => setPassword(target.value) } />
         <br />
