@@ -19,6 +19,32 @@ const headerTab: CSS.Properties = {
   fontWeight: 'bold'
 }
 
+const login: CSS.Properties = {
+  textAlign: 'center'
+}
+
+const textInput: CSS.Properties = {
+  height: '50px',
+  width: '300px',
+  justifyContent: 'center',
+  alignItems: 'center',
+  borderRadius: '5px',
+  marginTop: '10px',
+  fontSize: '20px'
+}
+
+const button: CSS.Properties = {
+  backgroundColor: '#0366d6',
+  color: '#FFF',
+  height: '50px',
+  width: '300px',
+  justifyContent: 'center',
+  alignItems: 'center',
+  borderRadius: '5px',
+  marginTop: '10px',
+  fontSize: '20px'
+}
+
 const footer: CSS.Properties = {
   backgroundColor: '#24292e',
   color: '#FFF',
@@ -35,6 +61,9 @@ const styles = {
   app,
   header,
   headerTab,
+  login,
+  textInput,
+  button,
   //
   footer
 }
