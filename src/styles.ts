@@ -19,6 +19,17 @@ const headerTab: CSS.Properties = {
   fontWeight: 'bold'
 }
 
+const board: CSS.Properties = {
+  backgroundColor: '#FFF',
+  padding: '5px',
+  marginBottom: '10px'
+}
+
+const link: CSS.Properties = {
+  textDecoration: 'inherit',
+  color: 'inherit'
+}
+
 const login: CSS.Properties = {
   textAlign: 'center'
 }
@@ -61,10 +72,11 @@ const styles = {
   app,
   header,
   headerTab,
+  board,
+  link,
   login,
   textInput,
   button,
-  //
   footer
 }
 

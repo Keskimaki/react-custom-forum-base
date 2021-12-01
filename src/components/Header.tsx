@@ -11,15 +11,10 @@ const Header = () => {
   )
 }
 
-const linkStyle = {
-  textDecoration: 'inherit',
-  color: 'inherit'
-}
-
 const HeaderTab = ({ text, link }: { text: string, link: string }) => {
   return (
     <div style={styles.headerTab}>
-      <Link to={link} style={linkStyle}>
+      <Link to={link} style={styles.link}>
         {text}
       </Link>
     </div>

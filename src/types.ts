@@ -10,7 +10,7 @@ export interface User {
 }
 
 
-export interface Board {
+export interface BoardType {
   name: string,
   description: string,
   threads: string[]
