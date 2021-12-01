@@ -5,8 +5,8 @@ import styles from '../styles'
 const Header = () => {
   return (
     <div style={styles.header}>
-      <HeaderTab text="Forum" />
-      <HeaderTab text="Login" />
+      <HeaderTab text="Forum" link="/boards" />
+      <HeaderTab text="Login" link="/login" />
     </div>
   )
 }
@@ -16,10 +16,10 @@ const linkStyle = {
   color: 'inherit'
 }
 
-const HeaderTab = ({ text }: { text: string }) => {
+const HeaderTab = ({ text, link }: { text: string, link: string }) => {
   return (
     <div style={styles.headerTab}>
-      <Link to={text} style={linkStyle}>
+      <Link to={link} style={linkStyle}>
         {text}
       </Link>
     </div>

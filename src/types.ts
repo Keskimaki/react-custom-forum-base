@@ -8,3 +8,10 @@ export interface User {
   details?: string //Expand later
   id: string
 }
+
+
+export interface Board {
+  name: string,
+  description: string,
+  threads: string[]
+}
