@@ -17,7 +17,7 @@ const Header = () => {
 const HeaderTab = ({ text }: { text: string }) => {
   return (
     <div style={styles.headerTab}>
-      <strong>{text}</strong>
+      {text}
     </div>
   )
 }
