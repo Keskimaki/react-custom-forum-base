@@ -1,13 +1,26 @@
 import mongoose from 'mongoose'
+import mongooseUniqueValidator from 'mongoose-unique-validator'
 
 const userSchema = new mongoose.Schema({
-  username: String,
-  passwordHash: String,
+  username: {
+    type: String,
+    minlength: 3,
+    required: true,
+    unique: true
+  },
+  passwordHash: {
+    type: String,
+    required: true
+  },
+  email: String,
+  date: Date,
   posts: Array,
   following: Array,
   privileges: String,
   details: String
 })
+
+userSchema.plugin(mongooseUniqueValidator)
 
 const User = mongoose.model('User', userSchema)
 

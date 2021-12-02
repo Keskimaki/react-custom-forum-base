@@ -1,19 +1,30 @@
 import express from 'express'
-//TODO database
-import users from '../mockdata/users'
+import bcrypt from 'bcryptjs'
 import User from '../models/user'
 
 const userRouter = express.Router()
 
-userRouter.get('/', (_req, res) => {
-  res.send(users)
+userRouter.get('/', async (_req, res) => {
+  const users = await User.find({})
+  res.json(users)
 })
 
-userRouter.post('/', (req, res) => {
+userRouter.post('/', async (req, res) => {
   //Assume that sent data is correct for now
-  const user = new User(req.body)
-  user.save()
-  res.status(201).send(user)
+  const { username, password } = req.body
+  const passwordHash = await bcrypt.hash(password, 10)
+
+  const newUser = new User({
+    username,
+    passwordHash,
+    date: new Date(),
+    posts: [],
+    following: [],
+    privileges: 'user',
+  })
+  
+  const savedUser = await newUser.save()
+  res.status(201).json(savedUser)
 })
 
 export default userRouter

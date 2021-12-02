@@ -1,6 +1,6 @@
-//For now just copy of Frontend
+import { ObjectId } from 'mongodb'
 
-export type Privileges = 'admin' | 'mod' | 'user'
+export type Privileges = 'admin' | 'mod' | 'user' | 'guest'
 
 export type ThreadStatus = 'open' | 'closed' | 'removed' | 'waiting'
 
@@ -8,11 +8,14 @@ export type PostStatus = 'visible' | 'removed' | 'deleted' | 'waiting'
 
 export interface User {
   username: string,
-  posts: string[],
-  following: string[],
+  passwordHash: string,
+  email?: string,
+  date: Date,
+  posts: ObjectId[],
+  following: ObjectId[],
   privileges: Privileges
   details?: string //Expand later
-  id: string
+  id: ObjectId
 }
 
 export interface BoardType {
