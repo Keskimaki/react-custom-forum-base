@@ -6,7 +6,7 @@ const app: CSS.Properties = {
 const header: CSS.Properties = {
   backgroundColor: '#24292e',
   paddingRight: '50%',
-  height: '8vh',
+  height: '100px',
   alignItems: 'center',
   display: 'flex',
   flexDirection: 'row',
@@ -80,7 +80,7 @@ const button: CSS.Properties = {
 const footer: CSS.Properties = {
   backgroundColor: '#24292e',
   color: '#FFF',
-  height: '4vh',
+  height: '50px',
   width: '100%',
   alignItems: 'center',
   display: 'flex',
