@@ -1,11 +1,19 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 import { BoardType } from '../../types'
 import { Link } from 'react-router-dom'
 import styles from '../../styles'
-import boards from '../../mockdata/boards'
-
 
 const Boards = () => {
+  const [ boards, setBoards ] = useState<BoardType[]>([])
+  useEffect(() => {
+    const getBoards = async () => {
+      const res = await axios.get('http://localhost:3003/api/boards')
+      setBoards(res.data)
+    }
+    getBoards()
+  }, [])
+
   return (
     <div>
       {boards.map(board => 
