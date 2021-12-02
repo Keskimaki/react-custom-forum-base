@@ -2,6 +2,8 @@ import { ObjectId } from 'mongodb'
 
 export type Privileges = 'admin' | 'mod' | 'user' | 'guest'
 
+export type BoardStatus = 'open' | 'closed' | 'admin'
+
 export type ThreadStatus = 'open' | 'closed' | 'removed' | 'waiting'
 
 export type PostStatus = 'visible' | 'removed' | 'deleted' | 'waiting'
@@ -21,20 +23,24 @@ export interface User {
 export interface BoardType {
   name: string,
   description: string,
+  status: BoardStatus,
+  url?: string,
   threads: ThreadType[]
 }
 
 export interface ThreadType {
   name: string,
+  user?: ObjectId,
+  date: Date,
   status: ThreadStatus,
   posts: PostType[]
 }
 
 export interface PostType {
-  user: string,
+  user?: ObjectId,
   content: string,
-  responseTo: string[],
-  repliesTo: string[],
-  id: string,
+  date: Date,
+  responseTo: ObjectId[],
+  repliesTo: ObjectId[],
   status: PostStatus
 }
