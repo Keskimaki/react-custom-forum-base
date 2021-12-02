@@ -5,6 +5,7 @@ import styles from './styles'
 import Header from './components/Header'
 import Boards from './components/boards'
 import Threads from './components/boards/Threads'
+import Posts from './components/boards/Posts'
 
 import Login from './components/Login'
 import Footer from './components/Footer'
@@ -18,6 +19,7 @@ function App() {
       <Routes>
         <Route path="/boards" element={<Boards />} />
         <Route path="/boards/:boardName" element={<Threads />} />
+        <Route path="/boards/:boardName/:threadName" element={<Posts />} />
         <Route path="/login" element={<Login />} />
       </Routes>
       <Footer />

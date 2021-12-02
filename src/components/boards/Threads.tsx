@@ -1,8 +1,9 @@
 import React from 'react'
 import { useParams } from 'react-router'
-import boards from '../../mockdata/boards'
+import { Link } from 'react-router-dom'
 import { ThreadType } from '../../types'
 import styles from '../../styles'
+import boards from '../../mockdata/boards'
 
 const Threads = () => {
   const { boardName } = useParams()
@@ -23,12 +24,16 @@ const Threads = () => {
 }
 
 const Thread = ({ thread }: { thread: ThreadType }) => {
+  const { boardName } = useParams()
+
   return (
-    <div style={styles.board}>
-      <strong>{thread.name}</strong> <br />
-      status: {thread.status} <br />
-      posts: {thread.posts.length}
-    </div>
+    <Link to={`/boards/${boardName}/${thread.name}`} style={styles.link}>
+      <div style={styles.board}>
+        <strong>{thread.name}</strong> <br />
+        status: {thread.status} <br />
+        posts: {thread.posts.length}
+      </div>
+    </Link>
   )
 }
 
