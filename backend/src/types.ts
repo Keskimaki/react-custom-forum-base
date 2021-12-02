@@ -1,3 +1,5 @@
+//For now just copy of Frontend
+
 export type Privileges = 'admin' | 'mod' | 'user'
 
 export type ThreadStatus = 'open' | 'closed' | 'removed' | 'waiting'
