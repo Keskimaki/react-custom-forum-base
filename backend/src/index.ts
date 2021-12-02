@@ -1,9 +1,9 @@
-import app from './app'
 import http from 'http'
+import app from './app'
+import env from './utils/config'
 
-const PORT = 3003
 const server = http.createServer(app)
 
-server.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`)
+server.listen(env.PORT, () => {
+  console.log(`Server running on port ${env.PORT}`)
 })
