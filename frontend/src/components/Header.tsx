@@ -7,6 +7,7 @@ const Header = () => {
     <div style={styles.header}>
       <HeaderTab text="Forum" link="/boards" />
       <HeaderTab text="Login" link="/login" />
+      <HeaderTab text="Create Account" link="/account" />
     </div>
   )
 }

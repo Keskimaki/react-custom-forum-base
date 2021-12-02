@@ -19,12 +19,14 @@ const Login = () => {
     <div style={styles.login}>
       <form onSubmit={handleLogin}>
         <input
+          required
           style={styles.textInput}
           placeholder="username"
           value={username}
           onChange={({ target }) => setUsername(target.value) } />
         <br />
         <input
+          required
           style={styles.textInput}
           type="password"
           placeholder="password"

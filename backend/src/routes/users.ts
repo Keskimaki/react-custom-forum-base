@@ -11,12 +11,13 @@ userRouter.get('/', async (_req, res) => {
 
 userRouter.post('/', async (req, res) => {
   //Assume that sent data is correct for now
-  const { username, password } = req.body
+  const { username, password, email } = req.body
   const passwordHash = await bcrypt.hash(password, 10)
 
   const newUser = new User({
     username,
     passwordHash,
+    email,
     date: new Date(),
     posts: [],
     following: [],

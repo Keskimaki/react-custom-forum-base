@@ -2,7 +2,7 @@ import { ObjectId } from 'mongodb'
 
 export type Privileges = 'admin' | 'mod' | 'user' | 'guest'
 
-export type BoardStatus = 'open' | 'closed' | 'admin'
+export type BoardStatus = 'open' | 'closed'
 
 export type ThreadStatus = 'open' | 'closed' | 'removed' | 'waiting'
 
@@ -30,14 +30,14 @@ export interface BoardType {
 
 export interface ThreadType {
   name: string,
-  user?: ObjectId,
+  user: ObjectId,
   date: Date,
   status: ThreadStatus,
   posts: PostType[]
 }
 
 export interface PostType {
-  user?: ObjectId,
+  user: ObjectId,
   content: string,
   date: Date,
   responseTo: ObjectId[],
