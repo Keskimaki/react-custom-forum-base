@@ -25,7 +25,8 @@ export interface BoardType {
   description: string,
   status: BoardStatus,
   url?: string,
-  threads: ThreadType[]
+  threads: ThreadType[],
+  id: ObjectId
 }
 
 export interface ThreadType {
@@ -33,7 +34,8 @@ export interface ThreadType {
   user: ObjectId,
   date: Date,
   status: ThreadStatus,
-  posts: PostType[]
+  posts: PostType[],
+  id: ObjectId
 }
 
 export interface PostType {
@@ -42,5 +44,6 @@ export interface PostType {
   date: Date,
   responseTo: ObjectId[],
   repliesTo: ObjectId[],
-  status: PostStatus
+  status: PostStatus,
+  id: ObjectId
 }

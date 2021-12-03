@@ -1,4 +1,6 @@
-export type Privileges = 'admin' | 'mod' | 'user'
+export type Privileges = 'admin' | 'mod' | 'user' | 'guest'
+
+export type BoardStatus = 'open' | 'closed'
 
 export type ThreadStatus = 'open' | 'closed' | 'removed' | 'waiting'
 
@@ -6,6 +8,8 @@ export type PostStatus = 'visible' | 'removed' | 'deleted' | 'waiting'
 
 export interface User {
   username: string,
+  email?: string,
+  date: Date,
   posts: string[],
   following: string[],
   privileges: Privileges
@@ -16,11 +20,15 @@ export interface User {
 export interface BoardType {
   name: string,
   description: string,
+  status: BoardStatus,
+  url?: string,
   threads: ThreadType[]
 }
 
 export interface ThreadType {
   name: string,
+  user: string,
+  date: Date,
   status: ThreadStatus,
   posts: PostType[]
 }
@@ -28,8 +36,9 @@ export interface ThreadType {
 export interface PostType {
   user: string,
   content: string,
+  date: Date,
   responseTo: string[],
   repliesTo: string[],
-  id: string,
-  status: PostStatus
+  status: PostStatus,
+  id: string
 }
