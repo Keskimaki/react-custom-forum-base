@@ -1,11 +1,11 @@
 import React from 'react'
-import { useParams } from 'react-router'
+/*import { useParams } from 'react-router'
 import boards from '../../mockdata/boards'
 import { PostType } from '../../types'
-import styles from '../../styles'
+import styles from '../../styles'*/
 
 const Posts = () => {
-  const { boardName, threadName } = useParams()
+  /*const { boardName, threadName } = useParams()
   const thread = boards.
     find(board => board.name === boardName)?.threads.
     find(thread => thread.name === threadName)
@@ -31,7 +31,8 @@ const Post = ({ post }: { post: PostType }) => {
       {post.content} <br/>
       {post.repliesTo}
     </div>
-  )
+  )*/
+  return null
 }
 
 export default Posts

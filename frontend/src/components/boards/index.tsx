@@ -1,15 +1,11 @@
-import React, { useState, useEffect } from 'react'
-import axios from 'axios'
+import React from 'react'
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { BoardType } from '../../types'
-import boardService from '../../services/boards'
 import styles from '../../styles'
 
 const Boards = () => {
-  const [ boards, setBoards ] = useState<BoardType[]>([])
-  useEffect(() => {
-    boardService.getAll(setBoards)
-  }, [])
+  const boards: BoardType[] = useSelector((state: BoardType[])=> state)
 
   return (
     <div>

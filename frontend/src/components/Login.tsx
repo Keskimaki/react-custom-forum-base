@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styles from '../styles'
-import users from '../mockdata/users' //placeholder until backend functional
+//import users from '../mockdata/users' //placeholder until backend functional
 
 const Login = () => {
   const [ username, setUsername] = useState('')
@@ -8,11 +8,12 @@ const Login = () => {
 
   const handleLogin = (event: React.SyntheticEvent) => {
     event.preventDefault()
+    console.log('logged in')
     //TODO authentication in backend
-    const user = users.find(user => user.username === username)
+    /*const user = users.find(user => user.username === username)
     user && password === 'salasana'
       ? console.log('logged in')
-      : console.log('incorrect username or password')
+      : console.log('incorrect username or password')*/
   }
 
   return (
