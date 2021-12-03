@@ -2,10 +2,11 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { BoardType } from '../../types'
+import { RootState } from '../../store'
 import styles from '../../styles'
 
 const Boards = () => {
-  const boards = useSelector((state: BoardType[])=> state)
+  const boards: BoardType[] = useSelector((state: RootState) => state.boards)
 
   return (
     <div>

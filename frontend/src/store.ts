@@ -1,9 +1,16 @@
-import { createStore, applyMiddleware } from 'redux'
+import { createStore, combineReducers, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 import boardReducer from './reducers/boardReducer'
+import userReducer from './reducers/userReducer'
 
-const store = createStore(boardReducer, applyMiddleware(thunk))
+const reducer = combineReducers({
+  boards: boardReducer,
+  users: userReducer
+})
 
+const store = createStore(reducer, applyMiddleware(thunk))
+
+export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch
 
 export default store
