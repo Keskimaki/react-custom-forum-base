@@ -19,7 +19,7 @@ const headerTab: CSS.Properties = {
   fontWeight: 'bold'
 }
 
-const rightBar: CSS.Properties = {
+const infoBar: CSS.Properties = {
   height: '90vh',
   width: '25vw',
   //maxWidth: '600px',
@@ -29,7 +29,7 @@ const rightBar: CSS.Properties = {
   right: 0,
 }
 
-const rightBarItem: CSS.Properties = {
+const infoBarItem: CSS.Properties = {
   backgroundColor: '#FFF',
   padding: '10px',
   border: '2px solid #586069',
@@ -93,8 +93,8 @@ const styles = {
   app,
   header,
   headerTab,
-  rightBar,
-  rightBarItem,
+  infoBar,
+  infoBarItem,
   board,
   link,
   login,

@@ -3,24 +3,24 @@ import { BoardType } from '../types'
 import { AppDispatch } from '../store'
 
 interface BoardAction {
-  type: 'GET_BOARDS',
+  type: 'INIT_BOARDS',
   data: BoardType[]
 }
 
 const boardReducer = (state: BoardType[] = [], action: BoardAction) => {
   switch (action.type) {
-    case 'GET_BOARDS':
+    case 'INIT_BOARDS':
       return action.data
     default:
       return state
   }
 }
 
-export const getBoards = () => {
+export const initializeBoards = () => {
   return async (dispatch: AppDispatch) => {
     const boards = await boardService.getAll()
     dispatch({
-      type: 'GET_BOARDS',
+      type: 'INIT_BOARDS',
       data: boards
     })
   }

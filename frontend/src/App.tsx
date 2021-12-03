@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom"
 import styles from './styles'
 
 import { useDispatch } from 'react-redux'
-import { getBoards } from './reducers/boardReducer'
+import { initializeBoards } from './reducers/boardReducer'
 
 import Header from './components/Header'
 import Boards from './components/boards'
@@ -12,20 +12,20 @@ import Posts from './components/boards/Posts'
 import Login from './components/Login'
 import CreateAccount from './components/CreateAccount'
 import Footer from './components/Footer'
-import RightBar from './components/RightBar'
+import InfoBar from './components/InfoBar'
 
 function App() {
   //Initialize boards in App at least for now
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(getBoards())
+    dispatch(initializeBoards())
   }, [dispatch])
 
   return (
     <div style={styles.app}>
       <Header />
-      <RightBar />
+      <InfoBar />
       <Routes>
         <Route path="/boards" element={<Boards />} />
         <Route path="/boards/:boardName" element={<Threads />} />

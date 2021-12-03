@@ -1,13 +1,13 @@
 import React from 'react'
 import styles from '../styles'
 
-const RightBar = () => {
+const InfoBar = () => {
   return (
-    <div style={styles.rightBar}>
-      <div style={styles.rightBarItem}>
+    <div style={styles.infoBar}>
+      <div style={styles.infoBarItem}>
         There is going to be a bunch of stuff here. Including current users, recent posts and such.
       </div>
-      <div style={styles.rightBarItem}>
+      <div style={styles.infoBarItem}>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eget ex vitae eros fermentum auctor. Sed vulputate blandit imperdiet. Etiam ac porta mi. Mauris scelerisque cursus quam, ut imperdiet nunc sodales a. Maecenas ac condimentum justo. Proin a elit sit amet nisi iaculis suscipit sed nec nibh. Praesent at odio hendrerit, accumsan risus sed, viverra eros. Vivamus pretium et libero at vulputate. Curabitur sed rutrum diam. Nam pellentesque urna id convallis vehicula. Nullam et tincidunt dolor. Sed et nisl ac ipsum facilisis faucibus. Duis aliquet lorem sit amet dolor pharetra pellentesque. Pellentesque non ipsum placerat, vehicula risus a, scelerisque enim. Vestibulum dignissim tellus quis hendrerit fermentum.
         <br /> <br /> 
         Nulla eget tempor mauris. Morbi blandit enim rutrum eros sodales suscipit. Vestibulum non dapibus lacus. In dictum bibendum lorem eu hendrerit. Vivamus commodo ipsum non urna vulputate, eu varius nisl hendrerit. Etiam in neque nunc. Nam interdum auctor diam, sed posuere mauris faucibus bibendum. Praesent felis velit, porttitor id cursus a, tristique nec augue. Curabitur aliquam sapien sed nisl bibendum, sit amet semper nisl sollicitudin. Ut iaculis odio vitae mi bibendum, in volutpat tellus malesuada. Curabitur sagittis sapien nibh. Aenean placerat elit eget ante lacinia rutrum vitae congue purus.
@@ -18,4 +18,4 @@ const RightBar = () => {
   )
 }
 
-export default RightBar
+export default InfoBar
