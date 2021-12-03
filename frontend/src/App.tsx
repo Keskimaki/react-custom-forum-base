@@ -4,6 +4,7 @@ import styles from './styles'
 
 import { useDispatch } from 'react-redux'
 import { initializeBoards } from './reducers/boardReducer'
+import { initializeUsers } from './reducers/userReducer'
 
 import Header from './components/Header'
 import Boards from './components/boards'
@@ -15,11 +16,11 @@ import Footer from './components/Footer'
 import InfoBar from './components/InfoBar'
 
 function App() {
-  //Initialize boards in App at least for now
   const dispatch = useDispatch()
 
   useEffect(() => {
     dispatch(initializeBoards())
+    dispatch(initializeUsers())
   }, [dispatch])
 
   return (
