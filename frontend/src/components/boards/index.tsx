@@ -5,7 +5,7 @@ import { BoardType } from '../../types'
 import styles from '../../styles'
 
 const Boards = () => {
-  const boards: BoardType[] = useSelector((state: BoardType[])=> state)
+  const boards = useSelector((state: BoardType[])=> state)
 
   return (
     <div>

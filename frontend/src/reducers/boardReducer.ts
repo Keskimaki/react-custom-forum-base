@@ -1,5 +1,6 @@
-//import axios, { AxiosResponse } from 'axios'
+import boardService from '../services/boards'
 import { BoardType } from '../types'
+import { AppDispatch } from '../store'
 
 interface BoardAction {
   type: 'GET_BOARDS',
@@ -15,15 +16,14 @@ const boardReducer = (state: BoardType[] = [], action: BoardAction) => {
   }
 }
 
-/*const getBoards = () => {
-  return async dispatch => {
-    const boards = await axios.get('http://localhost:3003/api/boards')
-    const boardsData: BoardType[] = boards.data
+export const getBoards = () => {
+  return async (dispatch: AppDispatch) => {
+    const boards = await boardService.getAll()
     dispatch({
       type: 'GET_BOARDS',
-      data: boardsData
+      data: boards
     })
   }
-}*/
+}
 
 export default boardReducer

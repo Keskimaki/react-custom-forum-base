@@ -3,8 +3,7 @@ import { Routes, Route } from "react-router-dom"
 import styles from './styles'
 
 import { useDispatch } from 'react-redux'
-import axios from 'axios'
-import { BoardType } from './types'
+import { getBoards } from './reducers/boardReducer'
 
 import Header from './components/Header'
 import Boards from './components/boards'
@@ -20,13 +19,8 @@ function App() {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    const initializeBoards = async () => {
-      const res = await axios.get('http://localhost:3003/api/boards')
-      const resData: BoardType[]  = res.data
-      dispatch({ type: 'GET_BOARDS', data: resData })
-    }
-    initializeBoards()
-  }, [])
+    dispatch(getBoards())
+  }, [dispatch])
 
   return (
     <div style={styles.app}>
