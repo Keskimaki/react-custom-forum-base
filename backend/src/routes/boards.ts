@@ -4,7 +4,7 @@ import Board from '../models/board'
 const boardRouter = express.Router()
 
 boardRouter.get('/', async (_req, res) => {
-  const boards = await Board.find({})
+  const boards = await Board.find({}).populate('threads')
   res.send(boards)
 })
 

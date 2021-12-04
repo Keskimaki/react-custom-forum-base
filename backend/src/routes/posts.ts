@@ -6,7 +6,7 @@ import User from '../models/user'
 const postRouter = express.Router()
 
 postRouter.get('/', async (_req, res) => {
-  const posts = await Post.find({})
+  const posts = await Post.find({}).populate('thread')
   res.send(posts)
 })
 

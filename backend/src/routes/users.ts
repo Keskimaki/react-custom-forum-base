@@ -5,7 +5,7 @@ import User from '../models/user'
 const userRouter = express.Router()
 
 userRouter.get('/', async (_req, res) => {
-  const users = await User.find({})
+  const users = await User.find({}).populate('posts')
   res.json(users)
 })
 

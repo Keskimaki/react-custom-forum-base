@@ -14,7 +14,10 @@ const userSchema = new mongoose.Schema({
   },
   email: String,
   date: Date,
-  posts: Array,
+  posts: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: 'Post'
+  },
   following: Array,
   privileges: String,
   details: String

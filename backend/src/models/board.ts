@@ -10,7 +10,10 @@ const boardSchema = new mongoose.Schema({
   description: String,
   status: String,
   url: String,
-  threads: Array
+  threads: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: 'Thread'
+  }
 })
 
 boardSchema.plugin(mongooseUniqueValidator)

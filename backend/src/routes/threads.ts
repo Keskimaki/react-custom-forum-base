@@ -5,7 +5,7 @@ import Board from '../models/board'
 const threadRouter = express.Router()
 
 threadRouter.get('/', async (_req, res) => {
-  const threads = await Thread.find({})
+  const threads = await Thread.find({}).populate('posts')
   res.send(threads)
 })
 
