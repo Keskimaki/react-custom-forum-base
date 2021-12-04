@@ -19,7 +19,7 @@ const Boards = () => {
 
 const Board = ({ board }: { board: BoardType }) => {
   return (
-    <Link to={`/boards/${board.name}`} style={styles.link}>
+    <Link to={`/boards/${board.url}`} style={styles.link}>
       <div style={styles.board}>
         <strong>{board.name}</strong> <br />
         {board.description} <br />

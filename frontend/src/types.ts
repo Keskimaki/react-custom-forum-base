@@ -21,7 +21,7 @@ export interface BoardType {
   name: string,
   description: string,
   status: BoardStatus,
-  url?: string,
+  url: string,
   threads: ThreadType[]
 }
 

@@ -1,13 +1,16 @@
 import React from 'react'
-/*import { useParams } from 'react-router'
+import { useParams } from 'react-router'
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { ThreadType } from '../../types'
 import styles from '../../styles'
-import boards from '../../mockdata/boards'*/
+import { BoardType } from '../../types'
+import { RootState } from '../../store'
 
 const Threads = () => {
-  /*const { boardName } = useParams()
-  const board = boards.find(board => board.name === boardName)
+  const { boardName } = useParams()
+  const boards: BoardType[] = useSelector((state: RootState) => state.boards)
+  const board = boards.find(board => board.url === boardName)
   //TODO redirect to 404
   if (!board) {
     return null
@@ -34,8 +37,7 @@ const Thread = ({ thread }: { thread: ThreadType }) => {
         posts: {thread.posts.length}
       </div>
     </Link>
-  )*/
-  return null
+  )
 }
 
 export default Threads
