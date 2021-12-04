@@ -1,10 +1,18 @@
 import express from 'express'
 import Board from '../models/board'
+import { BoardType } from '../types'
 
 const boardRouter = express.Router()
 
 boardRouter.get('/', async (_req, res) => {
-  const boards = await Board.find({}).populate('threads')
+  const boards: BoardType[] = await Board.
+    find({}).
+    populate({
+      path: 'threads',
+      populate: {
+        path: 'posts'
+      }
+    })
   res.send(boards)
 })
 
