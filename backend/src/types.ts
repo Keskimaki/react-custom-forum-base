@@ -34,6 +34,7 @@ export interface ThreadType {
   user: ObjectId,
   date: Date,
   status: ThreadStatus,
+  board: ObjectId,
   posts: PostType[],
   id: ObjectId
 }
@@ -45,5 +46,6 @@ export interface PostType {
   responseTo: ObjectId[],
   repliesTo: ObjectId[],
   status: PostStatus,
+  thread: ObjectId,
   id: ObjectId
 }
