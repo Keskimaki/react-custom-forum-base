@@ -6,6 +6,7 @@ import env from './utils/config'
 import userRouter from './routes/users'
 import boardRouter from './routes/boards'
 import threadRouter from './routes/threads'
+import postRouter from './routes/posts'
 
 mongoose.connect(env.MONGODB_URI)
 
@@ -16,5 +17,6 @@ app.use(express.json())
 app.use('/api/users', userRouter)
 app.use('/api/boards', boardRouter)
 app.use('/api/threads', threadRouter)
+app.use('/api/posts', postRouter)
 
 export default app
