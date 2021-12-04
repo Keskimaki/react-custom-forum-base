@@ -26,6 +26,14 @@ const threadSchema = new mongoose.Schema({
 
 threadSchema.plugin(mongooseUniqueValidator)
 
+threadSchema.set('toJSON', {
+  transform: (_document, returnedObject) => {
+    returnedObject.id = returnedObject._id.toString()
+    delete returnedObject._id
+    delete returnedObject.__v
+  }
+})
+
 const Thread = mongoose.model('Thread', threadSchema)
 
 export default Thread

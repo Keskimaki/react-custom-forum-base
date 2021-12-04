@@ -22,7 +22,7 @@ threadRouter.post('/', async (req, res) => {
   })
 
   const savedThread = await newThread.save()
-  await Board.findByIdAndUpdate(board, { $push: { threads: savedThread._id } })
+  await Board.findByIdAndUpdate(board, { $push: { threads: savedThread.id } })
   res.status(201).json(savedThread)
 })
 

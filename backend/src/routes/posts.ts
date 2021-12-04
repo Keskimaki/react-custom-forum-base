@@ -24,10 +24,10 @@ postRouter.post('/', async (req, res) => {
   })
 
   const savedPost = await newPost.save()
-  await Thread.findByIdAndUpdate(thread, { $push: { posts: savedPost._id } })
-  await User.findByIdAndUpdate(user, { $push: { posts: savedPost._id } })
+  await Thread.findByIdAndUpdate(thread, { $push: { posts: savedPost.id } })
+  await User.findByIdAndUpdate(user, { $push: { posts: savedPost.id } })
   for (let i = 0; i < newPost.responseTo.length; i++) {
-    await Post.findByIdAndUpdate(responseTo[i], { $push: { repliesTo: savedPost._id } })
+    await Post.findByIdAndUpdate(responseTo[i], { $push: { repliesTo: savedPost.id } })
   }
   res.status(201).json(savedPost)
 })
