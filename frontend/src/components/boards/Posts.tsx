@@ -1,17 +1,20 @@
 import React from 'react'
-/*import { useParams } from 'react-router'
-import boards from '../../mockdata/boards'
+import { useParams } from 'react-router'
+import { useSelector } from 'react-redux'
 import { PostType } from '../../types'
-import styles from '../../styles'*/
+import styles from '../../styles'
+import { BoardType } from '../../types'
+import { RootState } from '../../store'
 
 const Posts = () => {
-  /*const { boardName, threadName } = useParams()
+  const { boardName, threadName } = useParams()
+  const boards: BoardType[] = useSelector((state: RootState) => state.boards)
   const thread = boards.
-    find(board => board.name === boardName)?.threads.
+    find(board => board.url === boardName)?.threads.
     find(thread => thread.name === threadName)
 
   if (!thread) {
-    return null
+    return <p>{threadName}</p>
   }
 
   return (
@@ -31,8 +34,7 @@ const Post = ({ post }: { post: PostType }) => {
       {post.content} <br/>
       {post.repliesTo}
     </div>
-  )*/
-  return null
+  )
 }
 
 export default Posts
