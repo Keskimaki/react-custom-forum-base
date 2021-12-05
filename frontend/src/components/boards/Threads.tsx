@@ -40,4 +40,5 @@ const Thread = ({ thread }: { thread: ThreadType }) => {
   )
 }
 
+
 export default Threads

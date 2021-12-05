@@ -8,7 +8,7 @@ export type ThreadStatus = 'open' | 'closed' | 'removed' | 'waiting'
 
 export type PostStatus = 'visible' | 'removed' | 'deleted' | 'waiting'
 
-export interface User {
+export interface UserType {
   username: string,
   passwordHash: string,
   email?: string,

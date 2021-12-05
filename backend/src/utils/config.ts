@@ -4,13 +4,16 @@ const MONGODB_URI = process.env.MONGODB_URI
 
 const PORT = process.env.PORT
 
-if (!MONGODB_URI || !PORT) {
+const SECRET = process.env.SECRET
+
+if (!MONGODB_URI || !PORT || !SECRET) {
   throw new Error('missing environmental variables')
 }
 
 const env = {
   MONGODB_URI,
-  PORT
+  PORT,
+  SECRET
 }
 
 export default env
