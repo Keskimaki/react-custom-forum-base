@@ -1,17 +1,16 @@
 import React, { useState } from 'react'
 import styles from '../styles'
-import loginService from '../services/login'
-//import users from '../mockdata/users' //placeholder until backend functional
+import { useDispatch } from 'react-redux'
+import { saveLoginData } from '../reducers/loginReducer'
 
 const Login = () => {
   const [ username, setUsername] = useState('')
   const [ password, setPassword] = useState('')
+  const dispatch = useDispatch()
 
   const handleLogin = async (event: React.SyntheticEvent) => {
     event.preventDefault()
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const res = await loginService.login(username, password)
-    console.log(res)
+    dispatch(saveLoginData(username, password))
   }
 
   return (
