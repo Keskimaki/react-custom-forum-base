@@ -6,6 +6,12 @@ export type ThreadStatus = 'open' | 'closed' | 'removed' | 'waiting'
 
 export type PostStatus = 'visible' | 'removed' | 'deleted' | 'waiting'
 
+export interface LoggedUser {
+  token: string,
+  username: string,
+  privileges: Privileges
+}
+
 export interface User {
   username: string,
   email?: string,

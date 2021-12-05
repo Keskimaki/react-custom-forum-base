@@ -5,6 +5,7 @@ import styles from './styles'
 import { useDispatch } from 'react-redux'
 import { initializeBoards } from './reducers/boardReducer'
 import { initializeUsers } from './reducers/userReducer'
+import { initializeUserData } from './reducers/loginReducer'
 
 import Header from './components/Header'
 import Boards from './components/boards'
@@ -21,6 +22,11 @@ function App() {
   useEffect(() => {
     dispatch(initializeBoards())
     dispatch(initializeUsers())
+    
+    const userData = window.localStorage.getItem('loggedForumUser')
+    if (userData) {
+      dispatch(initializeUserData(userData))
+    }
   }, [dispatch])
 
   return (
