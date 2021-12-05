@@ -13,3 +13,5 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root')
 )
+
+setTimeout(() => {console.log(store.getState())}, 1000)

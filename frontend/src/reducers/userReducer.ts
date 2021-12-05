@@ -6,6 +6,7 @@ interface UserAction {
   type: 'INIT_USERS',
   data: User[]
 }
+
 const userReducer = (state: User[] = [], action: UserAction) => {
   switch (action.type) {
     case 'INIT_USERS':

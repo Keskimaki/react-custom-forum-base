@@ -1,19 +1,17 @@
 import React, { useState } from 'react'
 import styles from '../styles'
+import loginService from '../services/login'
 //import users from '../mockdata/users' //placeholder until backend functional
 
 const Login = () => {
   const [ username, setUsername] = useState('')
   const [ password, setPassword] = useState('')
 
-  const handleLogin = (event: React.SyntheticEvent) => {
+  const handleLogin = async (event: React.SyntheticEvent) => {
     event.preventDefault()
-    console.log('logged in')
-    //TODO authentication in backend
-    /*const user = users.find(user => user.username === username)
-    user && password === 'salasana'
-      ? console.log('logged in')
-      : console.log('incorrect username or password')*/
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const res = await loginService.login(username, password)
+    console.log(res)
   }
 
   return (
