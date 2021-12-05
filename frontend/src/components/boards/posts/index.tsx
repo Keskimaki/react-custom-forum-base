@@ -24,7 +24,7 @@ const Posts = () => {
       {thread.posts.map(post =>
         <Post key={post.id} post={post} />
       )}
-      <MakePost thread={thread.id} />
+      <MakePost threadId={thread.id} />
     </div>
   )
 }

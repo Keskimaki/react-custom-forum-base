@@ -1,17 +1,17 @@
 import React, { useState }  from 'react'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../../store'
-import boardService from '../../../services/boards'
+import postService from '../../../services/posts'
 import { LoggedUser } from '../../../types'
 
 
-const MakePost = ({ thread }: { thread: string}) => {
+const MakePost = ({ threadId }: { threadId: string}) => {
   const [comment, setComment] = useState('')
   const user: LoggedUser = useSelector((state: RootState) => state.user)
 
   const handlePost = (event: React.SyntheticEvent) => {
     event.preventDefault()
-    const post = boardService.makePost(comment, user.id, thread)
+    const post = postService.makePost(comment, user.id, threadId)
     console.log(post)
   }
 

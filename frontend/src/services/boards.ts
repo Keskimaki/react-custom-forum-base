@@ -8,21 +8,8 @@ const getAll = async () => {
   return res.data
 }
 
-const makePost = async (content: string, user: string, thread: string) => {
-  const newPost = {
-    content,
-    user,
-    thread,
-    responseTo: [],
-    status: 'visible'
-  }
-  const res = await axios.post('http://localhost:3003/api/posts', newPost)
-  return res.data
-}
-
 const boardService = {
-  getAll,
-  makePost
+  getAll
 }
 
 export default boardService
