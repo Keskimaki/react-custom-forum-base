@@ -1,16 +1,19 @@
 import React, { useState } from 'react'
-import styles from '../styles'
 import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router'
+import styles from '../styles'
 import { saveLoginData } from '../reducers/loginReducer'
 
 const Login = () => {
   const [ username, setUsername] = useState('')
   const [ password, setPassword] = useState('')
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const handleLogin = async (event: React.SyntheticEvent) => {
     event.preventDefault()
     dispatch(saveLoginData(username, password))
+    navigate('/boards')
   }
 
   return (

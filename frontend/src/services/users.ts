@@ -8,8 +8,17 @@ const getAll = async () => {
   return res.data
 }
 
+const createAccount = async (username: string, password: string, email: string) => {
+  await axios.post(baseUrl, {
+    username,
+    password,
+    email: email ? email: null
+  })
+}
+
 const userService = {
-  getAll
+  getAll,
+  createAccount
 }
 
 export default userService

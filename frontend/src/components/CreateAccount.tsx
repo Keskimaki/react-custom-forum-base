@@ -1,27 +1,25 @@
 import React, { useState } from 'react'
-import axios from 'axios'
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router'
 import styles from '../styles'
+import userService from '../services/users'
+import { saveLoginData } from '../reducers/loginReducer'
 
 const CreateAccount = () => {
   const [ username, setUsername ] = useState('')
   const [ email, setEmail ] = useState('')
   const [ password, setPassword ] = useState('')
   const [ repeatPassword, setRepeatPassword ] = useState('')
+  
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
-  const handleAccountCreation = (event: React.SyntheticEvent) => {
+  const handleAccountCreation = async (event: React.SyntheticEvent) => {
     event.preventDefault()
     if (username.length >= 3 && password === repeatPassword) {
-      //Replace with env variable
-      axios.post('http://localhost:3003/api/users', {
-        username, 
-        password, 
-        email: email ? email : undefined 
-      })
-
-      setUsername('')
-      setEmail('')
-      setPassword('')
-      setRepeatPassword('')
+      await userService.createAccount(username, password, email)
+      dispatch(saveLoginData(username, password))
+      navigate('/boards')
     } else {
       console.log('incorrect input')
     }

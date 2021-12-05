@@ -45,7 +45,7 @@ const Logout = () => {
 
   return (
     <div style={styles.headerTab} onClick={handleLogout}>
-      <Link to="/" style={styles.link}>
+      <Link to="/boards" style={styles.link}>
         Logout
       </Link>
     </div>
