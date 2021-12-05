@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 import { RootState } from '../../../store'
 import postService from '../../../services/posts'
 import { LoggedUser } from '../../../types'
+import styles from '../../../styles'
 
 
 const MakePost = ({ threadId }: { threadId: string}) => {
@@ -12,19 +13,24 @@ const MakePost = ({ threadId }: { threadId: string}) => {
   const handlePost = (event: React.SyntheticEvent) => {
     event.preventDefault()
     const post = postService.makePost(comment, user.id, threadId)
+    //TODO add post to redux state in frontend
+    window.location.reload() //don't leave this here longterm
     console.log(post)
   }
 
   return (
     <div>
       <form onSubmit={handlePost}>
-        <input 
+        <textarea
         required
+        style={styles.textArea}
         placeholder="Comment"
         value={comment}
         onChange={({ target }) => setComment(target.value)} />
         <br />
-        <button type="submit">Submit</button>
+        <button style={styles.postButton} type="submit">
+          Submit
+        </button>
       </form>
     </div>
   )

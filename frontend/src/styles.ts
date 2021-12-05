@@ -65,6 +65,15 @@ const textInput: CSS.Properties = {
   fontSize: '20px'
 }
 
+const textArea: CSS.Properties = {
+  width: '500px',
+  height: '150px',
+  borderRadius: '5px',
+  margin: '10px',
+  padding: '5px',
+  fontSize: '20px'
+}
+
 const button: CSS.Properties = {
   backgroundColor: '#0366d6',
   color: '#FFF',
@@ -74,6 +83,18 @@ const button: CSS.Properties = {
   alignItems: 'center',
   borderRadius: '5px',
   marginTop: '10px',
+  fontSize: '20px'
+}
+
+const postButton: CSS.Properties = {
+  backgroundColor: '#0366d6',
+  color: '#FFF',
+  height: '4vw',
+  width: '25vw',
+  justifyContent: 'center',
+  alignItems: 'center',
+  borderRadius: '5px',
+  marginLeft: '10px', //only difference for now
   fontSize: '20px'
 }
 
@@ -99,7 +120,9 @@ const styles = {
   link,
   login,
   textInput,
+  textArea,
   button,
+  postButton,
   footer
 }
 
