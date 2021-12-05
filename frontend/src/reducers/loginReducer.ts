@@ -11,7 +11,7 @@ interface LoginAction {
   }
 }
 
-const loginReducer = (state: LoggedUser = {token: "", username: "", privileges: "guest"}, action: LoginAction) => {
+const loginReducer = (state: LoggedUser = {token: "", username: "", privileges: "guest", id: ""}, action: LoginAction) => {
   switch (action.type) {
     case 'SET_TOKEN':
       return action.data

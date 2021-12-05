@@ -9,7 +9,8 @@ export type PostStatus = 'visible' | 'removed' | 'deleted' | 'waiting'
 export interface LoggedUser {
   token: string,
   username: string,
-  privileges: Privileges
+  privileges: Privileges,
+  id: string
 }
 
 export interface User {
@@ -36,7 +37,8 @@ export interface ThreadType {
   user: string,
   date: Date,
   status: ThreadStatus,
-  posts: PostType[]
+  posts: PostType[],
+  id: string
 }
 
 export interface PostType {

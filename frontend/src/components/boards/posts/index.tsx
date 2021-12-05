@@ -1,10 +1,11 @@
 import React from 'react'
 import { useParams } from 'react-router'
 import { useSelector } from 'react-redux'
-import { PostType } from '../../types'
-import styles from '../../styles'
-import { BoardType } from '../../types'
-import { RootState } from '../../store'
+import { PostType } from '../../../types'
+import styles from '../../../styles'
+import { BoardType } from '../../../types'
+import { RootState } from '../../../store'
+import MakePost from './MakePost'
 
 const Posts = () => {
   const { boardName, threadName } = useParams()
@@ -23,6 +24,7 @@ const Posts = () => {
       {thread.posts.map(post =>
         <Post key={post.id} post={post} />
       )}
+      <MakePost thread={thread.id} />
     </div>
   )
 }
