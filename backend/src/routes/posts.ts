@@ -48,7 +48,9 @@ postRouter.delete('/:id', async (req, res) => {
   }
   await Thread.findByIdAndUpdate(post.thread, { $pull: { posts: post.id } })
   await User.findByIdAndUpdate(post.user, { $pull: { posts: post.id } })
-  await post.remove()
+  for (let i = 0; i < post.responseTo.length; i++) {
+    await Post.findByIdAndUpdate(post.responseTo[i], { $pull: { repliesTo: post.id } })
+  }  await post.remove()
   res.status(204).end()
 })
 
