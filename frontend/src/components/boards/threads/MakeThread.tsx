@@ -19,6 +19,7 @@ const MakeThread = ({ boardId }: { boardId: string}) => {
 
   return (
     <div>
+      <h2 style={{ marginBottom: '-5px'}}>Make a new Thread</h2>
       <form onSubmit={handleThreadCreation}>
         <input 
           required

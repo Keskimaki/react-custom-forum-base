@@ -19,8 +19,9 @@ const MakePost = ({ threadId, responseTo }: { threadId: string, responseTo: stri
 
   return (
     <div>
+      <h2 style={{ marginBottom: '-5px'}}>Make a new Post</h2>
       <form onSubmit={handlePost}>
-        Replying to: {responseTo.join(', ')}
+        {responseTo.length !== 0 && <>Replying to: {responseTo.join(', ')}</>}
         <br />
         <textarea
         required
