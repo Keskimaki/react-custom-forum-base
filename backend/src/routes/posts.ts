@@ -2,6 +2,7 @@ import express from 'express'
 import Post from '../models/post'
 import Thread from '../models/thread'
 import User from '../models/user'
+import checkToken from '../utils/checkToken'
 
 const postRouter = express.Router()
 
@@ -11,6 +12,13 @@ postRouter.get('/', async (_req, res) => {
 })
 
 postRouter.post('/', async (req, res) => {
+  const testi = await checkToken(req)
+  console.log(testi)
+  if (!checkToken(req)) {
+    console.log('täällä käytiin')
+    return res.status(401).json({ error: 'token missing or invalid'} )
+    //throw new Error('missing authorization')
+  }
   const { content, user, responseTo, thread, status } = req.body
   //Assume sent data is correct
   const newPost: any = new Post({
@@ -31,5 +39,12 @@ postRouter.post('/', async (req, res) => {
   }
   res.status(201).json(savedPost)
 })
+
+/*postRouter.delete('/:id', (req, res) => {
+  if (!checkToken) {
+    throw new Error('missing authorization')
+  }
+
+})*/
 
 export default postRouter

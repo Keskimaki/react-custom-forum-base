@@ -4,8 +4,11 @@ import env from './config'
 //Typing need to be fixed
 const checkToken = (req: any) => {
   const token = getToken(req)
+  if (!token) {
+    return null
+  }
   const decodedToken: any = jwt.verify(token, env.SECRET)
-  if (!token || !decodedToken.id) {
+  if (!decodedToken.id) {
     return null
   }
   return decodedToken.id
