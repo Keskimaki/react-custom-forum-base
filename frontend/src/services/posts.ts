@@ -15,7 +15,7 @@ const makePost = async (content: string, user: string, thread: string) => {
 }
 
 const deletePost = async (postId: string, userId: string, token: string) => {
-  const res = await axios.delete(`${baseUrl}/${postId}`, { headers: { Authorization: `bearer ${token}` }, data: { userId } } )
+  const res = await axios.delete(`${baseUrl}/${postId}`, { headers: { Authorization: token }, data: { userId } } )
   return res.data
 }
 
