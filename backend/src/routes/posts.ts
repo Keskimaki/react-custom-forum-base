@@ -12,9 +12,9 @@ postRouter.get('/', async (_req, res) => {
 })
 
 postRouter.post('/', async (req, res) => {
-  /*if (!checkToken(req)) {
+  if (!checkToken(req)) {
     return res.status(401).json({ error: 'token missing or invalid'} )
-  }*/
+  }
   const { content, user, responseTo, thread, status } = req.body
   //Assume sent data is correct
   const newPost: any = new Post({
@@ -37,7 +37,6 @@ postRouter.post('/', async (req, res) => {
 })
 
 postRouter.delete('/:id', async (req, res) => {
-  //TODO check that deleter ís post creator or mod
   if (!checkToken(req)) {
     return res.status(401).json({ error: 'token missing or invalid'} )
   }

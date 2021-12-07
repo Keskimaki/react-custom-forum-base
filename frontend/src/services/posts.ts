@@ -2,15 +2,15 @@ import axios from 'axios'
 
 const baseUrl = 'http://localhost:3003/api/posts'
 
-const makePost = async (content: string, user: string, thread: string) => {
+const makePost = async (content: string, responseTo: string[], user: string, thread: string, token: string) => {
   const newPost = {
     content,
     user,
     thread,
-    responseTo: [],
+    responseTo,
     status: 'visible'
   }
-  const res = await axios.post(baseUrl, newPost)
+  const res = await axios.post(baseUrl, newPost, { headers: { Authorization: token } })
   return res.data
 }
 
