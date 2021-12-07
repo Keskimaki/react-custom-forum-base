@@ -26,6 +26,7 @@ const Posts = () => {
   return (
     <div>
       <h1>{thread.name}</h1>
+      <p style={styles.board}>{thread.description}</p>
       {thread.posts.map(post =>
         <Post 
           key={post.id} 

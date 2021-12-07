@@ -7,11 +7,12 @@ import styles from '../../../styles'
 
 const MakeThread = ({ boardId }: { boardId: string}) => {
   const [ title, setTitle ] = useState('')
+  const [ comment, setComment ] = useState('')
   const user: LoggedUser = useSelector((state: RootState) => state.user)
 
   const handleThreadCreation = (event: React.SyntheticEvent) => {
     event.preventDefault()
-    const thread = threadService.makeThread(title, user.id, boardId, user.token)
+    const thread = threadService.makeThread(title, comment, user.id, boardId, user.token)
     window.location.reload() //don't leave this here longterm
     console.log(thread)
   }
@@ -25,6 +26,13 @@ const MakeThread = ({ boardId }: { boardId: string}) => {
           placeholder="Thread title"
           value={title}
           onChange={({ target }) => setTitle(target.value)} />
+        <br />
+        <textarea 
+          style={styles.textArea}
+          placeholder="Comment"
+          value={comment}
+          onChange={({ target }) => setComment(target.value)}
+        />
         <br />
         <button style={styles.button} type="submit">
           Create Thread

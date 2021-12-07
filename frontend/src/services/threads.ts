@@ -2,9 +2,10 @@ import axios from 'axios'
 
 const baseUrl = 'http://localhost:3003/api/threads'
 
-const makeThread = async (name: string, user: string, board: string, token: string) => {
+const makeThread = async (name: string, description: string, user: string, board: string, token: string) => {
   const newThread = {
     name,
+    description,
     user,
     board,
     status: 'open'

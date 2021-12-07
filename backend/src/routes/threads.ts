@@ -14,10 +14,11 @@ threadRouter.post('/', async (req, res) => {
   if (!checkToken(req)) {
     return res.status(401).json({ error: 'token missing or invalid'} )
   }
-  const { name, user, board, status } = req.body
+  const { name, description, user, board, status } = req.body
   //Assume sent data is correct
   const newThread = new Thread({
     name,
+    description,
     user,
     date: new Date(),
     board,

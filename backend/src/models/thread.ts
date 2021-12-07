@@ -8,6 +8,7 @@ const threadSchema = new mongoose.Schema({
     required: true,
     unique: true
   },
+  description: String,
   date: Date,
   status: String,
   user: {
