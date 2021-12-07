@@ -7,8 +7,7 @@ const makePost = async (content: string, responseTo: string[], user: string, thr
     content,
     user,
     thread,
-    responseTo,
-    status: 'visible'
+    responseTo
   }
   const res = await axios.post(baseUrl, newPost, { headers: { Authorization: token } })
   return res.data

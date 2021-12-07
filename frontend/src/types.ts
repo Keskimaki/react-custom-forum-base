@@ -29,7 +29,8 @@ export interface BoardType {
   description: string,
   status: BoardStatus,
   url: string,
-  threads: ThreadType[]
+  threads: ThreadType[],
+  id: string
 }
 
 export interface ThreadType {

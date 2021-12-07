@@ -9,7 +9,7 @@ import { initializeUserData } from './reducers/loginReducer'
 
 import Header from './components/Header'
 import Boards from './components/boards'
-import Threads from './components/boards/Threads'
+import Threads from './components/boards/threads'
 import Posts from './components/boards/posts'
 import Login from './components/Login'
 import CreateAccount from './components/CreateAccount'

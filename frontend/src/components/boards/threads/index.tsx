@@ -2,10 +2,11 @@ import React from 'react'
 import { useParams } from 'react-router'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { ThreadType } from '../../types'
-import styles from '../../styles'
-import { BoardType } from '../../types'
-import { RootState } from '../../store'
+import { ThreadType } from '../../../types'
+import styles from '../../../styles'
+import { BoardType } from '../../../types'
+import { RootState } from '../../../store'
+import MakeThread from './MakeThread'
 
 const Threads = () => {
   const { boardName } = useParams()
@@ -22,6 +23,7 @@ const Threads = () => {
       {board.threads.map(thread => 
         <Thread key={thread.name} thread={thread} />
       )}
+      <MakeThread boardId={board.id} />
     </div>
   )
 }
@@ -39,6 +41,5 @@ const Thread = ({ thread }: { thread: ThreadType }) => {
     </Link>
   )
 }
-
 
 export default Threads

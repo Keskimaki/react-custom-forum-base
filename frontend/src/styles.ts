@@ -65,6 +65,16 @@ const textInput: CSS.Properties = {
   fontSize: '20px'
 }
 
+const threadInput: CSS.Properties = {
+  height: '3vw',
+  width: '50vw', //Only difference, maybe switch to textArea
+  justifyContent: 'center',
+  alignItems: 'center',
+  borderRadius: '5px',
+  marginTop: '10px',
+  fontSize: '20px'
+}
+
 const textArea: CSS.Properties = {
   width: '500px',
   height: '150px',
@@ -120,6 +130,7 @@ const styles = {
   link,
   login,
   textInput,
+  threadInput,
   textArea,
   button,
   postButton,
