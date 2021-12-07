@@ -12,13 +12,9 @@ postRouter.get('/', async (_req, res) => {
 })
 
 postRouter.post('/', async (req, res) => {
-  const testi = await checkToken(req)
-  console.log(testi)
-  if (!checkToken(req)) {
-    console.log('täällä käytiin')
+  /*if (!checkToken(req)) {
     return res.status(401).json({ error: 'token missing or invalid'} )
-    //throw new Error('missing authorization')
-  }
+  }*/
   const { content, user, responseTo, thread, status } = req.body
   //Assume sent data is correct
   const newPost: any = new Post({
@@ -40,11 +36,19 @@ postRouter.post('/', async (req, res) => {
   res.status(201).json(savedPost)
 })
 
-/*postRouter.delete('/:id', (req, res) => {
-  if (!checkToken) {
-    throw new Error('missing authorization')
+postRouter.delete('/:id', async (req, res) => {
+  //TODO check that deleter ís post creator or mod
+  if (!checkToken(req)) {
+    return res.status(401).json({ error: 'token missing or invalid'} )
   }
-
-})*/
+  const post: any = await Post.findById(req.params.id)
+  if (!post) {
+    return res.status(400).json({ error: 'invalid id' })
+  }
+  await Thread.findByIdAndUpdate(post.thread, { $pull: { posts: post.id } })
+  await User.findByIdAndUpdate(post.user, { $pull: { posts: post.id } })
+  await post.remove()
+  res.status(204).end()
+})
 
 export default postRouter
