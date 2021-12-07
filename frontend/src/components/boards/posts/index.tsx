@@ -3,9 +3,10 @@ import { useParams } from 'react-router'
 import { useSelector } from 'react-redux'
 import { PostType } from '../../../types'
 import styles from '../../../styles'
-import { BoardType } from '../../../types'
+import { BoardType, LoggedUser } from '../../../types'
 import { RootState } from '../../../store'
 import MakePost from './MakePost'
+import postService from '../../../services/posts'
 
 const Posts = () => {
   const { boardName, threadName } = useParams()
@@ -30,11 +31,21 @@ const Posts = () => {
 }
 
 const Post = ({ post }: { post: PostType }) => {
+  const user: LoggedUser = useSelector((state: RootState) => state.user)
+  const handlePostDeletion = () => {
+    postService.deletePost(post.id, user.id, user.token)
+    window.location.reload() //Don't leave this here permamently
+  }
+
   return (
     <div style={styles.board}>
-      {post.responseTo} <br/>
-      {post.content} <br/>
+      {post.responseTo} <br />
+      {post.content} <br />
       {post.repliesTo}
+      {user.id === post.user && 
+        <button onClick={handlePostDeletion}>
+          delete
+        </button>}
     </div>
   )
 }

@@ -44,6 +44,8 @@ postRouter.delete('/:id', async (req, res) => {
   const post: any = await Post.findById(req.params.id)
   if (!post) {
     return res.status(400).json({ error: 'invalid id' })
+  } else if (String(post.user) !== req.body.userId) {
+    return res.status(401).json({ error: 'invalid user' })
   }
   await Thread.findByIdAndUpdate(post.thread, { $pull: { posts: post.id } })
   await User.findByIdAndUpdate(post.user, { $pull: { posts: post.id } })

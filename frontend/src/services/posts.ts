@@ -14,8 +14,14 @@ const makePost = async (content: string, user: string, thread: string) => {
   return res.data
 }
 
+const deletePost = async (postId: string, userId: string, token: string) => {
+  const res = await axios.delete(`${baseUrl}/${postId}`, { headers: { Authorization: `bearer ${token}` }, data: { userId } } )
+  return res.data
+}
+
 const postService = {
-  makePost
+  makePost,
+  deletePost
 }
 
 export default postService
