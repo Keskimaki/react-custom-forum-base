@@ -1,5 +1,6 @@
 import mongoose from 'mongoose'
 import mongooseUniqueValidator from 'mongoose-unique-validator'
+import { BoardType } from '../types'
 
 const boardSchema = new mongoose.Schema({
   name: {
@@ -26,6 +27,6 @@ boardSchema.set('toJSON', {
   }
 })
 
-const Board = mongoose.model('Board', boardSchema)
+const Board = mongoose.model<BoardType>('Board', boardSchema)
 
 export default Board

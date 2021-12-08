@@ -1,10 +1,6 @@
 import bcrypt from 'bcryptjs'
-import { NewUser } from "../types"
-
-
-const isString = (text: unknown): text is string => {
-  return typeof text === 'string' || text instanceof String
-}
+import { isString } from '.'
+import { UserType } from "../../types"
 
 const parseUsername = (username: unknown): string => {
   if (!username || !isString(username) || username.length < 3) {
@@ -30,8 +26,8 @@ const parseEmail = (email: unknown) => {
 
 type Fields = { username: unknown, password: unknown, email: unknown }
 
-const toNewUser = async ({ username, password, email }: Fields): Promise<NewUser> => {
-  const NewUser: NewUser = {
+const toNewUser = async ({ username, password, email }: Fields): Promise<UserType> => {
+  const NewUser: UserType = {
     username: parseUsername(username),
     passwordHash: await parsePassword(password),
     email: email ? parseEmail(email) : undefined,

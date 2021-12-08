@@ -28,7 +28,7 @@ export interface BoardType {
   status: BoardStatus
   url: string
   threads: ThreadType[]
-  id: ObjectId
+  id?: ObjectId
 }
 
 export interface ThreadType {
@@ -39,7 +39,7 @@ export interface ThreadType {
   status: ThreadStatus
   board: ObjectId
   posts: PostType[]
-  id: ObjectId
+  id?: ObjectId
 }
 
 export interface PostType {
@@ -50,5 +50,5 @@ export interface PostType {
   repliesTo: ObjectId[]
   status: PostStatus
   thread: ObjectId
-  id: ObjectId
+  id?: ObjectId
 }

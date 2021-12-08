@@ -1,5 +1,6 @@
 import express from 'express'
 import Board from '../models/board'
+import toNewBoard from '../utils/parsers/toNewBoard'
 import { BoardType } from '../types'
 
 const boardRouter = express.Router()
@@ -17,17 +18,10 @@ boardRouter.get('/', async (_req, res) => {
 })
 
 boardRouter.post('/', async (req, res) => {
-  //Assume that sent data is correct for now
-  const { name, description, status, url } = req.body
+  //TODO board creation authentication
+  const newBoard: BoardType = toNewBoard(req.body)
 
-  const newBoard = new Board({
-    name,
-    description,
-    status: status ? status : 'open',
-    url
-  })
-
-  const savedBoard = await newBoard.save()
+  const savedBoard = await new Board(newBoard).save()
   res.status(201).json(savedBoard)
 })
 
