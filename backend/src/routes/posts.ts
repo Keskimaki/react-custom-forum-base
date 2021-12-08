@@ -2,7 +2,7 @@ import express from 'express'
 import Post from '../models/post'
 import Thread from '../models/thread'
 import User from '../models/user'
-import checkToken from '../utils/checkToken'
+import getToken from '../utils/getToken'
 import toNewPost from '../utils/parsers/toNewPost'
 import { PostType } from '../types'
 
@@ -14,7 +14,7 @@ postRouter.get('/', async (_req, res) => {
 })
 
 postRouter.post('/', async (req, res) => {
-  if (!checkToken(req)) {
+  if (!getToken(req.get('authorization'))) {
     return res.status(401).json({ error: 'token missing or invalid'} )
   }
   const newPost: PostType = toNewPost(req.body)
@@ -29,7 +29,7 @@ postRouter.post('/', async (req, res) => {
 })
 
 postRouter.delete('/:id', async (req, res) => {
-  if (!checkToken(req)) {
+  if (!getToken(req.get('authorization'))) {
     return res.status(401).json({ error: 'token missing or invalid'} )
   }
   const post: any = await Post.findById(req.params.id)

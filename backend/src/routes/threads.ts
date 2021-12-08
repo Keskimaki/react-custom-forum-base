@@ -1,7 +1,7 @@
 import express from 'express'
 import Thread from '../models/thread'
 import Board from '../models/board'
-import checkToken from '../utils/checkToken'
+import getToken from '../utils/getToken'
 import toNewThread from '../utils/parsers/toNewThread'
 import { ThreadType } from '../types'
 
@@ -13,7 +13,7 @@ threadRouter.get('/', async (_req, res) => {
 })
 
 threadRouter.post('/', async (req, res) => {
-  if (!checkToken(req)) {
+  if (!getToken(req.get('authorization'))) {
     return res.status(401).json({ error: 'token missing or invalid'} )
   }
   const newThread: ThreadType = toNewThread(req.body)
