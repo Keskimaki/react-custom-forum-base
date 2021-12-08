@@ -2,6 +2,8 @@ import express from 'express'
 import Thread from '../models/thread'
 import Board from '../models/board'
 import checkToken from '../utils/checkToken'
+import toNewThread from '../utils/parsers/toNewThread'
+import { ThreadType } from '../types'
 
 const threadRouter = express.Router()
 
@@ -14,20 +16,10 @@ threadRouter.post('/', async (req, res) => {
   if (!checkToken(req)) {
     return res.status(401).json({ error: 'token missing or invalid'} )
   }
-  const { name, description, user, board, status } = req.body
-  //Assume sent data is correct
-  const newThread = new Thread({
-    name,
-    description,
-    user,
-    date: new Date(),
-    board,
-    posts: [],
-    status: status ? status : 'open'
-  })
+  const newThread: ThreadType = toNewThread(req.body)
+  const savedThread = await new Thread(newThread).save()
 
-  const savedThread = await newThread.save()
-  await Board.findByIdAndUpdate(board, { $push: { threads: savedThread.id } })
+  await Board.findByIdAndUpdate(newThread.board, { $push: { threads: savedThread.id } })
   res.status(201).json(savedThread)
 })
 

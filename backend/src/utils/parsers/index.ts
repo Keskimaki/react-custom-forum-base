@@ -21,3 +21,10 @@ export const isObjectIdList = (list: unknown[]): list is ObjectId[] => {
   }
   return true
 }
+
+export const parseUser = (user: unknown): ObjectId => {
+  if (!user || !isObjectId(user)) {
+    throw new Error('Incorrect or missing user ID')
+  }
+  return user
+}

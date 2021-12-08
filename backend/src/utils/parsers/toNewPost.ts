@@ -1,21 +1,12 @@
 import { ObjectId } from 'mongodb'
-import { isString, isArray, isObjectId, isObjectIdList } from '.'
+import { isString, isArray, isObjectId, isObjectIdList, parseUser } from '.'
 import { PostType, PostStatus } from '../../types'
-
-type Fields = { content: unknown, user: unknown, responseTo: unknown, thread: unknown, status: unknown }
 
 const parseString = (text: unknown): string => {
   if (!text || !isString(text)) {
-    throw new Error('Incorrect or missing board name or description')
+    throw new Error('Incorrect or missing content')
   }
   return text
-}
-
-const parseUser = (user: unknown): ObjectId => {
-  if (!user || !isObjectId(user)) {
-    throw new Error('Incorrect or missing user ID')
-  }
-  return user
 }
 
 const parseResponses = (responses: unknown): ObjectId[] => {
@@ -42,6 +33,8 @@ const parseStatus = (status: unknown): PostStatus => {
   }
   return status
 }
+
+type Fields = { content: unknown, user: unknown, responseTo: unknown, thread: unknown, status: unknown }
 
 const toNewPost = ({ content, user, responseTo, thread, status }: Fields): PostType  => {
   const newPost: PostType = {
