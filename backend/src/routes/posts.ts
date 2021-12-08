@@ -3,6 +3,8 @@ import Post from '../models/post'
 import Thread from '../models/thread'
 import User from '../models/user'
 import checkToken from '../utils/checkToken'
+import toNewPost from '../utils/parsers/toNewPost'
+import { PostType } from '../types'
 
 const postRouter = express.Router()
 
@@ -15,24 +17,14 @@ postRouter.post('/', async (req, res) => {
   if (!checkToken(req)) {
     return res.status(401).json({ error: 'token missing or invalid'} )
   }
-  const { content, user, responseTo, thread, status } = req.body
-  //Assume sent data is correct
-  const newPost: any = new Post({
-    content,
-    user,
-    date: new Date(),
-    thread,
-    responseTo: responseTo ? responseTo : [],
-    repliesTo: [],
-    status: status ? status : 'visible'
-  })
+  const newPost: PostType = toNewPost(req.body)
+  const savedPost = await new Post(newPost).save()
 
-  const savedPost = await newPost.save()
-  await Thread.findByIdAndUpdate(thread, { $push: { posts: savedPost.id } })
-  await User.findByIdAndUpdate(user, { $push: { posts: savedPost.id } })
+  await Thread.findByIdAndUpdate(newPost.thread, { $push: { posts: savedPost.id } })
+  await User.findByIdAndUpdate(newPost.user, { $push: { posts: savedPost.id } })
   for (let i = 0; i < newPost.responseTo.length; i++) {
-    await Post.findByIdAndUpdate(responseTo[i], { $push: { repliesTo: savedPost.id } })
-  }
+    await Post.findByIdAndUpdate(newPost.responseTo[i], { $push: { repliesTo: savedPost.id } })
+  } 
   res.status(201).json(savedPost)
 })
 

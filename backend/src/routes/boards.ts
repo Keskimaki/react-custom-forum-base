@@ -20,7 +20,6 @@ boardRouter.get('/', async (_req, res) => {
 boardRouter.post('/', async (req, res) => {
   //TODO board creation authentication
   const newBoard: BoardType = toNewBoard(req.body)
-
   const savedBoard = await new Board(newBoard).save()
   res.status(201).json(savedBoard)
 })

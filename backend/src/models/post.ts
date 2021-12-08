@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import { PostType } from '../types'
 
 const postSchema = new mongoose.Schema({
   content: {
@@ -32,6 +33,6 @@ postSchema.set('toJSON', {
   }
 })
 
-const Post = mongoose.model('Post', postSchema)
+const Post = mongoose.model<PostType>('Post', postSchema)
 
 export default Post
