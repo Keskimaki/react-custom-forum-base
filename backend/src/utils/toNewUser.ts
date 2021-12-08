@@ -1,5 +1,5 @@
 import bcrypt from 'bcryptjs'
-import { UserType } from "../types"
+import { NewUser } from "../types"
 
 
 const isString = (text: unknown): text is string => {
@@ -29,7 +29,6 @@ const parseEmail = (email: unknown) => {
 }
 
 type Fields = { username: unknown, password: unknown, email: unknown }
-type NewUser = Omit<UserType, 'id'>
 
 const toNewUser = async ({ username, password, email }: Fields): Promise<NewUser> => {
   const NewUser: NewUser = {

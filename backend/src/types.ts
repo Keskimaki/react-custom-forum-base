@@ -17,17 +17,10 @@ export interface UserType {
   following: ObjectId[]
   privileges: Privileges
   details?: string //Expand later
-  id: ObjectId
+  id?: ObjectId
 }
 
-/*export interface NewUser extends UserBase {
-  passwordHash: string
-}
-
-export interface UserType extends UserBase {
-  passwordHash: string
-  id: ObjectId
-}*/
+export type NewUser = Omit<UserType, 'id'>
 
 export interface BoardType {
   name: string
