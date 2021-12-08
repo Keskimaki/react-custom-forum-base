@@ -20,8 +20,6 @@ export interface UserType {
   id?: ObjectId
 }
 
-export type NewUser = Omit<UserType, 'id'>
-
 export interface BoardType {
   name: string
   description: string

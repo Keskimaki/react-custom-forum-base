@@ -28,7 +28,8 @@ const MakeThread = ({ boardId }: { boardId: string}) => {
           value={title}
           onChange={({ target }) => setTitle(target.value)} />
         <br />
-        <textarea 
+        <textarea
+          required
           style={styles.textArea}
           placeholder="Comment"
           value={comment}

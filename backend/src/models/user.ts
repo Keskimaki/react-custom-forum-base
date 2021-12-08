@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 import mongooseUniqueValidator from 'mongoose-unique-validator'
-import { NewUser } from '../types'
+import { UserType } from '../types'
 
 const userSchema = new mongoose.Schema({
   username: {
@@ -34,6 +34,6 @@ userSchema.set('toJSON', {
 
 userSchema.plugin(mongooseUniqueValidator)
 
-const User = mongoose.model<NewUser>('User', userSchema)
+const User = mongoose.model<UserType>('User', userSchema)
 
 export default User
