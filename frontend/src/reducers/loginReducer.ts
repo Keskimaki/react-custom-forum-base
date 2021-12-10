@@ -8,15 +8,16 @@ interface LoginAction {
     token: string
     username: string
     privileges: Privileges
+    id: string
   }
 }
 
-const loginReducer = (state: LoggedUser = {token: "", username: "", privileges: "guest", id: ""}, action: LoginAction) => {
+const loginReducer = (state: LoggedUser = {token: '', username: '', privileges: 'guest', id: ''}, action: LoginAction) => {
   switch (action.type) {
     case 'SET_TOKEN':
       return action.data
     case 'RESET_USER':
-      return {token: "", username: "", privileges: "guest"}
+      return {token: '', username: '', privileges: 'guest'}
     default:
       return state
   }
@@ -29,9 +30,12 @@ export const initializeUserData = (userData: string) => {
   }
 }
 
-export const saveLoginData = (username: string, password: string) => {
+export const saveLoginData = (loginData: LoggedUser/*username: string, password: string*/) => {
   return async (dispatch: AppDispatch) => {
-    const loginData = await loginService.login(username, password)
+    /*const loginData: LoggedUser | undefined = await loginService.login(username, password)
+    if (!loginData) {
+      throw new Error('incorrect password')
+    }*/
     window.localStorage.setItem(
       'loggedForumUser', JSON.stringify(loginData)
     )

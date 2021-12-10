@@ -4,6 +4,10 @@ import { useNavigate } from 'react-router'
 import styles from '../styles'
 import userService from '../services/users'
 import { saveLoginData } from '../reducers/loginReducer'
+import { setNotification } from '../reducers/notificationReducer'
+
+import { LoggedUser } from '../types'
+import loginService from '../services/login'
 
 const CreateAccount = () => {
   const [ username, setUsername ] = useState('')
@@ -16,12 +20,21 @@ const CreateAccount = () => {
 
   const handleAccountCreation = async (event: React.SyntheticEvent) => {
     event.preventDefault()
-    if (username.length >= 3 && password === repeatPassword) {
-      await userService.createAccount(username, password, email)
-      dispatch(saveLoginData(username, password))
-      navigate('/boards')
+    if (username.length < 3) {
+      dispatch(setNotification('Username must be at least three characters long'))
+    } else if (password.length < 5) {
+      dispatch(setNotification('Password must be at least five characters long'))
+    } else if (password !== repeatPassword) {
+      dispatch(setNotification('Password and repeat do not match'))
     } else {
-      console.log('incorrect input')
+      await userService.createAccount(username, password, email)
+      const loginData = await loginService.login(username, password)
+      if (!loginData) {
+        //Only here because of TypeScript complaining
+        return null
+      } 
+      dispatch(saveLoginData(loginData))
+      navigate('/boards')
     }
   }
 
