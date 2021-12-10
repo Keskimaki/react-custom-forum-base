@@ -9,11 +9,12 @@ const getAll = async () => {
 }
 
 const createAccount = async (username: string, password: string, email: string) => {
-  await axios.post(baseUrl, {
+  const res = await axios.post<User>(baseUrl, {
     username,
     password,
     email: email ? email: null
   })
+  return res.data
 }
 
 const userService = {

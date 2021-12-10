@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { ThreadType } from '../types'
 
 const baseUrl = 'http://localhost:3003/api/threads'
 
@@ -10,7 +11,7 @@ const makeThread = async (name: string, description: string, user: string, board
     board,
     status: 'open'
   }
-  const res = await axios.post(baseUrl, newThread, { headers: { Authorization: token } })
+  const res = await axios.post<ThreadType>(baseUrl, newThread, { headers: { Authorization: token } })
   return res.data
 }
 
