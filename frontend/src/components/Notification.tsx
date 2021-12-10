@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../store'
+import styles from '../styles'
 
 import { setNotification } from '../reducers/notificationReducer'
 
@@ -13,9 +14,12 @@ const Notification = () => {
   }, [])
 
   return (
-    <div>
-      {notification}
-    </div>
+    <>
+      {notification && 
+        <div style={styles.notification}>
+          {notification}
+        </div>}
+    </>
   )
 }
 

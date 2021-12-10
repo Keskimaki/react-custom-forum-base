@@ -108,6 +108,17 @@ const postButton: CSS.Properties = {
   fontSize: '20px'
 }
 
+const notification: CSS.Properties = {
+  backgroundColor: '#d8eaed',
+  color: '#0366d6',
+  width: '600px',
+  border: '2px solid #0366d6',
+  borderRadius: '5px',
+  padding: '15px',
+  margin: '10px',
+  fontSize: '1.5em'
+}
+
 const footer: CSS.Properties = {
   backgroundColor: '#24292e',
   color: '#FFF',
@@ -134,6 +145,7 @@ const styles = {
   textArea,
   button,
   postButton,
+  notification,
   footer
 }
 
