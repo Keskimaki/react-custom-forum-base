@@ -22,13 +22,14 @@ const Login = () => {
     if (usernames.some(name => name === username)) {
       const loginData: LoggedUser | undefined = await loginService.login(username, password)
       if (!loginData) {
-        dispatch(setNotification('Incorrect password'))
+        dispatch(setNotification('Incorrect password', 'negative'))
       } else {
         dispatch(saveLoginData(loginData))
+        dispatch(setNotification('Logged in', 'positive'))
         navigate('/boards')
       }
     } else {
-      dispatch(setNotification('Username not found'))
+      dispatch(setNotification('Username not found', 'negative'))
     }
   }
 

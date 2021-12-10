@@ -1,4 +1,3 @@
-import loginService from '../services/login'
 import { AppDispatch } from '../store'
 import { Privileges, LoggedUser } from '../types'
 
@@ -30,12 +29,8 @@ export const initializeUserData = (userData: string) => {
   }
 }
 
-export const saveLoginData = (loginData: LoggedUser/*username: string, password: string*/) => {
+export const saveLoginData = (loginData: LoggedUser) => {
   return async (dispatch: AppDispatch) => {
-    /*const loginData: LoggedUser | undefined = await loginService.login(username, password)
-    if (!loginData) {
-      throw new Error('incorrect password')
-    }*/
     window.localStorage.setItem(
       'loggedForumUser', JSON.stringify(loginData)
     )

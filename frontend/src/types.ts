@@ -54,3 +54,8 @@ export interface PostType {
   thread: string
   id: string
 }
+
+export interface NotificationType {
+  text: string
+  style: 'neutral' | 'positive' | 'negative'
+}

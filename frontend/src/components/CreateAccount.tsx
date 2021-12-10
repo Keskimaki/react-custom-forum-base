@@ -19,11 +19,11 @@ const CreateAccount = () => {
   const handleAccountCreation = async (event: React.SyntheticEvent) => {
     event.preventDefault()
     if (username.length < 3) {
-      dispatch(setNotification('Username must be at least three characters long'))
+      dispatch(setNotification('Username must be at least three characters long', 'negative'))
     } else if (password.length < 5) {
-      dispatch(setNotification('Password must be at least five characters long'))
+      dispatch(setNotification('Password must be at least five characters long', 'negative'))
     } else if (password !== repeatPassword) {
-      dispatch(setNotification('Password and repeat do not match'))
+      dispatch(setNotification('Password and repeat do not match', 'negative'))
     } else {
       await userService.createAccount(username, password, email)
       // eslint-disable-next-line @typescript-eslint/no-explicit-any

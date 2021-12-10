@@ -3,21 +3,22 @@ import { useSelector } from 'react-redux'
 import CSS from 'csstype'
 import { RootState } from '../store'
 import styles from '../styles'
+import { NotificationType } from '../types'
 
-const Notification = ({ type = 'neutral' }: { type?: string })  => {
-  const notification = useSelector((state: RootState) => state.notification )
+const Notification = ()  => {
+  const notification: NotificationType = useSelector((state: RootState) => state.notification )
 
   let style: CSS.Properties
 
-  switch (type) {
+  switch (notification.style) {
     case 'neutral':
       style = styles.notification
       break
-    case 'negative':
-      style = styles.negativeNotification
-      break
     case 'positive':
       style = styles.positiveNotification
+      break
+    case 'negative':
+      style = styles.negativeNotification
       break
     default: 
       return null
@@ -25,9 +26,9 @@ const Notification = ({ type = 'neutral' }: { type?: string })  => {
 
   return (
     <>
-      {notification && 
+      {notification.text && 
         <div style={style}>
-          {notification}
+          {notification.text}
         </div>}
     </>
   )

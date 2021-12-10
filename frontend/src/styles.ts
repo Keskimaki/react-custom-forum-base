@@ -131,7 +131,7 @@ const negativeNotification: CSS.Properties = {
 }
 
 const positiveNotification: CSS.Properties = {
-  backgroundColor: '#5ed1a3',
+  backgroundColor: '#98f5d0',
   color: '#09613e',
   width: '600px',
   border: '2px solid #09613e',

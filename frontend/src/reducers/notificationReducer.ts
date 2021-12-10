@@ -1,8 +1,13 @@
 import { AppDispatch } from "../store"
 
+type Style = 'neutral' | 'positive' | 'negative'
+
 interface NotificationAction {
   type: 'SET_NOTIFICATION' | 'RESET_NOTIFICATION'
-  data?: string
+  data?: {
+    text: string,
+    style: Style
+  }
 }
 
 const notificationReducer = (state = '', action: NotificationAction) => {
@@ -24,11 +29,14 @@ const resetNotification = (): NotificationAction => {
 
 let timeout: NodeJS.Timeout
 
-export const setNotification = (notification: string, time = 5) => {
+export const setNotification = (text: string, style: Style = 'neutral', time = 5) => {
   return async (dispatch: AppDispatch) => {
     dispatch({
       type: 'SET_NOTIFICATION',
-      data: notification
+      data: {
+        text,
+        style
+      }
     })
     clearTimeout(timeout)
     timeout = setTimeout(() => {
