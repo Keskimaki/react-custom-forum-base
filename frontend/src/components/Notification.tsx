@@ -10,7 +10,7 @@ const Notification = () => {
 
   const dispatch = useDispatch()
   useEffect(() => {
-    dispatch(setNotification('placeholder'))
+    dispatch(setNotification('placeholder', 1))
   }, [])
 
   return (
