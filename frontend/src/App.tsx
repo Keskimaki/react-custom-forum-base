@@ -15,6 +15,7 @@ import Login from './components/Login'
 import CreateAccount from './components/CreateAccount'
 import Footer from './components/Footer'
 import InfoBar from './components/InfoBar'
+import Notification from './components/Notification'
 
 function App() {
   const dispatch = useDispatch()
@@ -40,6 +41,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/account" element={<CreateAccount />} />
       </Routes>
+      <Notification />
       <Footer />
     </div>
   )

@@ -4,11 +4,13 @@ import thunk from 'redux-thunk'
 import boardReducer from './reducers/boardReducer'
 import userReducer from './reducers/userReducer'
 import loginReducer from './reducers/loginReducer'
+import notificationReducer from './reducers/notificationReducer'
 
 const reducer = combineReducers({
   boards: boardReducer,
   users: userReducer,
-  user: loginReducer
+  user: loginReducer,
+  notification: notificationReducer
 })
 
 const store = createStore(
