@@ -119,6 +119,28 @@ const notification: CSS.Properties = {
   fontSize: '1.5em'
 }
 
+const negativeNotification: CSS.Properties = {
+  backgroundColor: '#f0cccc',
+  color: '#a31c1c',
+  width: '600px',
+  border: '2px solid #a31c1c',
+  borderRadius: '5px',
+  padding: '15px',
+  margin: '10px',
+  fontSize: '1.5em'
+}
+
+const positiveNotification: CSS.Properties = {
+  backgroundColor: '#5ed1a3',
+  color: '#09613e',
+  width: '600px',
+  border: '2px solid #09613e',
+  borderRadius: '5px',
+  padding: '15px',
+  margin: '10px',
+  fontSize: '1.5em'
+}
+
 const footer: CSS.Properties = {
   backgroundColor: '#24292e',
   color: '#FFF',
@@ -146,6 +168,8 @@ const styles = {
   button,
   postButton,
   notification,
+  negativeNotification,
+  positiveNotification,
   footer
 }
 

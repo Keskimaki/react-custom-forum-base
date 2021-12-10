@@ -41,7 +41,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/account" element={<CreateAccount />} />
       </Routes>
-      <Notification />
+      <Notification type="negative" />
       <Footer />
     </div>
   )

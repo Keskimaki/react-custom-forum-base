@@ -5,8 +5,6 @@ import styles from '../styles'
 import userService from '../services/users'
 import { saveLoginData } from '../reducers/loginReducer'
 import { setNotification } from '../reducers/notificationReducer'
-
-import { LoggedUser } from '../types'
 import loginService from '../services/login'
 
 const CreateAccount = () => {
@@ -28,11 +26,8 @@ const CreateAccount = () => {
       dispatch(setNotification('Password and repeat do not match'))
     } else {
       await userService.createAccount(username, password, email)
-      const loginData = await loginService.login(username, password)
-      if (!loginData) {
-        //Only here because of TypeScript complaining
-        return null
-      } 
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const loginData: any = await loginService.login(username, password) //Will alway be LoggedUser and never undefined since the account is just created
       dispatch(saveLoginData(loginData))
       navigate('/boards')
     }
