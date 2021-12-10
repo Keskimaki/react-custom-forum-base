@@ -3,7 +3,7 @@ import { User } from '../types'
 import { AppDispatch } from '../store'
 
 interface UserAction {
-  type: 'INIT_USERS',
+  type: 'INIT_USERS'
   data: User[]
 }
 

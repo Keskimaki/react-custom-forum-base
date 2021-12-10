@@ -3,7 +3,7 @@ import { BoardType } from '../types'
 import { AppDispatch } from '../store'
 
 interface BoardAction {
-  type: 'INIT_BOARDS',
+  type: 'INIT_BOARDS'
   data: BoardType[]
 }
 

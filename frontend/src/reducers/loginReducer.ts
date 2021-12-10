@@ -5,8 +5,8 @@ import { Privileges, LoggedUser } from '../types'
 interface LoginAction {
   type: 'SET_TOKEN' | 'RESET_USER',
   data: {
-    token: string,
-    username: string,
+    token: string
+    username: string
     privileges: Privileges
   }
 }
