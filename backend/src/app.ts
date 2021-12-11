@@ -9,7 +9,7 @@ import boardRouter from './routes/boards'
 import threadRouter from './routes/threads'
 import postRouter from './routes/posts'
 
-mongoose.connect(env.MONGODB_URI)
+void mongoose.connect(env.MONGODB_URI)
 
 const app = express()
 app.use(cors())

@@ -4,13 +4,14 @@ import bcrypt from 'bcryptjs'
 import User from '../models/user'
 import env from '../utils/config'
 import { UserType } from '../types'
+import { toLogin } from '../utils/parsers/toNewUser'
 
 const loginRouter = express.Router()
 
 loginRouter.post('/', async (req, res) => {
-  const { username, password } = req.body
+  const loginData = toLogin(req.body)
 
-  const user: UserType | null = await User.findOne({ username })
+  const user: UserType | null = await User.findOne({ username: loginData.username })
 
   if (!user) {
     return res.status(404).json({
@@ -19,7 +20,7 @@ loginRouter.post('/', async (req, res) => {
   }
   
   const passwordCorrect = user
-    ? await bcrypt.compare(password, user.passwordHash)
+    ? await bcrypt.compare(loginData.password, user.passwordHash)
     : false
 
   if (!passwordCorrect) {

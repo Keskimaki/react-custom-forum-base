@@ -39,7 +39,6 @@ const parseUrl = (url: unknown) => {
 type Fields = { name: unknown, description: unknown, status: unknown, url: unknown }
 
 const toNewBoard = ({ name, description, status, url }: Fields): BoardType => {
-
   const newBoard: BoardType = {
     name: parseString(name),
     description: parseString(description),
