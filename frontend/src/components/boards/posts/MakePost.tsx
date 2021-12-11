@@ -7,7 +7,7 @@ import styles from '../../../styles'
 import { initializeBoards } from '../../../reducers/boardReducer'
 
 
-const MakePost = ({ threadId, responseTo }: { threadId: string, responseTo: string[]}) => {
+const MakePost = ({ threadId, responseTo, setResponseTo }: { threadId: string, responseTo: string[], setResponseTo: React.Dispatch<React.SetStateAction<string[]>> }) => {
   const dispatch = useDispatch()
   const [comment, setComment] = useState('')
   const user: LoggedUser = useSelector((state: RootState) => state.user)
@@ -19,6 +19,7 @@ const MakePost = ({ threadId, responseTo }: { threadId: string, responseTo: stri
     dispatch(initializeBoards())
 
     setComment('')
+    setResponseTo([])
   }
 
   return (
@@ -34,7 +35,7 @@ const MakePost = ({ threadId, responseTo }: { threadId: string, responseTo: stri
         value={comment}
         onChange={({ target }) => setComment(target.value)} />
         <br />
-        <button style={styles.postButton} type="submit">
+        <button style={styles.button} type="submit">
           Submit
         </button>
       </form>

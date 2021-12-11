@@ -9,8 +9,6 @@ import MakePost from './MakePost'
 import postService from '../../../services/posts'
 import { initializeBoards } from '../../../reducers/boardReducer'
 
-type Type = React.Dispatch<React.SetStateAction<string[]>>
-
 const Posts = () => {
   const [responseTo, setResponseTo] = useState<string[]>([])
 
@@ -35,14 +33,15 @@ const Posts = () => {
           responseTo={responseTo}
           setResponseTo={setResponseTo} />
       )}
-      <MakePost threadId={thread.id} responseTo={responseTo} />
+      <MakePost threadId={thread.id} responseTo={responseTo} setResponseTo={setResponseTo} />
     </div>
   )
 }
 
-const Post = ({ post, responseTo, setResponseTo }: { post: PostType, responseTo: string[], setResponseTo: Type }) => {
+const Post = ({ post, responseTo, setResponseTo }: { post: PostType, responseTo: string[], setResponseTo: React.Dispatch<React.SetStateAction<string[]>> }) => {
   const dispatch = useDispatch()
   const user: LoggedUser = useSelector((state: RootState) => state.user)
+  const users = useSelector((state: RootState) => state.users)
 
   const handlePostDeletion = () => {
     postService.deletePost(post.id, user.id, user.token)
@@ -59,16 +58,17 @@ const Post = ({ post, responseTo, setResponseTo }: { post: PostType, responseTo:
 
   return (
     <div style={styles.board}>
-      {post.responseTo} <br />
+      <div style={styles.secondaryText}>{post.responseTo.join(', ')}</div>
+      <strong>{users.find(user => user.id === post.user)?.username}</strong> <br />
       {post.content} <br />
-      {post.repliesTo}
-      <button onClick={addToReplies}>
+      <button style={styles.postButton} onClick={addToReplies}>
         reply
       </button>
       {user.id === post.user && 
-        <button onClick={handlePostDeletion}>
+        <button style={styles.postButton} onClick={handlePostDeletion}>
           delete
         </button>}
+        {post.repliesTo.length > 0 && <span style={styles.secondaryText}>replies: {post.repliesTo.join(', ')} <br /></span>}
     </div>
   )
 }

@@ -40,7 +40,7 @@ const infoBar: CSS.Properties = {
   maxWidth: '400px',
   backgroundColor: '#E1E4E8',
   padding: '10px',
-  paddingTop: '20px'
+  paddingTop: '10px'
 }
 
 const infoBarItem: CSS.Properties = {
@@ -55,7 +55,7 @@ const board: CSS.Properties = {
   padding: '10px',
   //border: '2px solid #586069',
   //marginLeft: '2.5vw',
-  marginTop: '10px',
+  marginBottom: '10px',
   fontSize: '20px',
 }
 
@@ -68,7 +68,11 @@ const login: CSS.Properties = {
   backgroundColor: '#FFF',
   padding: '150px 22.5vw',
   margin: '10px',
-  
+}
+
+const secondaryText:CSS.Properties = {
+  color: '#586069',
+  fontSize: '16px'
 }
 
 const textInput: CSS.Properties = {
@@ -112,16 +116,11 @@ const button: CSS.Properties = {
   fontSize: '20px'
 }
 
-const postButton: CSS.Properties = {
+const postButton : CSS.Properties = {
   backgroundColor: '#0366d6',
   color: '#FFF',
-  height: '4vw',
-  width: '25vw',
-  justifyContent: 'center',
-  alignItems: 'center',
   borderRadius: '5px',
-  marginLeft: '10px', //only difference for now
-  fontSize: '20px'
+  marginRight: '5px',
 }
 
 const notification: CSS.Properties = {
@@ -179,6 +178,7 @@ const styles = {
   board,
   link,
   login,
+  secondaryText,
   textInput,
   threadInput,
   textArea,
