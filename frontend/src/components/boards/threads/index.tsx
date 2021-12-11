@@ -30,12 +30,13 @@ const Threads = () => {
 
 const Thread = ({ thread }: { thread: ThreadType }) => {
   const { boardName } = useParams()
+  const users = useSelector((state: RootState) => state.users)
 
   return (
     <Link to={`/boards/${boardName}/${thread.name}`} style={styles.link}>
       <div style={styles.board}>
         <strong>{thread.name}</strong> <br />
-        status: {thread.status} <br />
+        created by {users.find(user => user.id === thread.user)?.username} <br />
         posts: {thread.posts.length}
       </div>
     </Link>

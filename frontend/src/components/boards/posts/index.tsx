@@ -13,6 +13,7 @@ const Posts = () => {
   const [responseTo, setResponseTo] = useState<string[]>([])
 
   const { boardName, threadName } = useParams()
+  const users = useSelector((state: RootState) => state.users)
   const boards: BoardType[] = useSelector((state: RootState) => state.boards)
   const thread = boards.
     find(board => board.url === boardName)?.threads.
@@ -25,7 +26,11 @@ const Posts = () => {
   return (
     <div>
       <h1>{thread.name}</h1>
-      {thread.description && <p style={styles.board}>{thread.description}</p>}
+      {thread.description && 
+        <div style={styles.board}>
+          <strong>{users.find(user => user.id === thread.user)?.username}</strong> <br />
+          {thread.description}
+        </div>}
       {thread.posts.map(post =>
         <Post 
           key={post.id} 
