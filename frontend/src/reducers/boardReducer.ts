@@ -41,4 +41,3 @@ export const initializeBoards = () => {
 }*/
 
 export default boardReducer
-

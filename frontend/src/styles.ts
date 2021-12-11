@@ -19,14 +19,20 @@ const headerTab: CSS.Properties = {
   fontWeight: 'bold'
 }
 
-const infoBar: CSS.Properties = {
-  height: '90vh',
-  width: '25vw',
-  //maxWidth: '600px',
-  backgroundColor: '#E1E4E8',
-  position: 'absolute',
+const main: CSS.Properties = {
+  display: 'flex',
+  flexGrow: 1,
+}
+
+const body: CSS.Properties = {
+  width: '70vw',
   padding: '10px',
-  right: 0,
+}
+
+const infoBar: CSS.Properties = {
+  width: '30vw',
+  backgroundColor: '#E1E4E8',
+  padding: '10px',
 }
 
 const infoBarItem: CSS.Properties = {
@@ -38,8 +44,10 @@ const infoBarItem: CSS.Properties = {
 
 const board: CSS.Properties = {
   backgroundColor: '#FFF',
-  padding: '5px',
-  margin: '10px',
+  padding: '10px',
+  //border: '2px solid #586069',
+  //marginLeft: '2.5vw',
+  marginTop: '10px',
   fontSize: '20px',
 }
 
@@ -149,14 +157,15 @@ const footer: CSS.Properties = {
   alignItems: 'center',
   display: 'flex',
   justifyContent: 'space-around',
-  position: 'absolute',
-  bottom: 0
+  marginTop: '20px'
 }
 
 const styles = {
   app,
   header,
   headerTab,
+  main,
+  body,
   infoBar,
   infoBarItem,
   board,

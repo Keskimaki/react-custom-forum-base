@@ -31,16 +31,20 @@ function App() {
   }, [dispatch])
 
   return (
-    <div style={styles.app}>
+    <div>
       <Header />
-      <InfoBar />
-      <Routes>
-        <Route path="/boards" element={<Boards />} />
-        <Route path="/boards/:boardName" element={<Threads />} />
-        <Route path="/boards/:boardName/:threadName" element={<Posts />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/account" element={<CreateAccount />} />
-      </Routes>
+      <div style={styles.main}>
+        <div style={styles.body}>
+          <Routes>
+            <Route path="/boards" element={<Boards />} />
+            <Route path="/boards/:boardName" element={<Threads />} />
+            <Route path="/boards/:boardName/:threadName" element={<Posts />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/account" element={<CreateAccount />} />
+          </Routes>
+        </div>
+        <InfoBar />
+      </div>
       <Notification />
       <Footer />
     </div>
