@@ -26,8 +26,8 @@ const MakePost = ({ threadId, responseTo, setResponseTo }: { threadId: string, r
   }
 
   return (
-    <div>
-      <h2 style={{ marginBottom: '-5px'}}>Make a new Post</h2>
+    <div  style={styles.submit}>
+      <h2 style={{ margin: '0px', marginBottom: '-20px' }}>Make a new Post</h2>
       <form onSubmit={handlePost}>
         {responseTo.length !== 0 && <>Replying to: {responseTo.join(', ')}</>}
         <br />

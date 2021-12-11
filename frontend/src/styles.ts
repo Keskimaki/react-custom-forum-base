@@ -92,7 +92,7 @@ const textInput: CSS.Properties = {
 
 const threadInput: CSS.Properties = {
   height: '3vw',
-  width: '50vw', //Only difference, maybe switch to textArea
+  width: '605px', //Only difference, maybe switch to textArea
   justifyContent: 'center',
   alignItems: 'center',
   borderRadius: '5px',
@@ -101,12 +101,17 @@ const threadInput: CSS.Properties = {
 }
 
 const textArea: CSS.Properties = {
-  width: '500px',
+  width: '600px',
   height: '150px',
   borderRadius: '5px',
-  margin: '10px',
+  marginTop: '10px',
   padding: '5px',
   fontSize: '20px'
+}
+
+const submit:CSS.Properties = {
+  backgroundColor: '#fff',
+  padding: '10px'
 }
 
 const button: CSS.Properties = {
@@ -189,6 +194,7 @@ const styles = {
   textInput,
   threadInput,
   textArea,
+  submit,
   button,
   postButton,
   notification,
