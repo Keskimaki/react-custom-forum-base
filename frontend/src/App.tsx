@@ -31,7 +31,7 @@ function App() {
   }, [dispatch])
 
   return (
-    <div>
+    <div style={styles.app}>
       <Header />
       <div style={styles.main}>
         <div style={styles.body}>

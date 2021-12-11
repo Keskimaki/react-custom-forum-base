@@ -1,6 +1,8 @@
 import CSS from 'csstype'
 
 const app: CSS.Properties = {
+  //marginLeft: '300px',
+  //marginRight: '300px'
 }
 
 const header: CSS.Properties = {
@@ -11,6 +13,7 @@ const header: CSS.Properties = {
   display: 'flex',
   flexDirection: 'row',
   fontSize: '25px',
+  marginBottom: '10px'
 }
 
 const headerTab: CSS.Properties = {
@@ -22,18 +25,22 @@ const headerTab: CSS.Properties = {
 const main: CSS.Properties = {
   display: 'flex',
   flexGrow: 1,
-  minHeight: 'calc(100vh - 150px)'
+  minHeight: 'calc(100vh - 200px)',
+  justifyContent: 'center'
 }
 
 const body: CSS.Properties = {
   width: '70vw',
+  maxWidth: '1200px',
   padding: '10px',
 }
 
 const infoBar: CSS.Properties = {
   width: '30vw',
+  maxWidth: '400px',
   backgroundColor: '#E1E4E8',
   padding: '10px',
+  paddingTop: '20px'
 }
 
 const infoBarItem: CSS.Properties = {
@@ -158,6 +165,7 @@ const footer: CSS.Properties = {
   alignItems: 'center',
   display: 'flex',
   justifyContent: 'space-around',
+  marginTop: '40px'
 }
 
 const styles = {
