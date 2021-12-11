@@ -66,8 +66,13 @@ const link: CSS.Properties = {
 
 const login: CSS.Properties = {
   backgroundColor: '#FFF',
-  padding: '150px 22.5vw',
-  margin: '10px',
+  //padding: '150px 22.5vw',
+  width: '70vw',
+  height: '600px',
+  //margin: '10px',
+  display: 'flex',
+  justifyContent: 'space-around',
+  alignItems: 'center',
 }
 
 const secondaryText:CSS.Properties = {
@@ -141,8 +146,10 @@ const negativeNotification: CSS.Properties = {
   border: '2px solid #a31c1c',
   borderRadius: '5px',
   padding: '15px',
-  margin: '10px',
-  fontSize: '1.5em'
+  margin: '10px auto',
+  fontSize: '1.5em',
+  display: 'flex',
+  //justifyContent: 'center'
 }
 
 const positiveNotification: CSS.Properties = {

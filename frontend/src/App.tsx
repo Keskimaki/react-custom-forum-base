@@ -42,10 +42,10 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/account" element={<CreateAccount />} />
           </Routes>
+          <Notification />
         </div>
         <InfoBar />
       </div>
-      <Notification />
       <Footer />
     </div>
   )
