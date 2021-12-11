@@ -1,4 +1,4 @@
-import React, { useState }  from 'react'
+import React  from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../store'
 import postService from '../../../services/posts'
@@ -6,19 +6,29 @@ import { LoggedUser } from '../../../types'
 import styles from '../../../styles'
 import { initializeBoards } from '../../../reducers/boardReducer'
 
-const MakePost = ({ threadId, responseTo, setResponseTo }: { threadId: string, responseTo: string[], setResponseTo: React.Dispatch<React.SetStateAction<string[]>> }) => {
+type Types = { threadId: string, editing: string, setEditing: React.Dispatch<React.SetStateAction<string>>, comment: string, setComment: React.Dispatch<React.SetStateAction<string>>, responseTo: string[], setResponseTo: React.Dispatch<React.SetStateAction<string[]>> }
+
+const MakePost = ({ threadId, editing, setEditing, comment, setComment, responseTo, setResponseTo }: Types ) => {
   const dispatch = useDispatch()
-  const [comment, setComment] = useState('')
   const user: LoggedUser = useSelector((state: RootState) => state.user)
 
   const handlePost = async (event: React.SyntheticEvent) => {
     event.preventDefault()
 
-    await postService.makePost(comment, responseTo, user.id, threadId, user.token)
+    editing
+      ? await postService.editPost(comment, responseTo, editing, user.id, user.token)
+      : await postService.makePost(comment, responseTo, user.id, threadId, user.token)
     dispatch(initializeBoards())
 
     setComment('')
     setResponseTo([])
+    setEditing('')
+  }
+
+  const cancelEditing = () => {
+    setComment('')
+    setResponseTo([])
+    setEditing('')
   }
 
   if (user.privileges === 'guest') {
@@ -27,10 +37,18 @@ const MakePost = ({ threadId, responseTo, setResponseTo }: { threadId: string, r
 
   return (
     <div  style={styles.submit}>
-      <h2 style={{ margin: '0px', marginBottom: '-20px' }}>Make a new Post</h2>
+      {editing
+        ? <> 
+            <h2 style={{ margin: '0px', display: 'inline' }}>
+              <>Editing a Post </>
+            </h2>
+            <button style={styles.postButton} onClick={cancelEditing}>
+              Cancel
+            </button>
+          </>
+        : <h2 style={{ margin: '0px' }}>Make a new Post</h2>}
       <form onSubmit={handlePost}>
-        {responseTo.length !== 0 && <>Replying to: {responseTo.join(', ')}</>}
-        <br />
+        {responseTo.length !== 0 && <>Replying to: {responseTo.join(', ')} <br /></>}
         <textarea
         required
         style={styles.textArea}

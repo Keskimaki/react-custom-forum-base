@@ -14,13 +14,17 @@ const makePost = async (content: string, responseTo: string[], user: string, thr
   return res.data
 }
 
+const editPost = async (content: string, responseTo: string[], postId: string, userId: string, token: string) => {
+  await axios.put(`${baseUrl}/${postId}`, { content, responseTo, userId }, { headers: { Authorization: token }})
+}
+
 const deletePost = async (postId: string, userId: string, token: string) => {
-  const res = await axios.delete<PostType>(`${baseUrl}/${postId}`, { headers: { Authorization: token }, data: { userId } } )
-  return res.data
+  await axios.delete<PostType>(`${baseUrl}/${postId}`, { headers: { Authorization: token }, data: { userId } })
 }
 
 const postService = {
   makePost,
+  editPost,
   deletePost
 }
 

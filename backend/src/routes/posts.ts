@@ -28,7 +28,28 @@ postRouter.post('/', async (req, res) => {
   res.status(201).json(savedPost)
 })
 
+postRouter.put('/:id', async (req, res) => {
+  //TODO parse edit data, update replies in database if edited
+  if (!getToken(req.get('authorization'))) {
+    console.log(req.body)
+    return res.status(401).json({ error: 'token missing or invalid'} )
+  }
+  const post: PostType | null = await Post.findById(req.params.id)
+  console.log(req.params.id)
+  if (!post) {
+    console.log('hei')
+    console.log(req.body)
+    return res.status(400).json({ error: 'invalid id' })
+  } else if (String(post.user) !== req.body.userId) {
+    console.log('juu')
+    return res.status(401).json({ error: 'invalid user' })
+  }
+  await Post.findByIdAndUpdate(req.params.id, req.body)
+  res.status(204).end()
+})
+
 postRouter.delete('/:id', async (req, res) => {
+  console.log(req.body)
   if (!getToken(req.get('authorization'))) {
     return res.status(401).json({ error: 'token missing or invalid'} )
   }
@@ -44,20 +65,6 @@ postRouter.delete('/:id', async (req, res) => {
     await Post.findByIdAndUpdate(post.responseTo[i], { $pull: { repliesTo: post.id } })
   }
   await Post.findByIdAndDelete(req.params.id)
-  res.status(204).end()
-})
-
-postRouter.put('/:id', async (req, res) => {
-  if (!getToken(req.get('authorization'))) {
-    return res.status(401).json({ error: 'token missing or invalid'} )
-  }
-  const post: PostType | null = await Post.findById(req.params.id)
-  if (!post) {
-    return res.status(400).json({ error: 'invalid id' })
-  } else if (String(post.user) !== req.body.userId) {
-    return res.status(401).json({ error: 'invalid user' })
-  }
-  await Post.findByIdAndUpdate(req.params.id, req.body)
   res.status(204).end()
 })
 
