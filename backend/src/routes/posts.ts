@@ -47,4 +47,18 @@ postRouter.delete('/:id', async (req, res) => {
   res.status(204).end()
 })
 
+postRouter.put('/:id', async (req, res) => {
+  if (!getToken(req.get('authorization'))) {
+    return res.status(401).json({ error: 'token missing or invalid'} )
+  }
+  const post: PostType | null = await Post.findById(req.params.id)
+  if (!post) {
+    return res.status(400).json({ error: 'invalid id' })
+  } else if (String(post.user) !== req.body.userId) {
+    return res.status(401).json({ error: 'invalid user' })
+  }
+  await Post.findByIdAndUpdate(req.params.id, req.body)
+  res.status(204).end()
+})
+
 export default postRouter
