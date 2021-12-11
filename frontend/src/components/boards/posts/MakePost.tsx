@@ -6,7 +6,6 @@ import { LoggedUser } from '../../../types'
 import styles from '../../../styles'
 import { initializeBoards } from '../../../reducers/boardReducer'
 
-
 const MakePost = ({ threadId, responseTo, setResponseTo }: { threadId: string, responseTo: string[], setResponseTo: React.Dispatch<React.SetStateAction<string[]>> }) => {
   const dispatch = useDispatch()
   const [comment, setComment] = useState('')
@@ -20,6 +19,10 @@ const MakePost = ({ threadId, responseTo, setResponseTo }: { threadId: string, r
 
     setComment('')
     setResponseTo([])
+  }
+
+  if (user.privileges === 'guest') {
+    return null
   }
 
   return (

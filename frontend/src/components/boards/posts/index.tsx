@@ -66,9 +66,9 @@ const Post = ({ post, responseTo, setResponseTo }: { post: PostType, responseTo:
       <div style={styles.secondaryText}>{post.responseTo.join(', ')}</div>
       <strong>{users.find(user => user.id === post.user)?.username}</strong> <br />
       {post.content} <br />
-      <button style={styles.postButton} onClick={addToReplies}>
+      {user.privileges !== 'guest' && <button style={styles.postButton} onClick={addToReplies}>
         reply
-      </button>
+      </button>}
       {user.id === post.user && 
         <button style={styles.postButton} onClick={handlePostDeletion}>
           delete

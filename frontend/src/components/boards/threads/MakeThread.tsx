@@ -22,6 +22,10 @@ const MakeThread = ({ boardId }: { boardId: string}) => {
     setComment('')
   }
 
+  if (user.privileges === 'guest') {
+    return null
+  }
+
   return (
     <div>
       <h2 style={{ marginBottom: '-5px'}}>Make a new Thread</h2>
