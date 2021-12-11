@@ -1,5 +1,6 @@
 import mongoose from 'mongoose'
 import mongooseUniqueValidator from 'mongoose-unique-validator'
+import { ThreadType } from '../types'
 
 const threadSchema = new mongoose.Schema({
   name: {
@@ -29,12 +30,13 @@ threadSchema.plugin(mongooseUniqueValidator)
 
 threadSchema.set('toJSON', {
   transform: (_document, returnedObject) => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-assignment
     returnedObject.id = returnedObject._id.toString()
     delete returnedObject._id
     delete returnedObject.__v
   }
 })
 
-const Thread = mongoose.model('Thread', threadSchema)
+const Thread = mongoose.model<ThreadType>('Thread', threadSchema)
 
 export default Thread

@@ -17,7 +17,9 @@ threadRouter.post('/', async (req, res) => {
     return res.status(401).json({ error: 'token missing or invalid'} )
   }
   const newThread: ThreadType = toNewThread(req.body)
-  const savedThread = await new Thread(newThread).save()
+  const savedThread: ThreadType = await new Thread(newThread).save()
+  console.log(newThread)
+  console.log(savedThread)
 
   await Board.findByIdAndUpdate(newThread.board, { $push: { threads: savedThread.id } })
   res.status(201).json(savedThread)
