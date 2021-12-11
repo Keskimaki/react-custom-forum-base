@@ -1,20 +1,24 @@
 import React, { useState }  from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../store'
 import postService from '../../../services/posts'
 import { LoggedUser } from '../../../types'
 import styles from '../../../styles'
+import { initializeBoards } from '../../../reducers/boardReducer'
 
 
 const MakePost = ({ threadId, responseTo }: { threadId: string, responseTo: string[]}) => {
+  const dispatch = useDispatch()
   const [comment, setComment] = useState('')
   const user: LoggedUser = useSelector((state: RootState) => state.user)
 
-  const handlePost = (event: React.SyntheticEvent) => {
+  const handlePost = async (event: React.SyntheticEvent) => {
     event.preventDefault()
-    const post = postService.makePost(comment, responseTo, user.id, threadId, user.token)
-    window.location.reload() //don't leave this here longterm
-    console.log(post)
+
+    await postService.makePost(comment, responseTo, user.id, threadId, user.token)
+    dispatch(initializeBoards())
+
+    setComment('')
   }
 
   return (

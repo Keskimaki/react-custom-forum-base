@@ -1,20 +1,25 @@
 import React, { useState } from 'react'
 import threadService from '../../../services/threads'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { LoggedUser } from '../../../types'
 import { RootState } from '../../../store'
 import styles from '../../../styles'
+import { initializeBoards } from '../../../reducers/boardReducer'
 
 const MakeThread = ({ boardId }: { boardId: string}) => {
+  const dispatch = useDispatch()
   const [ title, setTitle ] = useState('')
   const [ comment, setComment ] = useState('')
   const user: LoggedUser = useSelector((state: RootState) => state.user)
 
-  const handleThreadCreation = (event: React.SyntheticEvent) => {
+  const handleThreadCreation = async (event: React.SyntheticEvent) => {
     event.preventDefault()
-    const thread = threadService.makeThread(title, comment, user.id, boardId, user.token)
-    window.location.reload() //don't leave this here longterm
-    console.log(thread)
+
+    await threadService.makeThread(title, comment, user.id, boardId, user.token)
+    dispatch(initializeBoards())
+
+    setTitle('')
+    setComment('')
   }
 
   return (

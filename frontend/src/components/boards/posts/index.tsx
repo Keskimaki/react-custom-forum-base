@@ -20,7 +20,7 @@ const Posts = () => {
     find(thread => thread.name === threadName)
 
   if (!thread) {
-    return <p>{threadName}</p>
+    return null
   }
 
   return (
