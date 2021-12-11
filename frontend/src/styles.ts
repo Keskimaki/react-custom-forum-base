@@ -5,7 +5,7 @@ const app: CSS.Properties = {
 
 const header: CSS.Properties = {
   backgroundColor: '#24292e',
-  paddingRight: '50%',
+  //paddingRight: '50%',
   height: '100px',
   alignItems: 'center',
   display: 'flex',
@@ -22,6 +22,7 @@ const headerTab: CSS.Properties = {
 const main: CSS.Properties = {
   display: 'flex',
   flexGrow: 1,
+  minHeight: 'calc(100vh - 150px)'
 }
 
 const body: CSS.Properties = {
@@ -157,7 +158,6 @@ const footer: CSS.Properties = {
   alignItems: 'center',
   display: 'flex',
   justifyContent: 'space-around',
-  marginTop: '20px'
 }
 
 const styles = {
