@@ -91,10 +91,9 @@ const textInput: CSS.Properties = {
 }
 
 const threadInput: CSS.Properties = {
-  height: '3vw',
-  width: '605px', //Only difference, maybe switch to textArea
-  justifyContent: 'center',
-  alignItems: 'center',
+  height: '30px',
+  width: '605px',
+  maxWidth: '65.8vw',
   borderRadius: '5px',
   marginTop: '10px',
   fontSize: '20px'
@@ -102,6 +101,7 @@ const threadInput: CSS.Properties = {
 
 const textArea: CSS.Properties = {
   width: '600px',
+  maxWidth: '65vw',
   height: '150px',
   borderRadius: '5px',
   marginTop: '10px',

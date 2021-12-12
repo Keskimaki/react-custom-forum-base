@@ -36,6 +36,7 @@ const Posts = () => {
         <Post 
           key={post.id} 
           post={post}
+          editing={editing}
           setEditing={setEditing}
           setComment={setComment}
           responseTo={responseTo}
@@ -53,9 +54,9 @@ const Posts = () => {
   )
 }
 
-type Types = { post: PostType, setEditing: React.Dispatch<React.SetStateAction<string>>, setComment: React.Dispatch<React.SetStateAction<string>>, responseTo: string[], setResponseTo: React.Dispatch<React.SetStateAction<string[]>> }
+type Types = { post: PostType, editing: string, setEditing: React.Dispatch<React.SetStateAction<string>>, setComment: React.Dispatch<React.SetStateAction<string>>, responseTo: string[], setResponseTo: React.Dispatch<React.SetStateAction<string[]>> }
 
-const Post = ({ post, setEditing, setComment, responseTo, setResponseTo }: Types) => {
+const Post = ({ post, editing, setEditing, setComment, responseTo, setResponseTo }: Types) => {
   const dispatch = useDispatch()
   const user: LoggedUser = useSelector((state: RootState) => state.user)
   const users = useSelector((state: RootState) => state.users)
@@ -77,6 +78,10 @@ const Post = ({ post, setEditing, setComment, responseTo, setResponseTo }: Types
       ? responseTo.filter(res => res !== post.id)
       : responseTo.concat(post.id)
     setResponseTo(updatedResponseTo)
+  }
+
+  if (editing === post.id) {
+    return null
   }
 
   return (
