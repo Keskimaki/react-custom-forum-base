@@ -43,7 +43,8 @@ export interface ThreadType {
 export interface PostType {
   user: ObjectId
   content: string
-  date: Date
+  date: Date,
+  edited?: Date,
   responseTo: ObjectId[]
   repliesTo: ObjectId[]
   status: PostStatus

@@ -8,6 +8,7 @@ const postSchema = new mongoose.Schema({
   },
   status: String,
   date: Date,
+  edited: Date,
   responseTo: {
     type: [mongoose.Schema.Types.ObjectId],
     ref: 'Post'

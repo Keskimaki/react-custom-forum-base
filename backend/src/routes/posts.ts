@@ -3,7 +3,7 @@ import Post from '../models/post'
 import Thread from '../models/thread'
 import User from '../models/user'
 import getToken from '../utils/getToken'
-import toNewPost from '../utils/parsers/toNewPost'
+import toNewPost, { toEditPost } from '../utils/parsers/toNewPost'
 import { PostType } from '../types'
 
 const postRouter = express.Router()
@@ -29,7 +29,6 @@ postRouter.post('/', async (req, res) => {
 })
 
 postRouter.put('/:id', async (req, res) => {
-  //TODO parse edit data
   if (!getToken(req.get('authorization'))) {
     return res.status(401).json({ error: 'token missing or invalid'} )
   }
@@ -39,17 +38,17 @@ postRouter.put('/:id', async (req, res) => {
   } else if (String(post.user) !== req.body.userId) {
     return res.status(401).json({ error: 'invalid user' })
   }
-  const newResponseTo = req.body.responseTo
-  if (post.responseTo !== newResponseTo) {
+  const editData = toEditPost(req.body)
+  if (editData.responseTo && post.responseTo !== editData.responseTo) {
     for (let i = 0; i < post.responseTo.length; i++) {
       await Post.findByIdAndUpdate(post.responseTo[i], { $pull: { repliesTo: post.id } })
     }
-    for (let i = 0; i < newResponseTo.length; i++) {
-      await Post.findByIdAndUpdate(newResponseTo[i], { $push: { repliesTo: post.id } })
+    for (let i = 0; i < editData.responseTo.length; i++) {
+      await Post.findByIdAndUpdate(editData.responseTo[i], { $push: { repliesTo: post.id } })
     }
-    await Post.findByIdAndUpdate(req.params.id, { $set: { responseTo: newResponseTo } })
+    await Post.findByIdAndUpdate(req.params.id, { $set: { responseTo: editData.responseTo } })
   }
-  await Post.findByIdAndUpdate(req.params.id, req.body)
+  await Post.findByIdAndUpdate(req.params.id, editData)
   res.status(204).end()
 })
 

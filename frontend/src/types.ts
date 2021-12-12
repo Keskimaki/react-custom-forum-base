@@ -48,6 +48,7 @@ export interface PostType {
   user: string,
   content: string,
   date: Date,
+  edited?: Date,
   responseTo: string[],
   repliesTo: string[],
   status: PostStatus,
