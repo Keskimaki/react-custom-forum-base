@@ -29,20 +29,25 @@ postRouter.post('/', async (req, res) => {
 })
 
 postRouter.put('/:id', async (req, res) => {
-  //TODO parse edit data, update replies in database if edited
+  //TODO parse edit data
   if (!getToken(req.get('authorization'))) {
-    console.log(req.body)
     return res.status(401).json({ error: 'token missing or invalid'} )
   }
   const post: PostType | null = await Post.findById(req.params.id)
-  console.log(req.params.id)
   if (!post) {
-    console.log('hei')
-    console.log(req.body)
     return res.status(400).json({ error: 'invalid id' })
   } else if (String(post.user) !== req.body.userId) {
-    console.log('juu')
     return res.status(401).json({ error: 'invalid user' })
+  }
+  const newResponseTo = req.body.responseTo
+  if (post.responseTo !== newResponseTo) {
+    for (let i = 0; i < post.responseTo.length; i++) {
+      await Post.findByIdAndUpdate(post.responseTo[i], { $pull: { repliesTo: post.id } })
+    }
+    for (let i = 0; i < newResponseTo.length; i++) {
+      await Post.findByIdAndUpdate(newResponseTo[i], { $push: { repliesTo: post.id } })
+    }
+    await Post.findByIdAndUpdate(req.params.id, { $set: { responseTo: newResponseTo } })
   }
   await Post.findByIdAndUpdate(req.params.id, req.body)
   res.status(204).end()
