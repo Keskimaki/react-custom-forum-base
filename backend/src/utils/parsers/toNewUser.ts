@@ -1,5 +1,6 @@
 import bcrypt from 'bcryptjs'
-import { isString } from '.'
+import { ObjectId } from 'mongodb'
+import { isArray, isString, isObjectIdList } from '.'
 import { UserType } from "../../types"
 
 const parseUsername = (username: unknown): string => {
@@ -52,6 +53,24 @@ export const toLogin = ({ username, password}: { username: unknown, password: un
     password: parsePassword(password)
   }
 return loginData
+}
+
+const parseFollowing = (following: unknown): ObjectId[] => {
+  if (!following || !isArray(following) || !isObjectIdList(following)) {
+    throw new Error('Incorrect following')
+  }
+  return following
+}
+
+type Edit = {
+  following: ObjectId[]
+}
+
+export const toEditUser = ({ following }: { following: unknown}): Edit => {
+  const editUser = {
+    following: parseFollowing(following)
+  }
+  return editUser
 }
 
 export default toNewUser

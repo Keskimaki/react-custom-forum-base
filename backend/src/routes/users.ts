@@ -1,6 +1,6 @@
 import express from 'express'
 import User from '../models/user'
-import toNewUser from '../utils/parsers/toNewUser'
+import toNewUser, { toEditUser } from '../utils/parsers/toNewUser'
 import { UserType } from '../types'
 import getToken from '../utils/getToken'
 
@@ -25,9 +25,8 @@ userRouter.put('/:id', async (req, res) => {
   if (!user) {
     return res.status(400).json({ error: 'invalid id' })
   }
-  //Parser here
-  const { following } = req.body
-  await User.findByIdAndUpdate(req.params.id, { following })
+  const editData = toEditUser(req.body)
+  await User.findByIdAndUpdate(req.params.id, editData)
   res.status(204).end()
 })
 
