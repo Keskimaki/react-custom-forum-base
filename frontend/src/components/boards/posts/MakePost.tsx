@@ -31,9 +31,7 @@ const MakePost = ({ threadId, editing, setEditing, comment, setComment, response
     setEditing('')
   }
 
-  if (user.privileges === 'guest') {
-    return null
-  }
+  if (user.privileges === 'guest') return null
 
   return (
     <div  style={styles.submit}>

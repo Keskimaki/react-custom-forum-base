@@ -9,7 +9,6 @@ const login = async (username: string, password: string): Promise<LoggedUser | u
     res.data.token = `bearer ${res.data.token}`
     return res.data
   } catch {
-    //const noUser: LoggedUser = { token: '', username: '', privileges: 'guest', id: '' }
     return undefined
   }
 }

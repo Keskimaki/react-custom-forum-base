@@ -22,18 +22,17 @@ const Posts = () => {
   const thread = boards.
     find(board => board.url === boardName)?.threads.
     find(thread => thread.name === threadName)
-  if (!thread) {
-    return null
-  }
+    
+  if (!thread) return null
 
   return (
     <div>
       <h1>{thread.name}</h1>
-      {thread.description && 
+      {/*thread.description && 
         <div style={styles.board}>
           <strong>{users.find(user => user.id === thread.user)?.username}</strong> <br />
           {thread.description}
-        </div>}
+        </div>*/}
       {thread.posts.map(post =>
         <Post 
           key={post.id} 
@@ -99,9 +98,7 @@ const Post = ({ post, editing, setEditing, setComment, responseTo, setResponseTo
     setResponseTo(updatedResponseTo)
   }
 
-  if (editing === post.id) {
-    return null
-  }
+  if (editing === post.id) return null
 
   const username = users.find(user => user.id === post.user)?.username
 

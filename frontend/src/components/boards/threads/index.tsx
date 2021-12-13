@@ -13,9 +13,7 @@ const Threads = () => {
   const boards: BoardType[] = useSelector((state: RootState) => state.boards)
   const board = boards.find(board => board.url === boardName)
   //TODO redirect to 404
-  if (!board) {
-    return null
-  }
+  if (!board) return null
 
   return (
     <div>

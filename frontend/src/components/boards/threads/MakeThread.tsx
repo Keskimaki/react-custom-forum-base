@@ -24,9 +24,7 @@ const MakeThread = ({ boardId }: { boardId: string}) => {
     setComment('')
   }
 
-  if (user.privileges === 'guest') {
-    return null
-  }
+  if (user.privileges === 'guest') return null
 
   return (
     <div style={styles.submit}>

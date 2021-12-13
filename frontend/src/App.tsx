@@ -26,9 +26,7 @@ function App() {
     dispatch(initializeUsers())
     
     const userData = window.localStorage.getItem('loggedForumUser')
-    if (userData) {
-      dispatch(initializeUserData(userData))
-    }
+    if (userData) dispatch(initializeUserData(userData))
   }, [dispatch])
 
   return (

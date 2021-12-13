@@ -31,7 +31,7 @@ export interface BoardType {
 
 export interface ThreadType {
   name: string
-  description?: string
+  description?: string //Delete?
   user: ObjectId
   date: Date
   status: ThreadStatus

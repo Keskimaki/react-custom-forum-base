@@ -12,15 +12,11 @@ const User = () => {
   const threads = boards.map(board => board.threads).flat()
 
   const user = users.find(user => user.username === loginData.username)
-  if (!user || user.username === "") {
-    return null
-  }
+  if (!user || user.username === "") return null
 
   const findThread = (threadId: string) => {
     const thread = threads.find(thread => thread.id === threadId)
-    if (!thread) {
-      return null
-    }
+    if (!thread) return null
     const boardName = boards.find(board => board.id === thread?.board)?.name
     return <><strong>{thread.name}</strong> in {boardName}</>
   }
