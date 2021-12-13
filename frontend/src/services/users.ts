@@ -17,9 +17,14 @@ const createAccount = async (username: string, password: string, email: string) 
   return res.data
 }
 
+const editUser = async (following: string[], userId: string, token: string) => {
+  await axios.put(`${baseUrl}/${userId}`, { following }, { headers: { Authorization: token } })
+}
+
 const userService = {
   getAll,
-  createAccount
+  createAccount,
+  editUser
 }
 
 export default userService

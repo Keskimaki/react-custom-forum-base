@@ -7,7 +7,9 @@ import { BoardType, LoggedUser } from '../../../types'
 import { RootState } from '../../../store'
 import MakePost from './MakePost'
 import postService from '../../../services/posts'
+import userService from '../../../services/users'
 import { initializeBoards } from '../../../reducers/boardReducer'
+//import { initializeUsers } from '../../../reducers/userReducer'
 
 const Posts = () => {
   const [responseTo, setResponseTo] = useState<string[]>([])
@@ -60,7 +62,7 @@ const Post = ({ post, editing, setEditing, setComment, responseTo, setResponseTo
   const dispatch = useDispatch()
   const loginData: LoggedUser = useSelector((state: RootState) => state.user)
   const users = useSelector((state: RootState) => state.users)
-  //const user = users.find(user => user.username === loginData.username)
+  const user = users.find(user => user.username === loginData.username)
 
   const handlePostEditing = () => {
     setComment(post.content)
@@ -74,8 +76,20 @@ const Post = ({ post, editing, setEditing, setComment, responseTo, setResponseTo
     setResponseTo([])
   }
 
-  const handleUserFollowing = () => {
-    return null
+  const handleUserFollowing = (followId: string) => {
+    let following: string[]
+    if (!user) {
+      following = [followId]
+    } else {
+      if (user.following.some(id => id === followId)) {
+        following = user.following.filter(id => id !== followId)
+      } else {
+        following = user.following.concat(followId)
+      }
+    }
+    userService.editUser(following, loginData.id, loginData.token)
+    window.location.reload() //Fix later
+    //dispatch(initializeUsers())
   }
 
   const addToReplies = () => {
@@ -89,11 +103,15 @@ const Post = ({ post, editing, setEditing, setComment, responseTo, setResponseTo
     return null
   }
 
+  //const isFollowing = user?.following.some(following => following === post.user)
+
   return (
     <div style={styles.board}>
       <div style={styles.secondaryText}>{post.responseTo.join(', ')}</div>
-      <strong>{users.find(user => user.id === post.user)?.username}</strong> <br />
-      {post.content} <br />
+      <strong>{users.find(user => user.id === post.user)?.username}</strong>
+      <br />
+      {post.content}
+      <br />
       {loginData.privileges !== 'guest' && 
         <button style={styles.postButton} onClick={addToReplies}>
           reply
@@ -108,8 +126,8 @@ const Post = ({ post, editing, setEditing, setComment, responseTo, setResponseTo
             </button>
           </>
         : <> 
-            <button style={styles.postButton} onClick={handleUserFollowing}>
-              follow user
+            <button style={styles.postButton} onClick={() => handleUserFollowing(post.user)}>
+              {user?.following.some(following => following === post.user) ? <>unfollow</> : <>follow user</>}
             </button>
           </>}
         {post.repliesTo.length > 0 && <span style={styles.secondaryText}>replies: {post.repliesTo.join(', ')} <br /></span>}

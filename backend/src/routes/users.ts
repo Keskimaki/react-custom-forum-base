@@ -22,10 +22,12 @@ userRouter.put('/:id', async (req, res) => {
     return res.status(401).json({ error: 'token missing or invalid'} )
   }
   const user: UserType | null = await User.findById(req.params.id)
+  console.log(user?.following)
   if (!user) {
     return res.status(400).json({ error: 'invalid id' })
   }
   const editData = toEditUser(req.body)
+  console.log(editData)
   await User.findByIdAndUpdate(req.params.id, editData)
   res.status(204).end()
 })

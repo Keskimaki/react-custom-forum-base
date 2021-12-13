@@ -53,7 +53,6 @@ postRouter.put('/:id', async (req, res) => {
 })
 
 postRouter.delete('/:id', async (req, res) => {
-  console.log(req.body)
   if (!getToken(req.get('authorization'))) {
     return res.status(401).json({ error: 'token missing or invalid'} )
   }

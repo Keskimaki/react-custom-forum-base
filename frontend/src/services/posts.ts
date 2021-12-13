@@ -15,7 +15,7 @@ const makePost = async (content: string, responseTo: string[], user: string, thr
 }
 
 const editPost = async (content: string, responseTo: string[], postId: string, userId: string, token: string) => {
-  await axios.put(`${baseUrl}/${postId}`, { content, responseTo, userId }, { headers: { Authorization: token }})
+  await axios.put(`${baseUrl}/${postId}`, { content, responseTo, userId }, { headers: { Authorization: token } })
 }
 
 const deletePost = async (postId: string, userId: string, token: string) => {
