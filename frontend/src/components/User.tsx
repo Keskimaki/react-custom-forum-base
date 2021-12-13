@@ -29,7 +29,7 @@ const User = () => {
     <div>
       <div style={styles.board}>
         <h1 style={styles.subHeader}>{user.username} </h1>
-        {user.privileges}
+        {user.privileges !== 'user' && user.privileges}
         <br />
         {user.email}
         <br />
@@ -37,7 +37,7 @@ const User = () => {
         {user.following /*TODO*/}
       </div>
       <h2 style={styles.subHeader}>Posts: </h2>
-      {user.posts.reverse().map(post => 
+      {user.posts.slice().reverse().map(post => 
         <div key={post.id} style={styles.board}>
           {findThread(post.thread)}
           <br />

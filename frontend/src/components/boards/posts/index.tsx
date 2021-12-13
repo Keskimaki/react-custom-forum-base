@@ -58,8 +58,9 @@ type Types = { post: PostType, editing: string, setEditing: React.Dispatch<React
 
 const Post = ({ post, editing, setEditing, setComment, responseTo, setResponseTo }: Types) => {
   const dispatch = useDispatch()
-  const user: LoggedUser = useSelector((state: RootState) => state.user)
+  const loginData: LoggedUser = useSelector((state: RootState) => state.user)
   const users = useSelector((state: RootState) => state.users)
+  //const user = users.find(user => user.username === loginData.username)
 
   const handlePostEditing = () => {
     setComment(post.content)
@@ -68,9 +69,13 @@ const Post = ({ post, editing, setEditing, setComment, responseTo, setResponseTo
   }
 
   const handlePostDeletion = () => {
-    postService.deletePost(post.id, user.id, user.token)
+    postService.deletePost(post.id, loginData.id, loginData.token)
     dispatch(initializeBoards())
     setResponseTo([])
+  }
+
+  const handleUserFollowing = () => {
+    return null
   }
 
   const addToReplies = () => {
@@ -89,18 +94,24 @@ const Post = ({ post, editing, setEditing, setComment, responseTo, setResponseTo
       <div style={styles.secondaryText}>{post.responseTo.join(', ')}</div>
       <strong>{users.find(user => user.id === post.user)?.username}</strong> <br />
       {post.content} <br />
-      {user.privileges !== 'guest' && <button style={styles.postButton} onClick={addToReplies}>
-        reply
-      </button>}
-      {user.id === post.user && 
-        <>
-          <button style={styles.postButton} onClick={handlePostEditing}>
-            edit
-          </button>
-          <button style={styles.postButton} onClick={handlePostDeletion}>
-            delete
-          </button>
-        </>}
+      {loginData.privileges !== 'guest' && 
+        <button style={styles.postButton} onClick={addToReplies}>
+          reply
+        </button>}
+      {loginData.id === post.user
+        ? <>
+            <button style={styles.postButton} onClick={handlePostEditing}>
+              edit
+            </button>
+            <button style={styles.postButton} onClick={handlePostDeletion}>
+              delete
+            </button>
+          </>
+        : <> 
+            <button style={styles.postButton} onClick={handleUserFollowing}>
+              follow user
+            </button>
+          </>}
         {post.repliesTo.length > 0 && <span style={styles.secondaryText}>replies: {post.repliesTo.join(', ')} <br /></span>}
     </div>
   )
