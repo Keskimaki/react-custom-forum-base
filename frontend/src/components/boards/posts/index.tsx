@@ -103,12 +103,12 @@ const Post = ({ post, editing, setEditing, setComment, responseTo, setResponseTo
     return null
   }
 
-  //const isFollowing = user?.following.some(following => following === post.user)
+  const username = users.find(user => user.id === post.user)?.username
 
   return (
     <div style={styles.board}>
       <div style={styles.secondaryText}>{post.responseTo.join(', ')}</div>
-      <strong>{users.find(user => user.id === post.user)?.username}</strong>
+      <strong>{username ? username : <>deleted</>}</strong>
       <br />
       {post.content}
       <br />
@@ -125,11 +125,14 @@ const Post = ({ post, editing, setEditing, setComment, responseTo, setResponseTo
               delete
             </button>
           </>
-        : <> 
-            <button style={styles.postButton} onClick={() => handleUserFollowing(post.user)}>
-              {user?.following.some(following => following === post.user) ? <>unfollow</> : <>follow user</>}
-            </button>
-          </>}
+        : username
+          ?
+            <> 
+              <button style={styles.postButton} onClick={() => handleUserFollowing(post.user)}>
+                {user?.following.some(following => following === post.user) ? <>unfollow</> : <>follow user</>}
+              </button>
+            </>
+          : null}
         {post.repliesTo.length > 0 && <span style={styles.secondaryText}>replies: {post.repliesTo.join(', ')} <br /></span>}
     </div>
   )
