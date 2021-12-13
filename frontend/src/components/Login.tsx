@@ -6,7 +6,7 @@ import styles from '../styles'
 import { saveLoginData } from '../reducers/loginReducer'
 import { setNotification } from '../reducers/notificationReducer'
 import { RootState } from '../store'
-import { User, LoggedUser } from '../types'
+import { UserType, LoggedUser } from '../types'
 
 const Login = () => {
   const [ username, setUsername] = useState('')
@@ -14,7 +14,7 @@ const Login = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const users: User[] = useSelector((state: RootState) => (state.users))
+  const users: UserType[] = useSelector((state: RootState) => (state.users))
   const usernames = users.map(user => user.username)
 
   const handleLogin = async (event: React.SyntheticEvent) => {

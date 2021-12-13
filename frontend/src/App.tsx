@@ -13,6 +13,7 @@ import Threads from './components/boards/threads'
 import Posts from './components/boards/posts'
 import Login from './components/Login'
 import CreateAccount from './components/CreateAccount'
+import User from './components/User'
 import Footer from './components/Footer'
 import InfoBar from './components/InfoBar'
 import Notification from './components/Notification'
@@ -41,6 +42,7 @@ function App() {
             <Route path="/boards/:boardName/:threadName" element={<Posts />} />
             <Route path="/login" element={<Login />} />
             <Route path="/account" element={<CreateAccount />} />
+            <Route path='/user' element={<User />} />
           </Routes>
           <Notification />
         </div>

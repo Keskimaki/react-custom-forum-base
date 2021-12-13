@@ -64,6 +64,11 @@ const link: CSS.Properties = {
   color: 'inherit'
 }
 
+const subHeader: CSS.Properties = {
+    margin: 0,
+    display: 'inline'
+}
+
 const login: CSS.Properties = {
   backgroundColor: '#FFF',
   //padding: '150px 22.5vw',
@@ -189,6 +194,7 @@ const styles = {
   infoBarItem,
   board,
   link,
+  subHeader,
   login,
   secondaryText,
   textInput,

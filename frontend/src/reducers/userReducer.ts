@@ -1,13 +1,13 @@
 import userService from '../services/users'
-import { User } from '../types'
+import { UserType } from '../types'
 import { AppDispatch } from '../store'
 
 interface UserAction {
   type: 'INIT_USERS'
-  data: User[]
+  data: UserType[]
 }
 
-const userReducer = (state: User[] = [], action: UserAction) => {
+const userReducer = (state: UserType[] = [], action: UserAction) => {
   switch (action.type) {
     case 'INIT_USERS':
       return action.data

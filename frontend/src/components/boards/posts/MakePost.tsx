@@ -39,7 +39,7 @@ const MakePost = ({ threadId, editing, setEditing, comment, setComment, response
     <div  style={styles.submit}>
       {editing
         ? <> 
-            <h2 style={{ margin: '0px', display: 'inline' }}>
+            <h2 style={styles.subHeader}>
               <>Editing a Post </>
             </h2>
             <button style={styles.postButton} onClick={cancelEditing}>

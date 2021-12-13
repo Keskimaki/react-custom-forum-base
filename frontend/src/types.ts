@@ -13,11 +13,11 @@ export interface LoggedUser {
   id: string
 }
 
-export interface User {
+export interface UserType {
   username: string,
   email?: string,
   date: Date,
-  posts: string[],
+  posts: PostType[],
   following: string[],
   privileges: Privileges
   details?: string //Expand later
