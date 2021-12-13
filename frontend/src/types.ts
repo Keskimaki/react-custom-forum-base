@@ -35,7 +35,7 @@ export interface BoardType {
 
 export interface ThreadType {
   name: string,
-  description: string,
+  description?: string,
   user: string,
   date: Date,
   status: ThreadStatus,

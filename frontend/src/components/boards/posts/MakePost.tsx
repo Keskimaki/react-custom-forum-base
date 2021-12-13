@@ -17,7 +17,7 @@ const MakePost = ({ threadId, editing, setEditing, comment, setComment, response
 
     editing
       ? await postService.editPost(comment, responseTo, editing, user.id, user.token)
-      : await postService.makePost(comment, responseTo, user.id, threadId, user.token)
+      : await postService.makePost(comment, user.id, threadId, user.token, responseTo)
     dispatch(initializeBoards())
 
     setComment('')

@@ -3,7 +3,7 @@ import { PostType } from '../types'
 
 const baseUrl = 'http://localhost:3003/api/posts'
 
-const makePost = async (content: string, responseTo: string[], user: string, thread: string, token: string) => {
+const makePost = async (content: string, user: string, thread: string, token: string, responseTo : string[] = []) => {
   const newPost = {
     content,
     user,

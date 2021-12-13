@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import threadService from '../../../services/threads'
+import postService from '../../../services/posts'
 import { useDispatch, useSelector } from 'react-redux'
 import { LoggedUser } from '../../../types'
 import { RootState } from '../../../store'
@@ -15,9 +16,10 @@ const MakeThread = ({ boardId }: { boardId: string}) => {
   const handleThreadCreation = async (event: React.SyntheticEvent) => {
     event.preventDefault()
 
-    await threadService.makeThread(title, comment, user.id, boardId, user.token)
-    dispatch(initializeBoards())
+    const newThread = await threadService.makeThread(title/*, comment*/, user.id, boardId, user.token)
+    await postService.makePost(comment, user.id, newThread.id, user.token)
 
+    dispatch(initializeBoards())
     setTitle('')
     setComment('')
   }
