@@ -33,9 +33,10 @@ const User = () => {
         <br />
         {user.email}
         <br />
+        Following: {user.following.map(following => users.find(user => user.id === following)?.username).join(', ')}
+        <br />
         {user.details /*TODO*/}
-        {user.following /*TODO*/}
-      </div>
+      </div>      
       <h2 style={styles.subHeader}>Posts: </h2>
       {user.posts.slice().reverse().map(post => 
         <div key={post.id} style={styles.board}>
