@@ -48,11 +48,11 @@ const MakePost = ({ threadId, editing, setEditing, comment, setComment, response
       <form onSubmit={handlePost}>
         {responseTo.length !== 0 && <>Replying to: {responseTo.join(', ')} <br /></>}
         <textarea
-        required
-        style={styles.textArea}
-        placeholder="Comment"
-        value={comment}
-        onChange={({ target }) => setComment(target.value)} />
+          required
+          style={styles.textArea}
+          placeholder="Comment"
+          value={comment}
+          onChange={({ target }) => setComment(target.value)} />
         <br />
         <button style={styles.button} type="submit">
           Submit

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { UserType } from '../types'
+import { UserType, UserDetails } from '../types'
 
 const baseUrl = 'http://localhost:3003/api/users'
 
@@ -17,8 +17,13 @@ const createAccount = async (username: string, password: string, email: string) 
   return res.data
 }
 
-const editUser = async (following: string[], userId: string, token: string) => {
-  await axios.put(`${baseUrl}/${userId}`, { following }, { headers: { Authorization: token } })
+type Edit = {
+  following?: string[],
+  details?: UserDetails
+}
+
+const editUser = async (editData: Edit, userId: string, token: string) => {
+  await axios.put(`${baseUrl}/${userId}`, editData, { headers: { Authorization: token } })
 }
 
 const userService = {

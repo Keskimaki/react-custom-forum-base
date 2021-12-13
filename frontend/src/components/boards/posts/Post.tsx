@@ -39,7 +39,7 @@ const Post = ({ post, editing, setEditing, setComment, responseTo, setResponseTo
         following = user.following.concat(followId)
       }
     }
-    userService.editUser(following, loginData.id, loginData.token)
+    userService.editUser({ following }, loginData.id, loginData.token)
     window.location.reload() //Fix later
     //dispatch(initializeUsers())
   }
