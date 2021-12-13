@@ -15,12 +15,11 @@ const Posts = () => {
   const { boardName, threadName } = useParams()
   //const users = useSelector((state: RootState) => state.users)
   const boards: BoardType[] = useSelector((state: RootState) => state.boards)
-  //Thread names with question marks don't work atm
   const thread = boards.
     find(board => board.url === boardName)?.threads.
-    find(thread => thread.name === threadName)
+    find(thread => thread.name.replace('?', '') === threadName)
 
-  if (!thread) return <div>hei</div>//null
+  if (!thread) return null
 
   return (
     <div>

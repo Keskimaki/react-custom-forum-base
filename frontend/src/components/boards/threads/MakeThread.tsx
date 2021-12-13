@@ -6,6 +6,7 @@ import { LoggedUser } from '../../../types'
 import { RootState } from '../../../store'
 import styles from '../../../styles'
 import { initializeBoards } from '../../../reducers/boardReducer'
+import { setNotification } from '../../../reducers/notificationReducer'
 
 const MakeThread = ({ boardId }: { boardId: string}) => {
   const dispatch = useDispatch()
@@ -16,6 +17,10 @@ const MakeThread = ({ boardId }: { boardId: string}) => {
   const handleThreadCreation = async (event: React.SyntheticEvent) => {
     event.preventDefault()
 
+    if (title.includes('#')) {
+      dispatch(setNotification("Thread title cannot include character '#'", 'negative'))
+      return null
+    }
     const newThread = await threadService.makeThread(title/*, comment*/, user.id, boardId, user.token)
     await postService.makePost(comment, user.id, newThread.id, user.token)
 

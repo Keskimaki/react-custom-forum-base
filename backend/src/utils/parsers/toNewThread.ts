@@ -3,7 +3,7 @@ import { isString, isObjectId, parseUser } from '.'
 import { ThreadType, ThreadStatus } from '../../types'
 
 const parseString = (text: unknown): string => {
-  if (!text || !isString(text)) {
+  if (!text || !isString(text) || text.includes('#')) {
     throw new Error('Incorrect or missing name or description')
   }
   return text
