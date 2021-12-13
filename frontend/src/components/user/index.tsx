@@ -28,20 +28,26 @@ const User = () => {
         <h1 style={styles.subHeader}>{user.username} </h1>
         {user.privileges !== 'user' && user.privileges}
         <br />
-        {user.email && <br />}
+        {user.email && <>{user.email} <br /></>}
         Following: {user.following.map(following => users.find(user => user.id === following)?.username).join(', ')}
         <br />
         {user.details
-          ? user.details
-          : <>
-            No details
-            <br />
-            <Link to="/user/edit">
-            <button style={styles.postButton}>
-              edit profile
-            </button>
-            </Link>
-            </>}
+          ? 
+            <>
+              <strong>Details:</strong>
+              <br />
+              {user.details.name} {user.details.location}
+              <br />
+              {user.details.description}
+            </>
+          : 
+            <>No details</>}
+        <br />
+        <Link to="/user/edit">
+          <button style={styles.postButton}>
+            edit profile
+          </button>
+        </Link>
       </div>
       <h2 style={styles.subHeader}>Posts: </h2>
       {user.posts.slice().reverse().map(post => 

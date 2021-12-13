@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { RootState } from '../../store'
 import { LoggedUser } from '../../types'
 import userService from '../../services/users'
@@ -53,6 +53,12 @@ const EditUser = () => {
         <button style={styles.button} type="submit">
           Update profile
         </button>
+        <> </>
+        <Link to="/user">
+          <button style={styles.button}>
+            cancel
+          </button>
+        </Link>
       </form>
     </div>
   )
