@@ -8,6 +8,12 @@ export type ThreadStatus = 'open' | 'closed' | 'removed' | 'waiting'
 
 export type PostStatus = 'visible' | 'removed' | 'deleted' | 'waiting'
 
+export interface UserDetails {
+  name?: string
+  location?: string
+  description?: string
+}
+
 export interface UserType {
   username: string
   passwordHash: string
@@ -16,7 +22,7 @@ export interface UserType {
   date: Date
   following: ObjectId[]
   privileges: Privileges
-  details?: string //Expand later
+  details?: UserDetails
   id?: ObjectId
 }
 

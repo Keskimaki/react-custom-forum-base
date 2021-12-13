@@ -21,7 +21,11 @@ const userSchema = new mongoose.Schema({
   },
   following: Array,
   privileges: String,
-  details: String
+  details: {
+    name: String,
+    location: String,
+    description: String
+  }
 })
 
 userSchema.set('toJSON', {

@@ -1,7 +1,7 @@
 import bcrypt from 'bcryptjs'
 import { ObjectId } from 'mongodb'
 import { isArray, isString, isObjectIdList } from '.'
-import { UserType } from "../../types"
+import { UserType, UserDetails } from "../../types"
 
 const parseUsername = (username: unknown): string => {
   if (!username || !isString(username) || username.length < 3) {
@@ -62,13 +62,31 @@ const parseFollowing = (following: unknown): ObjectId[] => {
   return following
 }
 
-type Edit = {
-  following: ObjectId[]
+const parseString = (text: unknown, type: string): string => {
+  if (!text || !isString(text)) {
+    throw new Error(`Incorrect or missing ${type}`)
+  }
+  return text
 }
 
-export const toEditUser = ({ following }: { following: unknown}): Edit => {
+const parseDetails = (details: any): UserDetails => {
+  const newDetails: UserDetails = {
+    name: parseString(details.name, 'name'),
+    location: parseString(details.location, 'location'),
+    description: parseString(details.description, 'description')
+  }
+  return newDetails
+}
+
+type Edit = {
+  following?: ObjectId[],
+  details?: UserDetails
+}
+
+export const toEditUser = ({ following = null, details }: { following: unknown, details: unknown }): Edit => {
   const editUser = {
-    following: parseFollowing(following)
+    following: following ? parseFollowing(following) : undefined,
+    details: details ? parseDetails(details) : undefined
   }
   return editUser
 }
