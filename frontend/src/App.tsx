@@ -17,8 +17,9 @@ import User from './components/User'
 import Footer from './components/Footer'
 import InfoBar from './components/InfoBar'
 import Notification from './components/Notification'
+import ScrollToTop from './components/ScrollToTop'
 
-function App() {
+const App = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -47,6 +48,7 @@ function App() {
         <InfoBar />
       </div>
       <Footer />
+      <ScrollToTop />
     </div>
   )
 }
