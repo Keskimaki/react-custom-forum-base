@@ -49,7 +49,13 @@ const toNewPost = ({ content, user, responseTo, thread, status }: Fields): PostT
   return newPost
 }
 
-export const toEditPost = ({ content, responseTo }: { content: unknown, responseTo: unknown }) => {
+type Edit = {
+  content: string,
+  responseTo: ObjectId[] | undefined,
+  edited: Date
+}
+
+export const toEditPost = ({ content, responseTo }: { content: unknown, responseTo: unknown }): Edit => {
   const editPost = {
     content: parseString(content),
     responseTo: responseTo ? parseResponses(responseTo) : undefined,
