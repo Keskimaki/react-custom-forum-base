@@ -13,7 +13,8 @@ import Threads from './components/boards/threads'
 import Posts from './components/boards/posts'
 import Login from './components/Login'
 import CreateAccount from './components/CreateAccount'
-import User from './components/User'
+import User from './components/user'
+import EditUser from './components/user/EditUser'
 import Footer from './components/Footer'
 import InfoBar from './components/InfoBar'
 import Notification from './components/Notification'
@@ -42,6 +43,7 @@ const App = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/account" element={<CreateAccount />} />
             <Route path='/user' element={<User />} />
+            <Route path='/user/edit' element={<EditUser />} />
           </Routes>
           <Notification />
         </div>

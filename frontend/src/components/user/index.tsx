@@ -1,8 +1,9 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { RootState } from '../store'
-import { LoggedUser, UserType } from '../types'
-import styles from '../styles'
+import { Link } from 'react-router-dom'
+import { RootState } from '../../store'
+import { LoggedUser, UserType } from '../../types'
+import styles from '../../styles'
 
 const User = () => {
   const loginData: LoggedUser = useSelector((state: RootState) => state.user)
@@ -27,12 +28,21 @@ const User = () => {
         <h1 style={styles.subHeader}>{user.username} </h1>
         {user.privileges !== 'user' && user.privileges}
         <br />
-        {user.email}
-        <br />
+        {user.email && <br />}
         Following: {user.following.map(following => users.find(user => user.id === following)?.username).join(', ')}
         <br />
-        {user.details /*TODO*/}
-      </div>      
+        {user.details
+          ? user.details
+          : <>
+            No details
+            <br />
+            <Link to="/user/edit">
+            <button style={styles.postButton}>
+              edit profile
+            </button>
+            </Link>
+            </>}
+      </div>
       <h2 style={styles.subHeader}>Posts: </h2>
       {user.posts.slice().reverse().map(post => 
         <div key={post.id} style={styles.board}>
