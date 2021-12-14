@@ -1,7 +1,12 @@
 import axios from 'axios'
-import { PostType } from '../types'
+import { PostType, PostExpanded } from '../types'
 
 const baseUrl = 'http://localhost:3003/api/posts'
+
+const getAll = async () => {
+  const res = await axios.get<PostExpanded[]>(baseUrl)
+  return res.data
+}
 
 const makePost = async (content: string, user: string, thread: string, token: string, responseTo : string[] = []) => {
   const newPost = {
@@ -23,6 +28,7 @@ const deletePost = async (postId: string, userId: string, token: string) => {
 }
 
 const postService = {
+  getAll,
   makePost,
   editPost,
   deletePost

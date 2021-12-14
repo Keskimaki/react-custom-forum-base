@@ -16,7 +16,7 @@ import CreateAccount from './components/CreateAccount'
 import User from './components/user'
 import EditUser from './components/user/EditUser'
 import Footer from './components/Footer'
-import InfoBar from './components/InfoBar'
+import InfoBar from './components/infobar'
 import Notification from './components/Notification'
 import ScrollToTop from './components/ScrollToTop'
 

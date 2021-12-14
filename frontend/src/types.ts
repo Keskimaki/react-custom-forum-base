@@ -50,7 +50,7 @@ export interface ThreadType {
   id: string
 }
 
-export interface PostType {
+interface PostBase {
   user: string,
   content: string,
   date: Date,
@@ -58,8 +58,15 @@ export interface PostType {
   responseTo: string[],
   repliesTo: string[],
   status: PostStatus,
-  thread: string
   id: string
+}
+
+export interface PostType extends PostBase {
+  thread: string
+}
+
+export interface PostExpanded extends PostBase {
+  thread: ThreadType
 }
 
 export interface NotificationType {
