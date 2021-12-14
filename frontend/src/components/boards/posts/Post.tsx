@@ -7,6 +7,7 @@ import { RootState } from '../../../store'
 import postService from '../../../services/posts'
 import userService from '../../../services/users'
 import { initializeBoards } from '../../../reducers/boardReducer'
+import { initializeUsers } from '../../../reducers/userReducer'
 
 type Types = { post: PostType, editing: string, setEditing: React.Dispatch<React.SetStateAction<string>>, setComment: React.Dispatch<React.SetStateAction<string>>, responseTo: string[], setResponseTo: React.Dispatch<React.SetStateAction<string[]>> }
 
@@ -28,7 +29,7 @@ const Post = ({ post, editing, setEditing, setComment, responseTo, setResponseTo
     setResponseTo([])
   }
 
-  const handleUserFollowing = (followId: string) => {
+  const handleUserFollowing = async (followId: string) => {
     let following: string[]
     if (!user) {
       following = [followId]
@@ -39,9 +40,8 @@ const Post = ({ post, editing, setEditing, setComment, responseTo, setResponseTo
         following = user.following.concat(followId)
       }
     }
-    userService.editUser({ following }, loginData.id, loginData.token)
-    window.location.reload() //Fix later
-    //dispatch(initializeUsers())
+    await userService.editUser({ following }, loginData.id, loginData.token)
+    dispatch(initializeUsers())
   }
 
   const addToReplies = () => {
