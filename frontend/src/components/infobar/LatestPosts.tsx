@@ -33,12 +33,12 @@ const LatestPosts = () => {
 
 const Post = ({ post, users }: { post: PostExpanded, users: UserType[] }) => {
   const username = users.find(user => user.id === post.user)?.username
-
   return (
     <div>
       <strong>{username}</strong>:
       {post.content.substring(0, 140)}{post.content.length > 140 && <>...</>}
-      <> in {post.thread.name}</> 
+      <> in {post.thread.name} </>
+      {new Date(post.date).toLocaleString('ger', { day: 'numeric', month: 'numeric', year: '2-digit', hour: 'numeric', minute:'numeric' })}.
     </div>
   )
 }

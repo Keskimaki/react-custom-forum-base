@@ -58,7 +58,8 @@ const Post = ({ post, editing, setEditing, setComment, responseTo, setResponseTo
   return (
     <div style={styles.board}>
       <div style={styles.secondaryText}>{post.responseTo.join(', ')}</div>
-      <strong>{username ? username : <>deleted</>}</strong>
+      <strong>{username ? username : <>deleted</>} </strong>
+      <span style={styles.secondaryText}>{new Date(post.date).toLocaleString('ger', { day: 'numeric', month: 'numeric', year: '2-digit', hour: 'numeric', minute:'numeric', second:'numeric' })}</span>
       <br />
       {post.content}
       <br />
