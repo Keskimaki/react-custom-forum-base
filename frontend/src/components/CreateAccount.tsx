@@ -45,6 +45,7 @@ const CreateAccount = () => {
         <br />
         <input
           style={styles.textInput}
+          type="email"
           placeholder="email (optional)"
           value={email}
           onChange={({ target }) => setEmail(target.value) } />
