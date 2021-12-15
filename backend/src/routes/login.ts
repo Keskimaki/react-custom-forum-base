@@ -11,7 +11,7 @@ const loginRouter = express.Router()
 loginRouter.post('/', async (req, res) => {
   const loginData = toLogin(req.body)
 
-  const user: UserType | null = await User.findOne({ username: loginData.username })
+  const user: UserType | null = await User.findOne({ username: loginData.username }).select('+passwordHash')
 
   if (!user) {
     return res.status(404).json({
