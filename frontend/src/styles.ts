@@ -64,7 +64,7 @@ const mouseoverPost: CSS.Properties = {
   padding: '10px',
   marginBottom: '10px',
   fontSize: '20px',
-  position: 'absolute',
+  position: 'fixed',
   //top: '40vh',
   //left: '40vw',
   border: '2px solid #586069'

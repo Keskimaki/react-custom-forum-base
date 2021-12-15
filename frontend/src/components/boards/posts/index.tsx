@@ -56,19 +56,14 @@ const Mouseover = ({ post, position }: { post: PostType, position: string[] }) =
   const users = useSelector((state: RootState) => state.users)
   const username = users.find(user => user.id === post.user)?.username
 
-  const mouseoverPost: CSS.Properties = {
-    backgroundColor: '#FFF',
-    padding: '10px',
-    marginBottom: '10px',
-    fontSize: '20px',
-    position: 'fixed',
-    top: `${position[1]}px`,
-    left: `${position[0]}px`,
-    border: '2px solid #586069'
+  const style: CSS.Properties = {
+    ...styles.mouseoverPost,
+    left: `${Number(position[0]) + 10}px`,
+    top: `${position[1]}px`
   }
 
   return (
-    <div style={mouseoverPost}>
+    <div style={style}>
       <strong>{username ? username : <>deleted</>} </strong>
       <span style={styles.secondaryText}>{new Date(post.date).toLocaleString('ger', { day: 'numeric', month: 'numeric', year: '2-digit', hour: 'numeric', minute:'numeric', second:'numeric' })}</span>
       <br />
