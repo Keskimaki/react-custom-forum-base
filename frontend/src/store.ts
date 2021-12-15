@@ -3,12 +3,14 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import thunk from 'redux-thunk'
 import boardReducer from './reducers/boardReducer'
 import userReducer from './reducers/userReducer'
+import postReducer from './reducers/postReducer'
 import loginReducer from './reducers/loginReducer'
 import notificationReducer from './reducers/notificationReducer'
 
 const reducer = combineReducers({
   boards: boardReducer,
   users: userReducer,
+  posts: postReducer,
   user: loginReducer,
   notification: notificationReducer
 })
