@@ -8,6 +8,7 @@ import { setNotification } from '../reducers/notificationReducer'
 import { initializeUsers } from '../reducers/userReducer'
 import loginService from '../services/login'
 import { RootState } from '../store'
+import { LoggedUser } from '../types'
 
 const CreateAccount = () => {
   const [ username, setUsername ] = useState('')
@@ -33,9 +34,8 @@ const CreateAccount = () => {
       dispatch(setNotification('Password and repeat do not match', 'negative'))
     } else {
       await userService.createAccount(username, password, email)
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const loginData: any = await loginService.login(username, password) //Will alway be LoggedUser and never undefined since the account is just created
-      dispatch(saveLoginData(loginData))
+      const loginData = await loginService.login(username, password)
+      dispatch(saveLoginData(loginData as LoggedUser)) //Will alway be LoggedUser and never undefined because the account was just created
       dispatch(initializeUsers())
       navigate('/boards')
       dispatch(setNotification('Account created', 'positive'))

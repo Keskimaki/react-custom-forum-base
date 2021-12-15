@@ -68,7 +68,7 @@ const parseString = (text: unknown, type: string): string => {
   }
   return text
 }
-
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const parseDetails = (details: any): UserDetails => {
   const newDetails: UserDetails = {
     name: parseString(details.name, 'name'),
