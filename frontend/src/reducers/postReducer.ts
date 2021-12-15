@@ -1,13 +1,13 @@
 import postService from '../services/posts'
-import { PostExpanded } from '../types'
+import { PostType } from '../types'
 import { AppDispatch } from '../store'
 
 interface PostAction {
   type: 'INIT_POSTS'
-  data: PostExpanded[]
+  data: PostType[]
 }
 
-const postReducer = (state: PostExpanded[] = [], action: PostAction) => {
+const postReducer = (state: PostType[] = [], action: PostAction) => {
   switch (action.type) {
     case 'INIT_POSTS':
       return action.data

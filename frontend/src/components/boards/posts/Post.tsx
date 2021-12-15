@@ -8,6 +8,7 @@ import postService from '../../../services/posts'
 import userService from '../../../services/users'
 import { initializeBoards } from '../../../reducers/boardReducer'
 import { initializeUsers } from '../../../reducers/userReducer'
+import { initializePosts } from '../../../reducers/postReducer'
 
 type Types = { post: PostType, editing: string, setEditing: React.Dispatch<React.SetStateAction<string>>, setComment: React.Dispatch<React.SetStateAction<string>>, responseTo: string[], setResponseTo: React.Dispatch<React.SetStateAction<string[]>>, setMouseover: React.Dispatch<React.SetStateAction<string[]>> }
 
@@ -26,6 +27,7 @@ const Post = ({ post, editing, setEditing, setComment, responseTo, setResponseTo
   const handlePostDeletion = () => {
     postService.deletePost(post.id, loginData.id, loginData.token)
     dispatch(initializeBoards())
+    dispatch(initializePosts())
     setResponseTo([])
   }
 

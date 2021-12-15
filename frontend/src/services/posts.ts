@@ -1,10 +1,10 @@
 import axios from 'axios'
-import { PostType, PostExpanded } from '../types'
+import { PostType } from '../types'
 
 const baseUrl = 'http://localhost:3003/api/posts'
 
 const getAll = async () => {
-  const res = await axios.get<PostExpanded[]>(baseUrl)
+  const res = await axios.get<PostType[]>(baseUrl)
   return res.data
 }
 

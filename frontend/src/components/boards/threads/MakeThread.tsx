@@ -6,6 +6,7 @@ import { LoggedUser } from '../../../types'
 import { RootState } from '../../../store'
 import styles from '../../../styles'
 import { initializeBoards } from '../../../reducers/boardReducer'
+import { initializePosts } from '../../../reducers/postReducer'
 import { setNotification } from '../../../reducers/notificationReducer'
 
 const MakeThread = ({ boardId }: { boardId: string}) => {
@@ -27,6 +28,8 @@ const MakeThread = ({ boardId }: { boardId: string}) => {
     await postService.makePost(comment, user.id, newThread.id, user.token)
 
     dispatch(initializeBoards())
+    dispatch(initializePosts())
+
     setTitle('')
     setComment('')
   }
