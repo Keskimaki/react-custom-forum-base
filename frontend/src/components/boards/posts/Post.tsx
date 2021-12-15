@@ -57,7 +57,11 @@ const Post = ({ post, editing, setEditing, setComment, responseTo, setResponseTo
 
   return (
     <div style={styles.board}>
-      <div style={styles.secondaryText}>{post.responseTo.join(', ')}</div>
+      {post.responseTo.map(response => 
+        <span style ={styles.secondaryText} key={response} onMouseOver={() => console.log(response)}>
+          <>{response} </>
+        </span>)}
+      {post.responseTo.length > 0 && <br />}
       <strong>{username ? username : <>deleted</>} </strong>
       <span style={styles.secondaryText}>{new Date(post.date).toLocaleString('ger', { day: 'numeric', month: 'numeric', year: '2-digit', hour: 'numeric', minute:'numeric', second:'numeric' })}</span>
       <br />
@@ -84,7 +88,14 @@ const Post = ({ post, editing, setEditing, setComment, responseTo, setResponseTo
               </button>
             </>
           : null}
-        {post.repliesTo.length > 0 && <span style={styles.secondaryText}>replies: {post.repliesTo.join(', ')} <br /></span>}
+        {post.repliesTo.length > 0 &&
+          <span style ={styles.secondaryText}>
+            <>replies: </> 
+            {post.repliesTo.map(reply => 
+              <span key={reply} onMouseOver={() => console.log(reply)}>
+                <>{reply} </>
+              </span>)}
+            </span>}
     </div>
   )
 }
