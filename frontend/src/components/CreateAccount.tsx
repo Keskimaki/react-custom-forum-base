@@ -43,7 +43,8 @@ const CreateAccount = () => {
   }
 
   return (
-    <div style={styles.login}>
+    <div style={styles.form}>
+      <h1 style={styles.subHeader}>Create Account</h1>
       <form onSubmit={handleAccountCreation}>
         <input
           required
@@ -76,7 +77,7 @@ const CreateAccount = () => {
           onChange={({ target }) => setRepeatPassword(target.value) } />
         <br />
         <button style={styles.button} type="submit">
-          Create Account
+          create
         </button>
       </form>
     </div>

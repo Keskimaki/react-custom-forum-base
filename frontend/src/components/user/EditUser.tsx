@@ -37,8 +37,8 @@ const EditUser = () => {
   }
 
   return (
-    <div>
-      <h1 style={{ margin: 0 }}>Editing profile</h1>
+    <div style={styles.edit}>
+      <h1 style={styles.subHeader}>Edit profile</h1>
       <form onSubmit={handleProfileUpdating}>
         <input 
           style={styles.textInput}

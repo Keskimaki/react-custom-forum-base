@@ -34,7 +34,8 @@ const Login = () => {
   }
 
   return (
-    <div style={styles.login}>
+    <div style={styles.form}>
+      <h1 style={styles.subHeader}>Login</h1>
       <form onSubmit={handleLogin}>
         <input
           required

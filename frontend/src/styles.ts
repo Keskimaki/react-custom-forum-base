@@ -66,18 +66,23 @@ const link: CSS.Properties = {
 
 const subHeader: CSS.Properties = {
     margin: 0,
-    display: 'inline'
+    display: 'inline',
 }
 
-const login: CSS.Properties = {
+const form: CSS.Properties = {
   backgroundColor: '#FFF',
-  //padding: '150px 22.5vw',
-  width: '70vw',
-  height: '600px',
-  //margin: '10px',
+  paddingTop: '10px',
+  paddingBottom: '60px',
   display: 'flex',
+  flexDirection: 'column',
   justifyContent: 'space-around',
-  alignItems: 'center',
+  alignItems: 'center'
+}
+
+const edit: CSS.Properties = {
+  backgroundColor: '#fff',
+  padding: '10px',
+  paddingBottom: '60px'
 }
 
 const secondaryText:CSS.Properties = {
@@ -195,7 +200,8 @@ const styles = {
   board,
   link,
   subHeader,
-  login,
+  form,
+  edit,
   secondaryText,
   textInput,
   threadInput,
