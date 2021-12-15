@@ -19,7 +19,8 @@ const createAccount = async (username: string, password: string, email: string) 
 
 type Edit = {
   following?: string[],
-  details?: UserDetails
+  details?: UserDetails,
+  email?: string
 }
 
 const editUser = async (editData: Edit, userId: string, token: string) => {

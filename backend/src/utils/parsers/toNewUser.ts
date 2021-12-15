@@ -80,13 +80,15 @@ const parseDetails = (details: any): UserDetails => {
 
 type Edit = {
   following?: ObjectId[],
-  details?: UserDetails
+  details?: UserDetails,
+  email?: string
 }
 
-export const toEditUser = ({ following = null, details }: { following: unknown, details: unknown }): Edit => {
+export const toEditUser = ({ following = null, details, email }: { following: unknown, details: unknown, email: unknown }): Edit => {
   const editUser = {
     following: following ? parseFollowing(following) : undefined,
-    details: details ? parseDetails(details) : undefined
+    details: details ? parseDetails(details) : undefined,
+    email: email ? parseEmail(email) : undefined
   }
   return editUser
 }

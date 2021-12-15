@@ -18,17 +18,19 @@ const EditUser = () => {
   if (!user) return null
 
   const [name, setName] = useState(user.details?.name ? user.details.name : '')
+  const [email, setEmail] = useState(user.email ? user.email : '')
   const [location, setLocation] = useState(user.details?.location ? user.details.location : '')
   const [description, setDescription] = useState(user.details?.description ? user.details.description : '')
 
   const handleProfileUpdating = async (event: React.SyntheticEvent) => {
     event.preventDefault()
+
     const details = {
       name,
       location,
       description      
     }
-    await userService.editUser({ details }, loginData.id, loginData.token)
+    await userService.editUser({ details, email: email ? email: undefined }, loginData.id, loginData.token)
     dispatch(initializeUsers())
     navigate('/user')
     dispatch(setNotification('Profile updated', 'positive'))
@@ -43,6 +45,13 @@ const EditUser = () => {
           placeholder="name"
           value={name}
           onChange={({ target }) => setName(target.value) } />
+        <br />
+        <input 
+          style={styles.textInput}
+          type="email"
+          placeholder="email"
+          value={email}
+          onChange={({ target }) => setEmail(target.value) } />
         <br />
         <input 
           style={styles.textInput}
