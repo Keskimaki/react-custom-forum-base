@@ -9,9 +9,9 @@ import userService from '../../../services/users'
 import { initializeBoards } from '../../../reducers/boardReducer'
 import { initializeUsers } from '../../../reducers/userReducer'
 
-type Types = { post: PostType, editing: string, setEditing: React.Dispatch<React.SetStateAction<string>>, setComment: React.Dispatch<React.SetStateAction<string>>, responseTo: string[], setResponseTo: React.Dispatch<React.SetStateAction<string[]>> }
+type Types = { post: PostType, editing: string, setEditing: React.Dispatch<React.SetStateAction<string>>, setComment: React.Dispatch<React.SetStateAction<string>>, responseTo: string[], setResponseTo: React.Dispatch<React.SetStateAction<string[]>>, setMouseover: React.Dispatch<React.SetStateAction<string[]>> }
 
-const Post = ({ post, editing, setEditing, setComment, responseTo, setResponseTo }: Types) => {
+const Post = ({ post, editing, setEditing, setComment, responseTo, setResponseTo, setMouseover }: Types) => {
   const dispatch = useDispatch()
   const loginData: LoggedUser = useSelector((state: RootState) => state.user)
   const users = useSelector((state: RootState) => state.users)
@@ -58,7 +58,7 @@ const Post = ({ post, editing, setEditing, setComment, responseTo, setResponseTo
   return (
     <div style={styles.board}>
       {post.responseTo.map(response => 
-        <span style ={styles.secondaryText} key={response} onMouseOver={() => console.log(response)}>
+        <span style ={styles.secondaryText} key={response} onMouseEnter={(event) => setMouseover([response, `${event.clientX} ${event.clientY}`])} onMouseLeave={() => setMouseover(['', ''])}>
           <>{response} </>
         </span>)}
       {post.responseTo.length > 0 && <br />}
@@ -92,7 +92,7 @@ const Post = ({ post, editing, setEditing, setComment, responseTo, setResponseTo
           <span style ={styles.secondaryText}>
             <>replies: </> 
             {post.repliesTo.map(reply => 
-              <span key={reply} onMouseOver={() => console.log(reply)}>
+              <span key={reply} onMouseEnter={(event) => setMouseover([reply, `${event.clientX} ${event.clientY}`])} onMouseLeave={() => setMouseover(['', ''])}>
                 <>{reply} </>
               </span>)}
             </span>}

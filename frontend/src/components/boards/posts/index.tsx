@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router'
 import { useSelector } from 'react-redux'
-import { BoardType } from '../../../types'
+import CSS from 'csstype'
+import { BoardType, PostType } from '../../../types'
 import { RootState } from '../../../store'
 import MakePost from './MakePost'
+import styles from '../../../styles'
 
 import Post from './Post'
 
@@ -11,9 +13,9 @@ const Posts = () => {
   const [responseTo, setResponseTo] = useState<string[]>([])
   const [comment, setComment] = useState('')
   const [editing, setEditing] = useState('')
+  const [mouseover, setMouseover] = useState(['', ''])
 
   const { boardName, threadName } = useParams()
-  //const users = useSelector((state: RootState) => state.users)
   const boards: BoardType[] = useSelector((state: RootState) => state.boards)
   const thread = boards.
     find(board => board.url === boardName)?.threads.
@@ -21,14 +23,12 @@ const Posts = () => {
 
   if (!thread) return null
 
+  const mouseoverPost =  thread.posts.find(post => post.id === mouseover[0])
+
   return (
     <div>
       <h1>{thread.name}</h1>
-      {/*thread.description && 
-        <div style={styles.board}>
-          <strong>{users.find(user => user.id === thread.user)?.username}</strong> <br />
-          {thread.description}
-        </div>*/}
+      {mouseoverPost && <Mouseover post={mouseoverPost} position={mouseover[1].split(' ')} />}
       {thread.posts.map(post =>
         <Post 
           key={post.id} 
@@ -37,7 +37,8 @@ const Posts = () => {
           setEditing={setEditing}
           setComment={setComment}
           responseTo={responseTo}
-          setResponseTo={setResponseTo} />
+          setResponseTo={setResponseTo}
+          setMouseover={setMouseover}/>
       )}
       <MakePost 
         threadId={thread.id}
@@ -47,6 +48,31 @@ const Posts = () => {
         setComment={setComment}
         responseTo={responseTo}
         setResponseTo={setResponseTo} />
+    </div>
+  )
+}
+
+const Mouseover = ({ post, position }: { post: PostType, position: string[] }) => {
+  const users = useSelector((state: RootState) => state.users)
+  const username = users.find(user => user.id === post.user)?.username
+
+  const mouseoverPost: CSS.Properties = {
+    backgroundColor: '#FFF',
+    padding: '10px',
+    marginBottom: '10px',
+    fontSize: '20px',
+    position: 'fixed',
+    top: `${position[1]}px`,
+    left: `${position[0]}px`,
+    border: '2px solid #586069'
+  }
+
+  return (
+    <div style={mouseoverPost}>
+      <strong>{username ? username : <>deleted</>} </strong>
+      <span style={styles.secondaryText}>{new Date(post.date).toLocaleString('ger', { day: 'numeric', month: 'numeric', year: '2-digit', hour: 'numeric', minute:'numeric', second:'numeric' })}</span>
+      <br />
+      {post.content}
     </div>
   )
 }

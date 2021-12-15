@@ -59,6 +59,17 @@ const board: CSS.Properties = {
   fontSize: '20px',
 }
 
+const mouseoverPost: CSS.Properties = {
+  backgroundColor: '#FFF',
+  padding: '10px',
+  marginBottom: '10px',
+  fontSize: '20px',
+  position: 'absolute',
+  //top: '40vh',
+  //left: '40vw',
+  border: '2px solid #586069'
+}
+
 const link: CSS.Properties = {
   textDecoration: 'inherit',
   color: 'inherit'
@@ -198,6 +209,7 @@ const styles = {
   infoBar,
   infoBarItem,
   board,
+  mouseoverPost,
   link,
   subHeader,
   form,
