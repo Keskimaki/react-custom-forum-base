@@ -35,7 +35,7 @@ userRouter.delete('/:id', async (req, res) => {
   if (!getToken(req.get('authorization'))) {
     return res.status(401).json({ error: 'token missing or invalid'} )
   }
-  const user: UserType | null = await User.findById(req.params.id)
+  const user: UserType | null = await User.findById(req.params.id).select('+passwordHash')
   const passwordCorrect = user
     ? await bcrypt.compare(req.body.password, user.passwordHash)
     : false

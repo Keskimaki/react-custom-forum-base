@@ -27,10 +27,15 @@ const editUser = async (editData: Edit, userId: string, token: string) => {
   await axios.put(`${baseUrl}/${userId}`, editData, { headers: { Authorization: token } })
 }
 
+const deleteUser = async (userId: string, password: string, token: string) => {
+  await axios.delete(`${baseUrl}/${userId}`, { headers: { Authorization: token }, data: { password } })
+}
+
 const userService = {
   getAll,
   createAccount,
-  editUser
+  editUser,
+  deleteUser
 }
 
 export default userService
