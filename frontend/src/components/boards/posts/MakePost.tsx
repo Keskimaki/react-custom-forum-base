@@ -5,6 +5,7 @@ import postService from '../../../services/posts'
 import { LoggedUser } from '../../../types'
 import styles from '../../../styles'
 import { initializeBoards } from '../../../reducers/boardReducer'
+import { initializePosts } from '../../../reducers/postReducer'
 
 type Types = { threadId: string, editing: string, setEditing: React.Dispatch<React.SetStateAction<string>>, comment: string, setComment: React.Dispatch<React.SetStateAction<string>>, responseTo: string[], setResponseTo: React.Dispatch<React.SetStateAction<string[]>> }
 
@@ -18,7 +19,9 @@ const MakePost = ({ threadId, editing, setEditing, comment, setComment, response
     editing
       ? await postService.editPost(comment, responseTo, editing, user.id, user.token)
       : await postService.makePost(comment, user.id, threadId, user.token, responseTo)
+
     dispatch(initializeBoards())
+    dispatch(initializePosts())
 
     setComment('')
     setResponseTo([])
