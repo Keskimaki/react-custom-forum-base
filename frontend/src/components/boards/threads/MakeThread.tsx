@@ -20,8 +20,10 @@ const MakeThread = ({ boardId }: { boardId: string}) => {
     if (title.includes('#')) {
       dispatch(setNotification("Thread title cannot include character '#'", 'negative'))
       return null
+    } else if (title.length < 5) {
+      dispatch(setNotification('Thread title must be at least five characters long', 'negative'))
     }
-    const newThread = await threadService.makeThread(title/*, comment*/, user.id, boardId, user.token)
+    const newThread = await threadService.makeThread(title, user.id, boardId, user.token)
     await postService.makePost(comment, user.id, newThread.id, user.token)
 
     dispatch(initializeBoards())

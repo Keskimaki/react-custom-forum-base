@@ -29,10 +29,9 @@ const parseStatus = (status: unknown): ThreadStatus => {
 
 type Fields = { name: unknown, description: unknown, user: unknown, board: unknown, status: unknown }
 
-const toNewThread = ({ name, /*description, */user, board, status }: Fields): ThreadType => {
+const toNewThread = ({ name, user, board, status }: Fields): ThreadType => {
   const newThread: ThreadType = {
     name: parseString(name),
-    //description: parseString(description),
     user: parseUser(user),
     board: parseBoard(board),
     status: status ? parseStatus(status) : 'open',
