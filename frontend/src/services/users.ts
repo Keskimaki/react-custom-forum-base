@@ -28,6 +28,10 @@ const editUser = async (editData: Edit, userId: string, token: string) => {
   await axios.put(`${baseUrl}/${userId}`, editData, { headers: { Authorization: token } })
 }
 
+const updateUserImage = async (imageUrl: string, userId: string, token: string) => {
+  await axios.put(`${baseUrl}/${userId}/image`, { imageUrl }, { headers: { Authorization: token } })
+}
+
 const deleteUser = async (userId: string, password: string, token: string) => {
   await axios.delete(`${baseUrl}/${userId}`, { headers: { Authorization: token }, data: { password } })
 }
@@ -36,6 +40,7 @@ const userService = {
   getAll,
   createAccount,
   editUser,
+  updateUserImage,
   deleteUser
 }
 

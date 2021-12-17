@@ -28,14 +28,21 @@ userRouter.put('/:id', async (req, res) => {
     return res.status(400).json({ error: 'invalid id' })
   }
   const editData = toEditUser(req.body)
-  //Image stuff here for now
-  if (editData.image) {
-    await imageService.downloadImage(editData.image, `${user.username}.png`)
-    imageService.uploadImage('forumbaseuserprofiles', `${user.username}.png`)
-    res.status(204).end()
-    return null
-  }
   await User.findByIdAndUpdate(req.params.id, editData)
+  res.status(204).end()
+})
+
+userRouter.put('/:id/image', async (req, res) => {
+  if (!getToken(req.get('authorization'))) {
+    return res.status(401).json({ error: 'token missing or invalid'} )
+  }
+  const user: UserType | null = await User.findById(req.params.id)
+  if (!user) {
+    return res.status(400).json({ error: 'invalid id' })
+  }
+  const imageUrl = req.body.imageUrl
+  await imageService.downloadImage(imageUrl, `${user.username}.png`)
+  imageService.uploadImage('forumbaseuserprofiles', `${user.username}.png`)
   res.status(204).end()
 })
 

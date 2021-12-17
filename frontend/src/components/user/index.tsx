@@ -100,7 +100,7 @@ const ProfilePicture = () => {
   const handleProfilePictureSubmit = async (event: React.SyntheticEvent) => {
     event.preventDefault()
 
-    await userService.editUser({ image: imageUrl }, loginData.id, loginData.token)
+    await userService.updateUserImage(imageUrl, loginData.id, loginData.token)
     setTimeout(() => window.location.reload(), 500) //Maybe fix later
     //dispatch(setNotification('Profile picture updated', 'positive'))
   }
