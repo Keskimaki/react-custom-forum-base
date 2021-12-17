@@ -26,7 +26,9 @@ userRouter.put('/:id', async (req, res) => {
   if (!user) {
     return res.status(400).json({ error: 'invalid id' })
   }
+  console.log(req.body)
   const editData = toEditUser(req.body)
+  console.log(editData)
   await User.findByIdAndUpdate(req.params.id, editData)
   res.status(204).end()
 })

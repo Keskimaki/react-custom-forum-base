@@ -93,7 +93,18 @@ const User = () => {
 }
 
 const ProfilePicture = ({ image }: { image: string | undefined }) => {
-  const [newImage, setNewImage] = useState<File | null>(null)
+  const [newImage, setNewImage] = useState<File | undefined>(undefined)
+
+  const dispatch = useDispatch()
+  const loginData: LoggedUser = useSelector((state: RootState) => state.user)
+
+  const handleProfilePictureSubmit = async (event: React.SyntheticEvent) => {
+    event.preventDefault()
+
+    await userService.editUser({ image: newImage }, loginData.id, loginData.token)
+    dispatch(initializeUsers())
+    dispatch(setNotification('Profile picture updated', 'positive'))
+  }
 
   return (
     <div style={{ float: 'right' }}>
@@ -102,7 +113,7 @@ const ProfilePicture = ({ image }: { image: string | undefined }) => {
         style={{ width: '150px', border: '2px solid #586069' }}
       />
       <br />
-      <form>
+      <form onSubmit={handleProfilePictureSubmit}>
         <input
           type="file"
           accept='image/*'
