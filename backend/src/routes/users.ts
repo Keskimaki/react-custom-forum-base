@@ -4,9 +4,7 @@ import User from '../models/user'
 import toNewUser, { toEditUser } from '../utils/parsers/toNewUser'
 import { UserType } from '../types'
 import getToken from '../utils/getToken'
-
-import downloadImage from '../utils/downloadImage'
-import uploadImage from '../utils/uploadImage'
+import imageService from '../utils/imageService'
 
 const userRouter = express.Router()
 
@@ -32,8 +30,8 @@ userRouter.put('/:id', async (req, res) => {
   const editData = toEditUser(req.body)
   //Image stuff here for now
   if (editData.image) {
-    await downloadImage(editData.image, `${user.username}.png`)
-    uploadImage('forumbaseuserprofiles', `${user.username}.png`)
+    await imageService.downloadImage(editData.image, `${user.username}.png`)
+    imageService.uploadImage('forumbaseuserprofiles', `${user.username}.png`)
     res.status(204).end()
     return null
   }
