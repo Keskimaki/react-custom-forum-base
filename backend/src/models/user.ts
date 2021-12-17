@@ -22,7 +22,7 @@ const userSchema = new mongoose.Schema({
   },
   following: Array,
   privileges: String,
-  image: Image,
+  image: String,
   details: {
     name: String,
     location: String,
