@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
@@ -48,27 +48,29 @@ const User = () => {
 
   return (
     <div>
-      <div style={styles.board}>
+      <div style={{ ...styles.board, minHeight: '200px' }}>
+        <ProfilePicture image={user.image}/>
         <h1 style={styles.subHeader}>{user.username} </h1>
-        <img 
-          src="https://forumbaseuserprofiles.s3.eu-central-1.amazonaws.com/default.png"  
-          style={styles.profilePicture} /> {/*placeholder*/}
         {user.privileges !== 'user' && user.privileges}
         <br />
         {user.email && <>{user.email} <br /></>}
-        Following: {user.following.map(following => users.find(user => user.id === following)?.username).join(', ')}
+        <strong>Following:</strong> 
+        <br />
+        {user.following.length != 0
+          ? user.following.map(following => users.find(user => user.id === following)?.username).join(', ')
+          : <>not following</>}
+        <br />
+        <strong>Details:</strong>
         <br />
         {user.details
           ? 
             <>
-              <strong>Details:</strong>
-              <br />
               {user.details.name} {user.details.location}
               <br />
               {user.details.description}
             </>
           : 
-            <>No details</>}
+            <>no details <br /></>}
         <br />
         <Link to="/user/edit">
           <button style={styles.postButton}>
@@ -86,6 +88,32 @@ const User = () => {
           <br />
           {post.content}
         </div>)}
+    </div>
+  )
+}
+
+const ProfilePicture = ({ image }: { image: string | undefined }) => {
+  const [newImage, setNewImage] = useState<File | null>(null)
+
+  return (
+    <div style={{ float: 'right' }}>
+      <img 
+        src={image ? image : "https://forumbaseuserprofiles.s3.eu-central-1.amazonaws.com/default.png"}  
+        style={{ width: '150px', border: '2px solid #586069' }}
+      />
+      <br />
+      <form>
+        <input
+          type="file"
+          accept='image/*'
+          style={{ width: '150px' }}
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          onChange={(event: any) => {setNewImage(event.target.files[0])}} />
+        <br />
+        <button type="submit">
+          Submit
+        </button>
+      </form>
     </div>
   )
 }

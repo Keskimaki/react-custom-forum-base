@@ -91,7 +91,7 @@ const form: CSS.Properties = {
 }
 
 const profilePicture: CSS.Properties = {
-  width: '150px',
+  width: '100px',//'150px',
   float: 'right',
   padding: '10px'
 }
