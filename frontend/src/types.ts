@@ -26,6 +26,7 @@ export interface UserType {
   posts: PostType[],
   following: string[],
   privileges: Privileges
+  image?: URL,
   details?: UserDetails
   id: string
 }
@@ -58,6 +59,7 @@ interface PostBase {
   responseTo: string[],
   repliesTo: string[],
   status: PostStatus,
+  image?: URL
   id: string
 }
 

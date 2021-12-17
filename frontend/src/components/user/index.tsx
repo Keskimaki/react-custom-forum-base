@@ -51,8 +51,8 @@ const User = () => {
       <div style={styles.board}>
         <h1 style={styles.subHeader}>{user.username} </h1>
         <img 
-          src="https://forumbaseuserprofiles.s3.eu-central-1.amazonaws.com/blank-profile-picture.png"  
-          style={{ width: '150px', float: 'right', padding: '10px' }} /> {/*placeholder*/}
+          src="https://forumbaseuserprofiles.s3.eu-central-1.amazonaws.com/default.png"  
+          style={styles.profilePicture} /> {/*placeholder*/}
         {user.privileges !== 'user' && user.privileges}
         <br />
         {user.email && <>{user.email} <br /></>}

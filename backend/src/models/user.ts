@@ -22,12 +22,12 @@ const userSchema = new mongoose.Schema({
   },
   following: Array,
   privileges: String,
+  image: Image,
   details: {
     name: String,
     location: String,
     description: String
-  },
-  picture: String
+  }
 })
 
 userSchema.set('toJSON', {

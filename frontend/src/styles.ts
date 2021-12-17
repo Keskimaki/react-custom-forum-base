@@ -90,6 +90,12 @@ const form: CSS.Properties = {
   alignItems: 'center'
 }
 
+const profilePicture: CSS.Properties = {
+  width: '150px',
+  float: 'right',
+  padding: '10px'
+}
+
 const edit: CSS.Properties = {
   backgroundColor: '#fff',
   padding: '10px',
@@ -214,6 +220,7 @@ const styles = {
   subHeader,
   form,
   edit,
+  profilePicture,
   secondaryText,
   textInput,
   threadInput,
