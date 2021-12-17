@@ -12,7 +12,7 @@ interface Upload {
   Body: fs.ReadStream | ''
 }
 
-const uploadImage = (bucket: string, file: string) => {
+const uploadImage = (bucket: string, file: any) => {
   console.log(bucket, file)
   const uploadParams: Upload = {
     Bucket: bucket,
@@ -22,19 +22,23 @@ const uploadImage = (bucket: string, file: string) => {
 
   const fileStream = fs.createReadStream(file)
   fileStream.on('error', function(err) {
-    console.log('File Error', err);
+    console.log('File Error', err)
   })
 
   uploadParams.Body = fileStream
   uploadParams.Key = path.basename(file)
 
-  console.log(uploadParams.Bucket, uploadParams.Key)
-
   s3.upload(uploadParams, (err: any, data: any) => {
     if (err) {
-      console.log("Error", err);
+      console.log("Error", err)
     } if (data) {
-      console.log("Upload Success", data.Location);
+      console.log("Upload Success", data.Location)
+    }
+  })
+  
+  fs.unlink(uploadParams.Key, (err) => {
+    if (err) {
+      console.log("Error", err)
     }
   })
 }

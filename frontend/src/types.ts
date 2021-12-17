@@ -26,7 +26,6 @@ export interface UserType {
   posts: PostType[]
   following: string[]
   privileges: Privileges
-  image?: string
   details?: UserDetails
   id: string
 }

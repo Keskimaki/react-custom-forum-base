@@ -5,6 +5,9 @@ import toNewUser, { toEditUser } from '../utils/parsers/toNewUser'
 import { UserType } from '../types'
 import getToken from '../utils/getToken'
 
+import downloadImage from '../utils/downloadImage'
+import uploadImage from '../utils/uploadImage'
+
 const userRouter = express.Router()
 
 userRouter.get('/', async (_req, res) => {
@@ -26,9 +29,14 @@ userRouter.put('/:id', async (req, res) => {
   if (!user) {
     return res.status(400).json({ error: 'invalid id' })
   }
-  console.log(req.body)
   const editData = toEditUser(req.body)
-  console.log(editData)
+  //Image stuff here for now
+  if (editData.image) {
+    await downloadImage(editData.image, `${user.username}.png`)
+    uploadImage('forumbaseuserprofiles', `${user.username}.png`)
+    res.status(204).end()
+    return null
+  }
   await User.findByIdAndUpdate(req.params.id, editData)
   res.status(204).end()
 })

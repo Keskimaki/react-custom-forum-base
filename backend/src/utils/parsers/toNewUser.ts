@@ -1,7 +1,9 @@
+//import fs from 'fs'
 import bcrypt from 'bcryptjs'
 import { ObjectId } from 'mongodb'
 import { isArray, isString, isObjectIdList } from '.'
 import { UserType, UserDetails } from "../../types"
+//import uploadImage from '../uploadImage'
 
 const parseUsername = (username: unknown): string => {
   if (!username || !isString(username) || username.length < 3) {
@@ -78,17 +80,26 @@ const parseDetails = (details: any): UserDetails => {
   return newDetails
 }
 
+const parseImage = (image: unknown): string => {
+  if (!image || !isString(image)) {
+    throw new Error('Incorrect or missing image url')
+  }
+  return image
+}
+
 type Edit = {
   following?: ObjectId[],
   details?: UserDetails,
-  email?: string
+  email?: string,
+  image?: string
 }
 
-export const toEditUser = ({ following = null, details, email }: { following: unknown, details: unknown, email: unknown }): Edit => {
-  const editUser = {
+export const toEditUser = ({ following = null, details, email, image }: { following: unknown, details: unknown, email: unknown, image: unknown }): Edit => {
+  const editUser: Edit = {
     following: following ? parseFollowing(following) : undefined,
     details: details ? parseDetails(details) : undefined,
-    email: email ? parseEmail(email) : undefined
+    email: email ? parseEmail(email) : undefined,
+    image: image ? parseImage(image) : undefined
   }
   return editUser
 }
