@@ -80,28 +80,23 @@ const parseDetails = (details: any): UserDetails => {
   return newDetails
 }
 
-const parseImage = (image: unknown): string => {
-  if (!image || !isString(image)) {
-    throw new Error('Incorrect or missing image url')
-  }
-  return image
-}
-
 type Edit = {
   following?: ObjectId[],
   details?: UserDetails,
-  email?: string,
-  image?: string
+  email?: string
 }
 
-export const toEditUser = ({ following = null, details, email, image }: { following: unknown, details: unknown, email: unknown, image: unknown }): Edit => {
+export const toEditUser = ({ following = null, details, email }: { following: unknown, details: unknown, email: unknown }): Edit => {
   const editUser: Edit = {
     following: following ? parseFollowing(following) : undefined,
     details: details ? parseDetails(details) : undefined,
     email: email ? parseEmail(email) : undefined,
-    image: image ? parseImage(image) : undefined
   }
   return editUser
+}
+
+export const toImageUrl = ({ imageUrl }: { imageUrl: unknown }): string => {
+  return parseString(imageUrl, 'image url')
 }
 
 export default toNewUser

@@ -1,7 +1,7 @@
 import express from 'express'
 import bcrypt from 'bcryptjs'
 import User from '../models/user'
-import toNewUser, { toEditUser } from '../utils/parsers/toNewUser'
+import toNewUser, { toEditUser, toImageUrl } from '../utils/parsers/toNewUser'
 import { UserType } from '../types'
 import getToken from '../utils/getToken'
 import imageService from '../utils/imageService'
@@ -40,7 +40,7 @@ userRouter.put('/:id/image', async (req, res) => {
   if (!user) {
     return res.status(400).json({ error: 'invalid id' })
   }
-  const imageUrl = req.body.imageUrl
+  const imageUrl = toImageUrl(req.body)
   await imageService.downloadImage(imageUrl, `${user.username}.png`)
   imageService.uploadImage('forumbaseuserprofiles', `${user.username}.png`)
   res.status(204).end()
