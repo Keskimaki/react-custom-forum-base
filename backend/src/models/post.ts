@@ -20,7 +20,6 @@ const postSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   },
-  image: String,
   thread: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Thread'

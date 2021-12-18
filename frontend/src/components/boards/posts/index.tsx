@@ -11,6 +11,7 @@ import Post from './Post'
 
 const Posts = () => {
   const [responseTo, setResponseTo] = useState<string[]>([])
+  const [imageUrl, setImageUrl] = useState('')
   const [comment, setComment] = useState('')
   const [editing, setEditing] = useState('')
   const [mouseover, setMouseover] = useState(['', ''])
@@ -44,6 +45,8 @@ const Posts = () => {
         threadId={thread.id}
         editing={editing}
         setEditing={setEditing}
+        imageUrl={imageUrl}
+        setImageUrl={setImageUrl}
         comment={comment}
         setComment={setComment}
         responseTo={responseTo}

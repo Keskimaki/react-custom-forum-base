@@ -55,6 +55,5 @@ export interface PostType {
   repliesTo: ObjectId[]
   status: PostStatus
   thread: ObjectId
-  image?: string
   id?: ObjectId
 }

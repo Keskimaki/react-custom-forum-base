@@ -58,7 +58,6 @@ interface PostBase {
   responseTo: string[]
   repliesTo: string[]
   status: PostStatus
-  image?: string
   id: string
 }
 

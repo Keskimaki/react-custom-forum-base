@@ -7,9 +7,9 @@ import styles from '../../../styles'
 import { initializeBoards } from '../../../reducers/boardReducer'
 import { initializePosts } from '../../../reducers/postReducer'
 
-type Types = { threadId: string, editing: string, setEditing: React.Dispatch<React.SetStateAction<string>>, comment: string, setComment: React.Dispatch<React.SetStateAction<string>>, responseTo: string[], setResponseTo: React.Dispatch<React.SetStateAction<string[]>> }
+type Types = { threadId: string, editing: string, setEditing: React.Dispatch<React.SetStateAction<string>>, imageUrl: string, setImageUrl: React.Dispatch<React.SetStateAction<string>>,  comment: string, setComment: React.Dispatch<React.SetStateAction<string>>, responseTo: string[], setResponseTo: React.Dispatch<React.SetStateAction<string[]>> }
 
-const MakePost = ({ threadId, editing, setEditing, comment, setComment, responseTo, setResponseTo }: Types ) => {
+const MakePost = ({ threadId, editing, setEditing, imageUrl, setImageUrl, comment, setComment, responseTo, setResponseTo }: Types ) => {
   const dispatch = useDispatch()
   const user: LoggedUser = useSelector((state: RootState) => state.user)
 
@@ -17,8 +17,8 @@ const MakePost = ({ threadId, editing, setEditing, comment, setComment, response
     event.preventDefault()
 
     editing
-      ? await postService.editPost(comment, responseTo, editing, user.id, user.token)
-      : await postService.makePost(comment, user.id, threadId, user.token, responseTo)
+      ? await postService.editPost(imageUrl, comment, responseTo, editing, user.id, user.token)
+      : await postService.makePost(imageUrl, comment, user.id, threadId, user.token, responseTo)
 
     dispatch(initializeBoards())
     dispatch(initializePosts())
@@ -47,9 +47,14 @@ const MakePost = ({ threadId, editing, setEditing, comment, setComment, response
               Cancel
             </button>
           </>
-        : <h2 style={{ margin: '0px' }}>Make a new Post</h2>}
+        : <h2 style={styles.subHeader}>Make a new Post</h2>}
       <form onSubmit={handlePost}>
         {responseTo.length !== 0 && <>Replying to: {responseTo.join(', ')} <br /></>}
+        <input
+          required
+          placeholder='image url'
+          onChange={({ target }) => setImageUrl(target.value) } />
+        <br />
         <textarea
           required
           style={styles.textArea}

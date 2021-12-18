@@ -25,7 +25,7 @@ const MakeThread = ({ boardId }: { boardId: string}) => {
       dispatch(setNotification('Thread title must be at least five characters long', 'negative'))
     }
     const newThread = await threadService.makeThread(title, user.id, boardId, user.token)
-    await postService.makePost(comment, user.id, newThread.id, user.token)
+    await postService.makePost('', comment, user.id, newThread.id, user.token) //TODO add images
 
     dispatch(initializeBoards())
     dispatch(initializePosts())
