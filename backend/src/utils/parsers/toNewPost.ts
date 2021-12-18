@@ -1,6 +1,7 @@
 import { ObjectId } from 'mongodb'
 import { isString, isArray, isObjectId, isObjectIdList, parseUser } from '.'
 import { PostType, PostStatus } from '../../types'
+import imageService from '../imageService'
 
 const parseString = (text: unknown): string => {
   if (!text || !isString(text)) {
@@ -62,6 +63,19 @@ export const toEditPost = ({ content, responseTo }: { content: unknown, response
     edited: new Date()
   }
   return editPost
+}
+
+const parseImageUrl = (imageUrl: unknown): string => {
+  if (!imageUrl || !isString(imageUrl)) {
+    throw new Error('Incorrect or missing image url')
+  }
+  return imageUrl
+}
+
+export const handleImage = async (imageUrl: unknown, id: ObjectId) => {
+  const image = parseImageUrl(imageUrl)
+  await imageService.downloadImage(image, `${id}.png`)
+  imageService.uploadImage('forumbasepostimages', `${id}.png`)
 }
 
 export default toNewPost

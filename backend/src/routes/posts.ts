@@ -1,9 +1,10 @@
 import express from 'express'
+import { ObjectId } from 'mongodb'
 import Post from '../models/post'
 import Thread from '../models/thread'
 import User from '../models/user'
 import getToken from '../utils/getToken'
-import toNewPost, { toEditPost } from '../utils/parsers/toNewPost'
+import toNewPost, { toEditPost, handleImage } from '../utils/parsers/toNewPost'
 import { PostType } from '../types'
 
 const postRouter = express.Router()
@@ -20,6 +21,9 @@ postRouter.post('/', async (req, res) => {
   const newPost: PostType = toNewPost(req.body)
   const savedPost: PostType = await new Post(newPost).save()
 
+  if (req.body.imageUrl) {
+    handleImage(req.body.imageUrl, savedPost.id as ObjectId)
+  }
   await Thread.findByIdAndUpdate(newPost.thread, { $push: { posts: savedPost.id } })
   await User.findByIdAndUpdate(newPost.user, { $push: { posts: savedPost.id } })
   for (let i = 0; i < newPost.responseTo.length; i++) {
@@ -39,6 +43,9 @@ postRouter.put('/:id', async (req, res) => {
     return res.status(401).json({ error: 'invalid user' })
   }
   const editData = toEditPost(req.body)
+  if (req.body.imageUrl) {
+    handleImage(req.body.imageUrl, post.id as ObjectId)
+  }
   if (editData.responseTo && post.responseTo !== editData.responseTo) {
     for (let i = 0; i < post.responseTo.length; i++) {
       await Post.findByIdAndUpdate(post.responseTo[i], { $pull: { repliesTo: post.id } })

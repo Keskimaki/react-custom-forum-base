@@ -51,7 +51,6 @@ const MakePost = ({ threadId, editing, setEditing, imageUrl, setImageUrl, commen
       <form onSubmit={handlePost}>
         {responseTo.length !== 0 && <>Replying to: {responseTo.join(', ')} <br /></>}
         <input
-          required
           placeholder='image url'
           onChange={({ target }) => setImageUrl(target.value) } />
         <br />
