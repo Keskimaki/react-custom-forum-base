@@ -13,6 +13,8 @@ const MakeThread = ({ boardId }: { boardId: string}) => {
   const dispatch = useDispatch()
   const [ title, setTitle ] = useState('')
   const [ comment, setComment ] = useState('')
+  const [imageUrl, setImageUrl] = useState('')
+
   const user: LoggedUser = useSelector((state: RootState) => state.user)
 
   const handleThreadCreation = async (event: React.SyntheticEvent) => {
@@ -25,13 +27,14 @@ const MakeThread = ({ boardId }: { boardId: string}) => {
       dispatch(setNotification('Thread title must be at least five characters long', 'negative'))
     }
     const newThread = await threadService.makeThread(title, user.id, boardId, user.token)
-    await postService.makePost('', comment, user.id, newThread.id, user.token) //TODO add images
+    await postService.makePost(imageUrl, comment, user.id, newThread.id, user.token)
 
     dispatch(initializeBoards())
     dispatch(initializePosts())
 
     setTitle('')
     setComment('')
+    setImageUrl('')
   }
 
   if (user.privileges === 'guest') return null
@@ -40,6 +43,10 @@ const MakeThread = ({ boardId }: { boardId: string}) => {
     <div style={styles.submit}>
       <h2 style={{ margin: '0px' }}>Make a new Thread</h2>
       <form onSubmit={handleThreadCreation}>
+        <input
+          placeholder='image url'
+          onChange={({ target }) => setImageUrl(target.value) } />
+        <br />
         <input 
           required
           style={styles.threadInput}
