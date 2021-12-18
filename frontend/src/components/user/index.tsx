@@ -9,6 +9,7 @@ import { setNotification } from '../../reducers/notificationReducer'
 import { initializeUsers } from '../../reducers/userReducer'
 import userService from '../../services/users'
 import styles from '../../styles'
+import picture from '../../assets/default.png'
 
 const User = () => {
   const loginData: LoggedUser = useSelector((state: RootState) => state.user)
@@ -49,7 +50,7 @@ const User = () => {
   return (
     <div>
       <div style={{ ...styles.board, minHeight: '200px' }}>
-        <ProfilePicture />
+        <ProfilePicture image={user.image} />
         <h1 style={styles.subHeader}>{user.username} </h1>
         {user.privileges !== 'user' && user.privileges}
         <br />
@@ -92,7 +93,7 @@ const User = () => {
   )
 }
 
-const ProfilePicture = () => {
+const ProfilePicture = ({ image }: { image: boolean | undefined }) => {
   const [imageUrl, setImageUrl] = useState('')
   //const dispatch = useDispatch()
   const loginData: LoggedUser = useSelector((state: RootState) => state.user)
@@ -108,9 +109,7 @@ const ProfilePicture = () => {
   return (
     <div style={{ float: 'right' }}>
       <img 
-        src={`https://forumbaseuserprofiles.s3.eu-central-1.amazonaws.com/${loginData.username}.png`}
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        onError={(event: any) => {event.target.onerror = null; event.target.src="https://forumbaseuserprofiles.s3.eu-central-1.amazonaws.com/default.png"}}
+        src={image ? `https://forumbaseuserprofiles.s3.eu-central-1.amazonaws.com/${loginData.username}.png` : picture}
         style={styles.profilePictureLarge}
       />
       <br />

@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { PostType } from '../../../types'
+import { PostType, UserType } from '../../../types'
 import styles from '../../../styles'
 import { LoggedUser } from '../../../types'
 import { RootState } from '../../../store'
@@ -9,6 +9,7 @@ import userService from '../../../services/users'
 import { initializeBoards } from '../../../reducers/boardReducer'
 import { initializeUsers } from '../../../reducers/userReducer'
 import { initializePosts } from '../../../reducers/postReducer'
+import picture from '../../../assets/default.png'
 
 type Types = { post: PostType, editing: string, setEditing: React.Dispatch<React.SetStateAction<string>>, setComment: React.Dispatch<React.SetStateAction<string>>, responseTo: string[], setResponseTo: React.Dispatch<React.SetStateAction<string[]>>, setMouseover: React.Dispatch<React.SetStateAction<string[]>> }
 
@@ -55,13 +56,13 @@ const Post = ({ post, editing, setEditing, setComment, responseTo, setResponseTo
 
   if (editing === post.id) return null
 
-  const username = users.find(user => user.id === post.user)?.username
+  const { username, image } = users.find(user => user.id === post.user) as UserType
 
   return (
     <div style={styles.board}>
       <div style={{ display: 'flex'}}>
         <img 
-          src={`https://forumbaseuserprofiles.s3.eu-central-1.amazonaws.com/${username}.png`}
+          src={image ? `https://forumbaseuserprofiles.s3.eu-central-1.amazonaws.com/${username}.png` : picture}
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           onError={(event: any) => {event.target.onerror = null; event.target.src="https://forumbaseuserprofiles.s3.eu-central-1.amazonaws.com/default.png"}}
           style={styles.profilePictureSmall}
