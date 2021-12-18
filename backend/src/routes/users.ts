@@ -43,6 +43,9 @@ userRouter.put('/:id/image', async (req, res) => {
   const imageUrl = toImageUrl(req.body)
   await imageService.downloadImage(imageUrl, `${user.username}.png`)
   imageService.uploadImage('forumbaseuserprofiles', `${user.username}.png`)
+  console.log('hei')
+  await User.findByIdAndUpdate(req.params.id, { image: true })
+  console.log('joo')
   res.status(204).end()
 })
 

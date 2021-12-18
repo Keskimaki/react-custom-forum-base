@@ -23,6 +23,7 @@ postRouter.post('/', async (req, res) => {
 
   if (req.body.imageUrl) {
     handleImage(req.body.imageUrl, savedPost.id as ObjectId)
+    await Post.findByIdAndUpdate(savedPost.id, { image: true })
   }
   await Thread.findByIdAndUpdate(newPost.thread, { $push: { posts: savedPost.id } })
   await User.findByIdAndUpdate(newPost.user, { $push: { posts: savedPost.id } })
@@ -45,6 +46,7 @@ postRouter.put('/:id', async (req, res) => {
   const editData = toEditPost(req.body)
   if (req.body.imageUrl) {
     handleImage(req.body.imageUrl, post.id as ObjectId)
+    await Post.findByIdAndUpdate(req.params.id, { image: true })
   }
   if (editData.responseTo && post.responseTo !== editData.responseTo) {
     for (let i = 0; i < post.responseTo.length; i++) {
