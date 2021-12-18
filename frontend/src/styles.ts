@@ -101,6 +101,16 @@ const profilePictureSmall: CSS.Properties = {
   border: '2px solid #586069'
 }
 
+const postImageSmall: CSS.Properties = {
+  width: '300px',
+  maxHeight: '600px'
+}
+
+const postImageLarge: CSS.Properties = {
+  maxWidth: '50vw',
+  maxHeight: '70vh'
+}
+
 const edit: CSS.Properties = {
   backgroundColor: '#fff',
   padding: '10px',
@@ -224,9 +234,11 @@ const styles = {
   link,
   subHeader,
   form,
-  edit,
   profilePictureLarge,
   profilePictureSmall,
+  postImageSmall,
+  postImageLarge,
+  edit,
   secondaryText,
   textInput,
   threadInput,

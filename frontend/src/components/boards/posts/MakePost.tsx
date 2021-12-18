@@ -26,12 +26,14 @@ const MakePost = ({ threadId, editing, setEditing, imageUrl, setImageUrl, commen
     setComment('')
     setResponseTo([])
     setEditing('')
+    setImageUrl('')
   }
 
   const cancelEditing = () => {
     setComment('')
     setResponseTo([])
     setEditing('')
+    setImageUrl('')
   }
 
   if (user.privileges === 'guest') return null

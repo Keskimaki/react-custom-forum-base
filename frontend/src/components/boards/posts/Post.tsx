@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { PostType, UserType } from '../../../types'
+import CSS from 'csstype'
 import styles from '../../../styles'
 import { LoggedUser } from '../../../types'
 import { RootState } from '../../../store'
@@ -15,6 +16,7 @@ type Types = { post: PostType, editing: string, setEditing: React.Dispatch<React
 
 const Post = ({ post, editing, setEditing, setComment, responseTo, setResponseTo, setMouseover }: Types) => {
   const dispatch = useDispatch()
+  const [focus, setFocus] = useState(false)
   const loginData: LoggedUser = useSelector((state: RootState) => state.user)
   const users = useSelector((state: RootState) => state.users)
   const user = users.find(user => user.username === loginData.username)
@@ -57,6 +59,7 @@ const Post = ({ post, editing, setEditing, setComment, responseTo, setResponseTo
   if (editing === post.id) return null
 
   const { username, image } = users.find(user => user.id === post.user) as UserType
+  const imageStyle: CSS.Properties = focus ? styles.postImageLarge : styles.postImageSmall
 
   return (
     <div style={styles.board}>
@@ -79,8 +82,9 @@ const Post = ({ post, editing, setEditing, setComment, responseTo, setResponseTo
             <>
               <br />
               <img 
-                src={`https://forumbasepostimages.s3.eu-central-1.amazonaws.com/${post.id}.png`} 
-                style={{ width: '300px', maxHeight: '600px' }} />
+                src={`https://forumbasepostimages.s3.eu-central-1.amazonaws.com/${post.id}.png`}
+                onClick={() => setFocus(!focus)}
+                style={imageStyle} />
             </>}
         </div>
       </div>
