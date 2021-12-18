@@ -22,6 +22,7 @@ export interface UserType {
   date: Date
   following: ObjectId[]
   privileges: Privileges
+  image?: boolean
   details?: UserDetails
   id?: ObjectId
 }
@@ -55,5 +56,6 @@ export interface PostType {
   repliesTo: ObjectId[]
   status: PostStatus
   thread: ObjectId
+  image?: boolean
   id?: ObjectId
 }

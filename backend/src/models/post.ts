@@ -23,7 +23,8 @@ const postSchema = new mongoose.Schema({
   thread: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Thread'
-  }
+  },
+  image: Boolean
 })
 
 postSchema.set('toJSON', {
