@@ -20,7 +20,7 @@ const MakePost = ({ threadId, editing, setEditing, imageUrl, setImageUrl, commen
       ? await postService.editPost(imageUrl, comment, responseTo, editing, user.id, user.token)
       : await postService.makePost(imageUrl, comment, user.id, threadId, user.token, responseTo)
 
-    dispatch(initializeBoards())
+    setTimeout(() => dispatch(initializeBoards()), 500)
     dispatch(initializePosts())
 
     setComment('')

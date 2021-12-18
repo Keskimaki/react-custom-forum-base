@@ -63,8 +63,6 @@ const Post = ({ post, editing, setEditing, setComment, responseTo, setResponseTo
       <div style={{ display: 'flex'}}>
         <img 
           src={image ? `https://forumbaseuserprofiles.s3.eu-central-1.amazonaws.com/${username}.png` : picture}
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          onError={(event: any) => {event.target.onerror = null; event.target.src="https://forumbaseuserprofiles.s3.eu-central-1.amazonaws.com/default.png"}}
           style={styles.profilePictureSmall}
         />
         <div style={{ marginTop: 'auto', padding: '10px' }}>
@@ -77,6 +75,13 @@ const Post = ({ post, editing, setEditing, setComment, responseTo, setResponseTo
           <span style={styles.secondaryText}>{new Date(post.date).toLocaleString('ger', { day: 'numeric', month: 'numeric', year: '2-digit', hour: 'numeric', minute:'numeric', second:'numeric' })}</span>
           <br />
           {post.content}
+          {post.image &&
+            <>
+              <br />
+              <img 
+                src={`https://forumbasepostimages.s3.eu-central-1.amazonaws.com/${post.id}.png`} 
+                style={{ width: '300px', maxHeight: '600px' }} />
+            </>}
         </div>
       </div>
       {loginData.privileges !== 'guest' && 
