@@ -91,9 +91,8 @@ const form: CSS.Properties = {
 }
 
 const profilePicture: CSS.Properties = {
-  width: '100px',//'150px',
-  float: 'right',
-  padding: '10px'
+  width: '150px',
+  border: '2px solid #586069'
 }
 
 const edit: CSS.Properties = {

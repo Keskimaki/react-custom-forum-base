@@ -111,7 +111,7 @@ const ProfilePicture = () => {
         src={`https://forumbaseuserprofiles.s3.eu-central-1.amazonaws.com/${loginData.username}.png`}
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         onError={(event: any) => {event.target.onerror = null; event.target.src="https://forumbaseuserprofiles.s3.eu-central-1.amazonaws.com/default.png"}}
-        style={{ width: '150px', border: '2px solid #586069' }}
+        style={styles.profilePicture}
       />
       <br />
       <form onSubmit={handleProfilePictureSubmit}>
