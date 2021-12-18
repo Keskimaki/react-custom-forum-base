@@ -75,6 +75,13 @@ const link: CSS.Properties = {
   color: 'inherit'
 }
 
+const largeHeader: CSS.Properties = {
+  backgroundColor: '#fff',
+  padding: '10px',
+  margin: '0px',
+  marginBottom: '-10px'
+}
+
 const subHeader: CSS.Properties = {
     margin: 0,
     display: 'inline',
@@ -232,6 +239,7 @@ const styles = {
   board,
   mouseoverPost,
   link,
+  largeHeader,
   subHeader,
   form,
   profilePictureLarge,

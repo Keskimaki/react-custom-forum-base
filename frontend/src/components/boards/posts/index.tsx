@@ -28,7 +28,7 @@ const Posts = () => {
 
   return (
     <div>
-      <h1>{thread.name}</h1>
+      <h1 style={styles.largeHeader}>{thread.name}</h1>
       {mouseoverPost && <Mouseover post={mouseoverPost} position={mouseover[1].split(' ')} />}
       {thread.posts.map(post =>
         <Post 
