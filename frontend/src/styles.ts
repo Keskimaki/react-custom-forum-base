@@ -90,8 +90,14 @@ const form: CSS.Properties = {
   alignItems: 'center'
 }
 
-const profilePicture: CSS.Properties = {
+const profilePictureLarge: CSS.Properties = {
   width: '150px',
+  border: '2px solid #586069'
+}
+
+const profilePictureSmall: CSS.Properties = {
+  width: '100px',
+  maxHeight: '100px',
   border: '2px solid #586069'
 }
 
@@ -219,7 +225,8 @@ const styles = {
   subHeader,
   form,
   edit,
-  profilePicture,
+  profilePictureLarge,
+  profilePictureSmall,
   secondaryText,
   textInput,
   threadInput,

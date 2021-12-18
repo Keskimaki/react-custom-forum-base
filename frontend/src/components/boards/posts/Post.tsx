@@ -59,16 +59,25 @@ const Post = ({ post, editing, setEditing, setComment, responseTo, setResponseTo
 
   return (
     <div style={styles.board}>
-      {post.responseTo.map(response => 
-        <span style ={styles.secondaryText} key={response} onMouseEnter={(event) => setMouseover([response, `${event.clientX} ${event.clientY}`])} onMouseLeave={() => setMouseover(['', ''])}>
-          <>{response} </>
-        </span>)}
-      {post.responseTo.length > 0 && <br />}
-      <strong>{username ? username : <>deleted</>} </strong>
-      <span style={styles.secondaryText}>{new Date(post.date).toLocaleString('ger', { day: 'numeric', month: 'numeric', year: '2-digit', hour: 'numeric', minute:'numeric', second:'numeric' })}</span>
-      <br />
-      {post.content}
-      <br />
+      <div style={{ display: 'flex'}}>
+        <img 
+          src={`https://forumbaseuserprofiles.s3.eu-central-1.amazonaws.com/${username}.png`}
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          onError={(event: any) => {event.target.onerror = null; event.target.src="https://forumbaseuserprofiles.s3.eu-central-1.amazonaws.com/default.png"}}
+          style={styles.profilePictureSmall}
+        />
+        <div style={{ marginTop: 'auto', padding: '10px' }}>
+          {post.responseTo.map(response => 
+            <span style ={styles.secondaryText} key={response} onMouseEnter={(event) => setMouseover([response, `${event.clientX} ${event.clientY}`])} onMouseLeave={() => setMouseover(['', ''])}>
+              <>{response} </>
+            </span>)}
+          {post.responseTo.length > 0 && <br />}
+          <strong>{username ? username : <>deleted</>} </strong>
+          <span style={styles.secondaryText}>{new Date(post.date).toLocaleString('ger', { day: 'numeric', month: 'numeric', year: '2-digit', hour: 'numeric', minute:'numeric', second:'numeric' })}</span>
+          <br />
+          {post.content}
+        </div>
+      </div>
       {loginData.privileges !== 'guest' && 
         <button style={styles.postButton} onClick={addToReplies}>
           reply
