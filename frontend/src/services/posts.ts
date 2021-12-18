@@ -8,8 +8,9 @@ const getAll = async () => {
   return res.data
 }
 
-const makePost = async (content: string, user: string, thread: string, token: string, responseTo : string[] = []) => {
+const makePost = async (imageUrl: string, content: string, user: string, thread: string, token: string, responseTo : string[] = []) => {
   const newPost = {
+    imageUrl,
     content,
     user,
     thread,
@@ -19,8 +20,14 @@ const makePost = async (content: string, user: string, thread: string, token: st
   return res.data
 }
 
-const editPost = async (content: string, responseTo: string[], postId: string, userId: string, token: string) => {
-  await axios.put(`${baseUrl}/${postId}`, { content, responseTo, userId }, { headers: { Authorization: token } })
+const editPost = async (imageUrl: string, content: string, responseTo: string[], postId: string, userId: string, token: string) => {
+  const editData = {
+    imageUrl,
+    content,
+    responseTo,
+    userId
+  }
+  await axios.put(`${baseUrl}/${postId}`, editData, { headers: { Authorization: token } })
 }
 
 const deletePost = async (postId: string, userId: string, token: string) => {
