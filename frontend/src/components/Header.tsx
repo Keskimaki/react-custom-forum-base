@@ -19,7 +19,7 @@ const Header = () => {
           <HeaderTab text="Create Account" link="/account" />
         </>
         : <>
-          <HeaderTab text={user.username} link="/user" />
+          <HeaderTab text={user.username} link={`/${user.username}`} />
           <Logout />
         </>}
     </div>

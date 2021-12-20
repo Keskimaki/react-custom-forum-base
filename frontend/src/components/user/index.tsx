@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import { RootState } from '../../store'
 import { LoggedUser, UserType } from '../../types'
@@ -14,6 +14,7 @@ import picture from '../../assets/default.png'
 const User = () => {
   const loginData: LoggedUser = useSelector((state: RootState) => state.user)
   const users: UserType[] = useSelector((state: RootState) => state.users)
+  const { username } = useParams()
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -21,7 +22,7 @@ const User = () => {
   const boards = useSelector((state: RootState) => state.boards)
   const threads = boards.map(board => board.threads).flat()
 
-  const user = users.find(user => user.username === loginData.username)
+  const user = users.find(user => user.username === username/*loginData.username*/)
   if (!user || user.username === "") return null
 
   const findThread = (threadId: string) => {
@@ -73,14 +74,17 @@ const User = () => {
           : 
             <>no details <br /></>}
         <br />
-        <Link to="/user/edit">
-          <button style={styles.postButton}>
-            edit profile
+        {loginData.username === username &&
+        <>
+          <Link to="/user/edit">
+            <button style={styles.postButton}>
+              edit profile
+            </button>
+          </Link>
+          <button style={styles.postButton} onClick={handleUserDeletion}>
+            delete user
           </button>
-        </Link>
-        <button style={styles.postButton} onClick={handleUserDeletion}>
-          delete user
-        </button>
+        </>}
       </div>
       <h2 style={styles.subHeader}>Posts: </h2>
       {user.posts.slice().reverse().map(post => 
@@ -97,6 +101,7 @@ const ProfilePicture = ({ image }: { image: boolean | undefined }) => {
   const [imageUrl, setImageUrl] = useState('')
   //const dispatch = useDispatch()
   const loginData: LoggedUser = useSelector((state: RootState) => state.user)
+  const { username } = useParams()
 
   const handleProfilePictureSubmit = async (event: React.SyntheticEvent) => {
     event.preventDefault()
@@ -109,21 +114,22 @@ const ProfilePicture = ({ image }: { image: boolean | undefined }) => {
   return (
     <div style={{ float: 'right' }}>
       <img 
-        src={image ? `https://forumbaseuserprofiles.s3.eu-central-1.amazonaws.com/${loginData.username}.png` : picture}
+        src={image ? `https://forumbaseuserprofiles.s3.eu-central-1.amazonaws.com/${username}.png` : picture}
         style={styles.profilePictureLarge}
       />
       <br />
-      <form onSubmit={handleProfilePictureSubmit}>
-        <input
-          required
-          placeholder='image url'
-          style={{ width: '150px'}}
-          onChange={({ target }) => setImageUrl(target.value) } />
-        <br />
-        <button type="submit" style={styles.postButton}>
-          submit
-        </button>
-      </form>
+      {loginData.username === username && 
+        <form onSubmit={handleProfilePictureSubmit}>
+          <input
+            required
+            placeholder='image url'
+            style={{ width: '150px'}}
+            onChange={({ target }) => setImageUrl(target.value) } />
+          <br />
+          <button type="submit" style={styles.postButton}>
+            submit
+          </button>
+      </form>}
     </div>
   )
 }

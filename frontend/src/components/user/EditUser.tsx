@@ -68,7 +68,7 @@ const EditUser = () => {
           Update profile
         </button>
         <> </>
-        <Link to="/user">
+        <Link to={`/${user.username}`}>
           <button style={styles.button}>
             cancel
           </button>

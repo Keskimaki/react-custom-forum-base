@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { PostType, UserType } from '../../../types'
 import CSS from 'csstype'
 import styles from '../../../styles'
@@ -64,10 +65,11 @@ const Post = ({ post, editing, setEditing, setComment, responseTo, setResponseTo
   return (
     <div style={styles.board}>
       <div style={{ display: 'flex'}}>
-        <img 
-          src={image ? `https://forumbaseuserprofiles.s3.eu-central-1.amazonaws.com/${username}.png` : picture}
-          style={styles.profilePictureSmall}
-        />
+        <Link to={`/${username}`}>
+          <img 
+            src={image ? `https://forumbaseuserprofiles.s3.eu-central-1.amazonaws.com/${username}.png` : picture}
+            style={styles.profilePictureSmall} />
+        </Link>
         <div style={{ marginTop: 'auto', padding: '10px' }}>
           {post.responseTo.map(response => 
             <span style ={styles.secondaryText} key={response} onMouseEnter={(event) => setMouseover([response, `${event.clientX} ${event.clientY}`])} onMouseLeave={() => setMouseover(['', ''])}>

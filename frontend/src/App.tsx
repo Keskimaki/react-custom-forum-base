@@ -44,7 +44,7 @@ const App = () => {
             <Route path="/boards/:boardName/:threadName" element={<Posts />} />
             <Route path="/login" element={<Login />} />
             <Route path="/account" element={<CreateAccount />} />
-            <Route path='/user' element={<User />} />
+            <Route path='/:username' element={<User />} />
             <Route path='/user/edit' element={<EditUser />} />
           </Routes>
           <Notification />
