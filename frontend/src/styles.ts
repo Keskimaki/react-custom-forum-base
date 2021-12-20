@@ -59,6 +59,12 @@ const board: CSS.Properties = {
   fontSize: '20px',
 }
 
+const threadInfo: CSS.Properties = {
+  color: '#586069',
+  //fontSize: '16px',
+  float: 'right'
+}
+
 const mouseoverPost: CSS.Properties = {
   backgroundColor: '#FFF',
   padding: '10px',
@@ -237,6 +243,7 @@ const styles = {
   infoBar,
   infoBarItem,
   board,
+  threadInfo,
   mouseoverPost,
   link,
   largeHeader,
