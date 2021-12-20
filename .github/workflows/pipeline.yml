@@ -14,9 +14,9 @@ jobs:
         with:
           node-version: '14.x'
       - name: install
-        run: ls && cd backend && ls && npm install && ls
+        run: cd backend && npm install
       - name: lint
-        run: npm run lint
+        run: cd backend && npm run lint
   frontend:
     runs-on: ubuntu-20.04
     steps:
@@ -25,6 +25,6 @@ jobs:
         with:
           node-version: '14.x'
       - name: install
-        run: ls && cd frontend && ls && npm install && ls
+        run: cd frontend && npm install
       - name: lint
-        run: npm run lint
+        run: cd frontend && npm run lint
