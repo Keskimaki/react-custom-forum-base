@@ -10,19 +10,19 @@ const Search = () => {
 
   return (
     <div>
-      <h1 style={styles.subHeader}>Search Forum:</h1>
-      <br />
-      <input
-        style={styles.textInput} 
-        placeholder="search by thread title"
-        value={filter}
-        onChange={({ target }) => setFilter(target.value)} />
-      <br />
-      <input
-        style={styles.textInput} 
-        placeholder="search by user"
-        value={userFilter}
-        onChange={({ target }) => setUserFilter(target.value)} />
+      <div style={styles.form}>
+        <h1 style={styles.subHeader}>Search Forum</h1>
+        <input
+          style={styles.textInput} 
+          placeholder="search by thread title"
+          value={filter}
+          onChange={({ target }) => setFilter(target.value)} />
+        <input
+          style={styles.textInput} 
+          placeholder="search by user"
+          value={userFilter}
+          onChange={({ target }) => setUserFilter(target.value)} />
+      </div>
       <SearchResults
         filter={filter}
         userFilter={userFilter} />
