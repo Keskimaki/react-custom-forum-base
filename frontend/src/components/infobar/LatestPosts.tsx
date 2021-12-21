@@ -32,12 +32,16 @@ const Post = ({ post, boards, users }: { post: PostType, boards: BoardType[], us
 
   return (
     <Link to={`/boards/${board?.url}/${thread?.name}`} style={styles.link}>
-    <div>
-      <strong>{username ? username : <>deleted</>}</strong>
-      : {post.content.substring(0, 140)}{post.content.length > 140 && <>...</>}
-      <> in {thread?.name} </>
-      {new Date(post.date).toLocaleString('ger', { day: 'numeric', month: 'numeric', year: '2-digit', hour: 'numeric', minute:'numeric' })}.
-    </div>
+      <div>
+        <strong>
+          {username
+            ? <Link to={`/${username}`} style={styles.link}>{username}</Link>
+            : <>deleted</>}
+        </strong>
+        : {post.content.substring(0, 140)}{post.content.length > 140 && <>...</>}
+        <> in {thread?.name} </>
+        {new Date(post.date).toLocaleString('ger', { day: 'numeric', month: 'numeric', year: '2-digit', hour: 'numeric', minute:'numeric' })}.
+      </div>
     </Link>
   )
 }
