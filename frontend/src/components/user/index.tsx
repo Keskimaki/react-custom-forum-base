@@ -59,7 +59,10 @@ const User = () => {
         <strong>Following:</strong> 
         <br />
         {user.following.length != 0
-          ? user.following.map(following => users.find(user => user.id === following)?.username).join(', ')
+          ? user.following.map(following => 
+            <Link to={`/${users.find(user => user.id === following)?.username}`} style={styles.link} key={following}>
+              <>{users.find(user => user.id === following)?.username} </>
+            </Link>)
           : <>not following</>}
         <br />
         <strong>Details:</strong>
