@@ -48,7 +48,7 @@ const Thread = ({ thread }: { thread: ThreadType }) => {
             Last post by {lastPoster.username}
             <br />
             {lastPost.content.length > 20
-              ? <>{lastPost.content.substring(0, 20)}</>
+              ? <>{lastPost.content.substring(0, 20)}...</>
               : lastPost.content}
             <br />
             at {new Date(thread.posts[thread.posts.length - 1].date)

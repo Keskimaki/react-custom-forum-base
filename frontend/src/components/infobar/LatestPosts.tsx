@@ -13,7 +13,7 @@ const LatestPosts = () => {
 
   return (
     <div style={styles.infoBarItem}>
-      <h3 style={styles.subHeader}>Latest posts:</h3>
+      <h3 style={styles.subHeader}>Latest Posts</h3>
       {latestPosts.slice().reverse().map(post => 
         <Post 
           key={post.id}
