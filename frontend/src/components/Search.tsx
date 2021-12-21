@@ -6,6 +6,7 @@ import styles from '../styles'
 
 const Search = () => {
   const [filter, setFilter] = useState('')
+  const [userFilter, setUserFilter] = useState('')
 
   return (
     <div>
@@ -13,22 +14,39 @@ const Search = () => {
       <br />
       <input
         style={styles.textInput} 
-        placeholder="search"
+        placeholder="search by thread title"
         value={filter}
         onChange={({ target }) => setFilter(target.value)} />
-      <SearchResults filter={filter} />
+      <br />
+      <input
+        style={styles.textInput} 
+        placeholder="search by user"
+        value={userFilter}
+        onChange={({ target }) => setUserFilter(target.value)} />
+      <SearchResults
+        filter={filter}
+        userFilter={userFilter} />
     </div>
   )
 }
 
-const SearchResults = ({ filter }: { filter: string }) => {
+const SearchResults = ({ filter, userFilter }: { filter: string, userFilter: string }) => {
   const boards = useSelector((state: RootState) => state.boards)
   const users = useSelector((state: RootState) => state.users)
-
   const threads = boards.map(board => board.threads).flat()
-  const filteredThreads = threads.filter(thread => thread.name.toLowerCase().includes(filter.toLowerCase()))
 
-  //if (!filter) return null
+  if (!filter && !userFilter) return null
+
+  //Filter by thread title
+  let filteredThreads = threads.
+    filter(thread => thread.name.toLowerCase().
+    includes(filter.toLowerCase()))
+
+  //Filter by user
+  if (userFilter) {
+    filteredThreads = filteredThreads.
+      filter(thread => users.find(user => user.id === thread.user)?.username === userFilter)
+  }  
 
   return (
     <div style={{ marginTop: '10px' }}>
@@ -47,6 +65,6 @@ const SearchResults = ({ filter }: { filter: string }) => {
         </Link>)}
     </div>
   )
-} 
+}
 
 export default Search
