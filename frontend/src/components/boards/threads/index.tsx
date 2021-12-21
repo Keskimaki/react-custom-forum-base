@@ -17,11 +17,13 @@ const Threads = () => {
 
   return (
     <div>
-      <h1>{board.name}</h1>
-      {board.threads.map(thread => 
-        <Thread key={thread.name} thread={thread} />
-      )}
-      <MakeThread boardId={board.id} />
+      <h1 style={styles.subHeader}>{board.name}</h1>
+      <div style={{ marginTop: '10px' }}>
+        {board.threads.map(thread => 
+          <Thread key={thread.name} thread={thread} />
+        )}
+        <MakeThread boardId={board.id} />
+      </div>
     </div>
   )
 }
