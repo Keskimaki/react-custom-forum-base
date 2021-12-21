@@ -59,13 +59,17 @@ const Post = ({ post, editing, setEditing, setComment, responseTo, setResponseTo
 
   if (editing === post.id) return null
 
-  const { username, image } = users.find(user => user.id === post.user) as UserType
+  let username: string | undefined
+  let image: boolean | undefined
+  const poster = users.find(user => user.id === post.user)
+  poster ? { username, image } = poster : username = undefined; image = false
+
   const imageStyle: CSS.Properties = focus ? styles.postImageLarge : styles.postImageSmall
 
   return (
     <div style={styles.board}>
       <div style={{ display: 'flex'}}>
-        <Link to={`/${username}`}>
+        <Link to={username ? `/${username}` : ''}>
           <img 
             src={image ? `https://forumbaseuserprofiles.s3.eu-central-1.amazonaws.com/${username}.png` : picture}
             style={styles.profilePictureSmall} />
