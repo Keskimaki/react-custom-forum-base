@@ -19,7 +19,7 @@ const Rules = () => {
     <div style={styles.infoBarItem}>
       <h3 style={styles.subHeader}>Forum Rules</h3>
       <strong>
-        <ol style={{ marginLeft: 0, paddingLeft: '20px' }}>
+        <ol style={{ margin: 0, paddingLeft: '20px' }}>
           <li>Nulla eget tempor mauris. Morbi blandit enim rutrum eros sodales suscipit.</li>
           <li>Vestibulum non dapibus lacus. In dictum bibendum lorem eu hendrerit.</li>
           <li>Vivamus commodo ipsum non urna vulputate, eu varius nisl hendrerit.</li>
