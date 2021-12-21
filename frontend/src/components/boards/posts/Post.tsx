@@ -62,8 +62,8 @@ const Post = ({ post, editing, setEditing, setComment, responseTo, setResponseTo
   let username: string | undefined
   let image: boolean | undefined
   const poster = users.find(user => user.id === post.user)
-  poster ? { username, image } = poster : username = undefined; image = false
-
+  poster ? { username, image } = poster : username = undefined
+  
   const imageStyle: CSS.Properties = focus ? styles.postImageLarge : styles.postImageSmall
 
   return (
