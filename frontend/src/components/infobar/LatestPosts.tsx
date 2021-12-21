@@ -1,5 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { PostType, UserType, BoardType } from '../../types'
 import styles from '../../styles'
 import { RootState } from '../../store'
@@ -26,13 +27,18 @@ const LatestPosts = () => {
 
 const Post = ({ post, boards, users }: { post: PostType, boards: BoardType[], users: UserType[] }) => {
   const username = users.find(user => user.id === post.user)?.username
+  const thread = boards.map(board => board.threads).flat().find(thread => thread.id === post.thread)
+  const board = boards.find(board => board.id === thread?.board)
+
   return (
+    <Link to={`/boards/${board?.url}/${thread?.name}`} style={styles.link}>
     <div>
       <strong>{username ? username : <>deleted</>}</strong>
       : {post.content.substring(0, 140)}{post.content.length > 140 && <>...</>}
-      <> in {boards.map(board => board.threads).flat().find(thread => thread.id === post.thread)?.name} </>
+      <> in {thread?.name} </>
       {new Date(post.date).toLocaleString('ger', { day: 'numeric', month: 'numeric', year: '2-digit', hour: 'numeric', minute:'numeric' })}.
     </div>
+    </Link>
   )
 }
 
