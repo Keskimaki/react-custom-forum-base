@@ -21,7 +21,8 @@ type Edit = {
   following?: string[],
   details?: UserDetails,
   email?: string,
-  image?: string
+  image?: string, //?
+  newPassword?: string
 }
 
 const editUser = async (editData: Edit, userId: string, token: string) => {

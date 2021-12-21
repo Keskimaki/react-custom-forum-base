@@ -82,7 +82,7 @@ type Edit = {
   following?: ObjectId[],
   details?: UserDetails,
   email?: string,
-  password?: string
+  passwordHash?: string
 }
 
 type EditFields = { following: unknown, details: unknown, email: unknown, newPassword: unknown }
@@ -92,7 +92,7 @@ export const toEditUser = async ({ following = null, details, email, newPassword
     following: following ? parseFollowing(following) : undefined,
     details: details ? parseDetails(details) : undefined,
     email: email ? parseEmail(email) : undefined,
-    password: newPassword ? await parseNewPassword(newPassword) : undefined
+    passwordHash: newPassword ? await parseNewPassword(newPassword) : undefined
   }
   return editUser
 }
