@@ -31,7 +31,7 @@ const Thread = ({ thread }: { thread: ThreadType }) => {
   const users = useSelector((state: RootState) => state.users)
   const username = users.find(user => user.id === thread.user)?.username
   
-  let lastPoster: any//UserType | undefined
+  let lastPoster: UserType | undefined
   let lastPost: PostType | undefined
   if (thread.posts.length > 0) {
     lastPoster = users.find(user => user.id === thread.posts[thread.posts.length - 1].user)

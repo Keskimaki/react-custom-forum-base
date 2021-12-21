@@ -13,6 +13,7 @@ import Boards from './components/boards'
 import Threads from './components/boards/threads'
 import Posts from './components/boards/posts'
 import Login from './components/Login'
+import Search from './components/Search'
 import CreateAccount from './components/CreateAccount'
 import User from './components/user'
 import EditUser from './components/user/EditUser'
@@ -42,6 +43,7 @@ const App = () => {
             <Route path="/boards" element={<Boards />} />
             <Route path="/boards/:boardName" element={<Threads />} />
             <Route path="/boards/:boardName/:threadName" element={<Posts />} />
+            <Route path="/search" element={<Search />} />
             <Route path="/login" element={<Login />} />
             <Route path="/account" element={<CreateAccount />} />
             <Route path='/:username' element={<User />} />

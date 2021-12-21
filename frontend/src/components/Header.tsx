@@ -13,6 +13,7 @@ const Header = () => {
   return (
     <div style={styles.header}>
       <HeaderTab text="Forum" link="/boards" />
+      <HeaderTab text="Search" link="/search" />
       {user.privileges === 'guest' 
         ? <>
           <HeaderTab text="Login" link="/login" />
