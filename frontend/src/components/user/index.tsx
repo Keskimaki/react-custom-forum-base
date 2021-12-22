@@ -103,7 +103,7 @@ const User = () => {
 
 const ProfilePicture = ({ image }: { image: boolean | undefined }) => {
   const [imageUrl, setImageUrl] = useState('')
-  const [time, setTime] = useState('')
+  const [time, setTime] = useState('') //Refetch picture
   const dispatch = useDispatch()
   const loginData: LoggedUser = useSelector((state: RootState) => state.user)
   const { username } = useParams()
@@ -123,7 +123,7 @@ const ProfilePicture = ({ image }: { image: boolean | undefined }) => {
   return (
     <div style={{ float: 'right' }}>
       <img 
-        src={image ? `${env.AWS_PROFILE_BASEURL}/${username}.png?${time}` : picture} //Forces fetching the picture after each reload instead of using cache
+        src={image ? `${env.AWS_PROFILE_BASEURL}/${username}.png?${time}` : picture}
         style={styles.profilePictureLarge}
       />
       <br />

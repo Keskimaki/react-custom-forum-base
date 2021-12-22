@@ -19,11 +19,13 @@ type Types = { post: PostType, editing: string, setEditing: React.Dispatch<React
 const Post = ({ post, editing, setEditing, setComment, responseTo, setResponseTo, setMouseover }: Types) => {
   const dispatch = useDispatch()
   const [focus, setFocus] = useState(false)
+  const [time, setTime] = useState('') //Forces fetching the picture after each reload instead of using cache
   const loginData: LoggedUser = useSelector((state: RootState) => state.user)
   const users = useSelector((state: RootState) => state.users)
   const user = users.find(user => user.username === loginData.username)
 
   const handlePostEditing = () => {
+    setTime(String(new Date().getTime()))
     setComment(post.content)
     setResponseTo(post.responseTo)
     setEditing(post.id)
@@ -72,7 +74,7 @@ const Post = ({ post, editing, setEditing, setComment, responseTo, setResponseTo
       <div style={{ display: 'flex'}}>
         <Link to={username ? `/${username}` : ''}>
           <img 
-            src={image ? `${env.AWS_PROFILE_BASEURL}/${username}.png` : picture}
+            src={image ? `${env.AWS_PROFILE_BASEURL}/${username}.png?${time}` : picture}
             style={styles.profilePictureSmall} />
         </Link>
         <div style={{ marginTop: 'auto', padding: '10px' }}>
@@ -89,7 +91,7 @@ const Post = ({ post, editing, setEditing, setComment, responseTo, setResponseTo
             <>
               <br />
               <img 
-                src={`${env.AWS_IMAGE_BASEURL}/${post.id}.png`}
+                src={`${env.AWS_IMAGE_BASEURL}/${post.id}.png?${time}`}
                 onClick={() => setFocus(!focus)}
                 style={imageStyle} />
             </>}

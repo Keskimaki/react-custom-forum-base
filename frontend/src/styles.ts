@@ -105,6 +105,7 @@ const form: CSS.Properties = {
 
 const profilePictureLarge: CSS.Properties = {
   width: '150px',
+  maxHeight: '150px',
   border: '2px solid #586069'
 }
 
