@@ -2,6 +2,7 @@ import { ObjectId } from 'mongodb'
 import { isString, isArray, isObjectId, isObjectIdList, parseUser, filterWords } from '.'
 import { PostType, PostStatus } from '../../types'
 import imageService from '../imageService'
+import env from '../config'
 
 const parseString = (text: unknown): string => {
   if (!text || !isString(text)) {
@@ -76,7 +77,7 @@ const parseImageUrl = (imageUrl: unknown): string => {
 export const handleImage = async (imageUrl: unknown, id: ObjectId) => {
   const image = parseImageUrl(imageUrl)
   await imageService.downloadImage(image, `${id}.png`)
-  imageService.uploadImage('forumbasepostimages', `${id}.png`)
+  imageService.uploadImage(env.AWS_BUCKET_NAME_1, `${id}.png`)
 }
 
 export default toNewPost

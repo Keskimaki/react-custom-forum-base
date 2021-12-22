@@ -5,6 +5,7 @@ import toNewUser, { toEditUser, toImageUrl } from '../utils/parsers/toNewUser'
 import { UserType } from '../types'
 import getToken from '../utils/getToken'
 import imageService from '../utils/imageService'
+import env from '../utils/config'
 
 const userRouter = express.Router()
 
@@ -44,7 +45,7 @@ userRouter.put('/:id/image', async (req, res) => {
   }
   const imageUrl = toImageUrl(req.body)
   await imageService.downloadImage(imageUrl, `${user.username}.png`)
-  imageService.uploadImage('forumbaseuserprofiles', `${user.username}.png`)
+  imageService.uploadImage(env.AWS_BUCKET_NAME_2, `${user.username}.png`)
   await User.findByIdAndUpdate(req.params.id, { image: true })
   res.status(204).end()
 })
