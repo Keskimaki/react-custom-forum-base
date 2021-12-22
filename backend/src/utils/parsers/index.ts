@@ -32,7 +32,7 @@ export const parseUser = (user: unknown): ObjectId => {
 
 export const filterWords = (text: string): string => {
   const filterWord = (word: string): boolean => {
-    const formatWord = word.replace(/[&\/\\#, +()$~%.'":;*!?<>{}]/g, '').toLowerCase()
+    const formatWord = word.replace(/[&\\#, +()$~%.'":;*!?<>{}]/g, '').toLowerCase()
     for (let i = 0; i < env.FILTER.length; i++) {
       if (env.FILTER[i] === formatWord) {
         return false
