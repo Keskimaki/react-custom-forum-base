@@ -10,6 +10,7 @@ import { initializeUsers } from '../../reducers/userReducer'
 import userService from '../../services/users'
 import styles from '../../styles'
 import picture from '../../assets/default.png'
+import env from '../../.env'
 
 const User = () => {
   const loginData: LoggedUser = useSelector((state: RootState) => state.user)
@@ -102,7 +103,8 @@ const User = () => {
 
 const ProfilePicture = ({ image }: { image: boolean | undefined }) => {
   const [imageUrl, setImageUrl] = useState('')
-  //const dispatch = useDispatch()
+  const [time, setTime] = useState('')
+  const dispatch = useDispatch()
   const loginData: LoggedUser = useSelector((state: RootState) => state.user)
   const { username } = useParams()
 
@@ -110,14 +112,18 @@ const ProfilePicture = ({ image }: { image: boolean | undefined }) => {
     event.preventDefault()
 
     await userService.updateUserImage(imageUrl, loginData.id, loginData.token)
-    setTimeout(() => window.location.reload(), 500) //Maybe fix later
-    //dispatch(setNotification('Profile picture updated', 'positive'))
+    setTimeout(() => {
+      setTime(String(new Date().getTime()))
+      setImageUrl('')
+      dispatch(initializeUsers())
+      dispatch(setNotification('Profile picture updated', 'positive'))
+    }, 1000)
   }
 
   return (
     <div style={{ float: 'right' }}>
       <img 
-        src={image ? `https://forumbaseuserprofiles.s3.eu-central-1.amazonaws.com/${username}.png` : picture}
+        src={image ? `${env.AWS_PROFILE_BASEURL}/${username}.png?${time}` : picture} //Forces fetching the picture after each reload instead of using cache
         style={styles.profilePictureLarge}
       />
       <br />
