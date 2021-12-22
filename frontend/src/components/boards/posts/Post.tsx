@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { PostType, UserType } from '../../../types'
+import { PostType } from '../../../types'
 import CSS from 'csstype'
 import styles from '../../../styles'
 import { LoggedUser } from '../../../types'
@@ -12,6 +12,7 @@ import { initializeBoards } from '../../../reducers/boardReducer'
 import { initializeUsers } from '../../../reducers/userReducer'
 import { initializePosts } from '../../../reducers/postReducer'
 import picture from '../../../assets/default.png'
+import env from '../../../.env'
 
 type Types = { post: PostType, editing: string, setEditing: React.Dispatch<React.SetStateAction<string>>, setComment: React.Dispatch<React.SetStateAction<string>>, responseTo: string[], setResponseTo: React.Dispatch<React.SetStateAction<string[]>>, setMouseover: React.Dispatch<React.SetStateAction<string[]>> }
 
@@ -71,7 +72,7 @@ const Post = ({ post, editing, setEditing, setComment, responseTo, setResponseTo
       <div style={{ display: 'flex'}}>
         <Link to={username ? `/${username}` : ''}>
           <img 
-            src={image ? `https://forumbaseuserprofiles.s3.eu-central-1.amazonaws.com/${username}.png` : picture}
+            src={image ? `${env.AWS_PROFILE_BASEURL}/${username}.png` : picture}
             style={styles.profilePictureSmall} />
         </Link>
         <div style={{ marginTop: 'auto', padding: '10px' }}>
@@ -88,7 +89,7 @@ const Post = ({ post, editing, setEditing, setComment, responseTo, setResponseTo
             <>
               <br />
               <img 
-                src={`https://forumbasepostimages.s3.eu-central-1.amazonaws.com/${post.id}.png`}
+                src={`${env.AWS_IMAGE_BASEURL}/${post.id}.png`}
                 onClick={() => setFocus(!focus)}
                 style={imageStyle} />
             </>}
