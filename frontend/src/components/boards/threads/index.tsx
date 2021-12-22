@@ -7,13 +7,14 @@ import styles from '../../../styles'
 import { BoardType, UserType, PostType } from '../../../types'
 import { RootState } from '../../../store'
 import MakeThread from './MakeThread'
+import NotFound from '../../NotFound'
 
 const Threads = () => {
   const { boardName } = useParams()
   const boards: BoardType[] = useSelector((state: RootState) => state.boards)
   const board = boards.find(board => board.url === boardName)
-  //TODO redirect to 404
-  if (!board) return null
+
+  if (!board) return <NotFound />
 
   return (
     <div>

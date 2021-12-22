@@ -5,6 +5,7 @@ import CSS from 'csstype'
 import { BoardType, PostType } from '../../../types'
 import { RootState } from '../../../store'
 import MakePost from './MakePost'
+import NotFound from '../../NotFound'
 import styles from '../../../styles'
 
 import Post from './Post'
@@ -22,7 +23,7 @@ const Posts = () => {
     find(board => board.url === boardName)?.threads.
     find(thread => thread.name.replace('?', '') === threadName)
 
-  if (!thread) return null
+  if (!thread) return <NotFound />
 
   const mouseoverPost =  thread.posts.find(post => post.id === mouseover[0])
 
