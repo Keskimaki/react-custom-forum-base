@@ -20,6 +20,7 @@ import EditUser from './components/user/EditUser'
 import Footer from './components/Footer'
 import InfoBar from './components/infobar'
 import Notification from './components/Notification'
+import NotFound from './components/NotFound'
 import ScrollToTop from './components/ScrollToTop'
 
 const App = () => {
@@ -40,14 +41,15 @@ const App = () => {
       <div style={styles.main}>
         <div style={styles.body}>
           <Routes>
-            <Route path="/boards" element={<Boards />} />
+            <Route path="/" element={<Boards />} />
             <Route path="/boards/:boardName" element={<Threads />} />
             <Route path="/boards/:boardName/:threadName" element={<Posts />} />
             <Route path="/search" element={<Search />} />
             <Route path="/login" element={<Login />} />
             <Route path="/account" element={<CreateAccount />} />
-            <Route path='/:username' element={<User />} />
-            <Route path='/user/edit' element={<EditUser />} />
+            <Route path="/:username" element={<User />} />
+            <Route path="/user/edit" element={<EditUser />} />
+            <Route path ="*" element={<NotFound />} />
           </Routes>
           <Notification />
         </div>

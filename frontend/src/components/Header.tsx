@@ -12,7 +12,7 @@ const Header = () => {
 
   return (
     <div style={styles.header}>
-      <HeaderTab text="Forum" link="/boards" />
+      <HeaderTab text="Forum" link="/" />
       <HeaderTab text="Search" link="/search" />
       {user.privileges === 'guest' 
         ? <>
