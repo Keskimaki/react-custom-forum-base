@@ -6,6 +6,7 @@ import { LoggedUser } from '../../../types'
 import styles from '../../../styles'
 import { initializeBoards } from '../../../reducers/boardReducer'
 import { initializePosts } from '../../../reducers/postReducer'
+import { initializeUsers } from '../../../reducers/userReducer'
 
 type Types = { threadId: string, editing: string, setEditing: React.Dispatch<React.SetStateAction<string>>, imageUrl: string, setImageUrl: React.Dispatch<React.SetStateAction<string>>,  comment: string, setComment: React.Dispatch<React.SetStateAction<string>>, responseTo: string[], setResponseTo: React.Dispatch<React.SetStateAction<string[]>> }
 
@@ -22,6 +23,7 @@ const MakePost = ({ threadId, editing, setEditing, imageUrl, setImageUrl, commen
 
     setTimeout(() => dispatch(initializeBoards()), 500)
     dispatch(initializePosts())
+    dispatch(initializeUsers())
 
     setComment('')
     setResponseTo([])

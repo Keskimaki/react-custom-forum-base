@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link, useParams } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import { RootState } from '../../store'
-import { LoggedUser, UserType } from '../../types'
+import { BoardType, LoggedUser, UserType } from '../../types'
 import { logoutUser } from '../../reducers/loginReducer'
 import { setNotification } from '../../reducers/notificationReducer'
 import { initializeUsers } from '../../reducers/userReducer'
@@ -29,8 +29,12 @@ const User = () => {
   const findThread = (threadId: string) => {
     const thread = threads.find(thread => thread.id === threadId)
     if (!thread) return null
-    const boardName = boards.find(board => board.id === thread?.board)?.name
-    return <><strong>{thread.name}</strong> in {boardName}</>
+    const board = boards.find(board => board.id === thread?.board)
+    return (
+      <Link to={`/boards/${(board as BoardType).url}/${thread.name}`}  style={styles.link}>
+        <><strong>{thread.name}</strong> in {board?.name}</>
+      </Link>
+    )
   }
 
   const handleUserDeletion = async () => {
