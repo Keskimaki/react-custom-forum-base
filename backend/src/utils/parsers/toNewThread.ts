@@ -1,12 +1,13 @@
 import { ObjectId } from 'mongodb'
-import { isString, isObjectId, parseUser } from '.'
+import { isString, isObjectId, parseUser, filterWords } from '.'
 import { ThreadType, ThreadStatus } from '../../types'
 
 const parseString = (text: unknown): string => {
   if (!text || !isString(text) || text.includes('#')) {
     throw new Error('Incorrect or missing name or description')
   }
-  return text
+  const filteredText = filterWords(text)
+  return filteredText
 }
 
 const parseBoard = (board: unknown): ObjectId => {

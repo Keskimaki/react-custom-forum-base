@@ -1,5 +1,5 @@
 import { ObjectId } from 'mongodb'
-import { isString, isArray, isObjectId, isObjectIdList, parseUser } from '.'
+import { isString, isArray, isObjectId, isObjectIdList, parseUser, filterWords } from '.'
 import { PostType, PostStatus } from '../../types'
 import imageService from '../imageService'
 
@@ -7,7 +7,8 @@ const parseString = (text: unknown): string => {
   if (!text || !isString(text)) {
     throw new Error('Incorrect or missing content')
   }
-  return text
+  const filteredText = filterWords(text)
+  return filteredText
 }
 
 const parseResponses = (responses: unknown): ObjectId[] => {

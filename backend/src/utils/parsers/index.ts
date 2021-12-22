@@ -1,5 +1,6 @@
 import mongoose from 'mongoose'
 import { ObjectId } from 'mongodb'
+import env from '../config'
 
 export const isString = (text: unknown): text is string => {
   return typeof text === 'string' || text instanceof String
@@ -27,4 +28,17 @@ export const parseUser = (user: unknown): ObjectId => {
     throw new Error('Incorrect or missing user ID')
   }
   return user
+}
+
+export const filterWords = (text: string): string => {
+  const filterWord = (word: string): boolean => {
+    for (let i = 0; i < env.FILTER.length; i++) {
+      if (env.FILTER[i] === word) {
+        return false
+      }
+    }
+    return true
+  }
+  const filteredText = text.split(' ').filter(word => filterWord(word)).join(' ')
+  return filteredText
 }

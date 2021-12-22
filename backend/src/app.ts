@@ -9,10 +9,6 @@ import boardRouter from './routes/boards'
 import threadRouter from './routes/threads'
 import postRouter from './routes/posts'
 
-//import uploadImage from './utils/uploadImage'
-
-//uploadImage('forumbaseuserprofiles', '../../../Desktop/kissakuva.jpg')
-
 void mongoose.connect(env.MONGODB_URI)
 
 const app = express()

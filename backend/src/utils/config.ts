@@ -6,6 +6,8 @@ const PORT = process.env.PORT
 
 const SECRET = process.env.SECRET
 
+const FILTER = process.env.FILTER?.split(' ')
+
 const AWS_ACCESS_KEY_ID = process.env.AWS_ACCESS_KEY_ID
 const AWS_SECRET_ACCESS_KEY = process.env.AWS_SECRET_ACCESS_KEY
 
@@ -16,7 +18,8 @@ if (!MONGODB_URI || !PORT || !SECRET || !AWS_ACCESS_KEY_ID || !AWS_SECRET_ACCESS
 const env = {
   MONGODB_URI,
   PORT,
-  SECRET
+  SECRET,
+  FILTER: FILTER ? FILTER : []
 }
 
 export default env
