@@ -8,9 +8,9 @@ import { initializeBoards } from '../../../reducers/boardReducer'
 import { initializePosts } from '../../../reducers/postReducer'
 import { initializeUsers } from '../../../reducers/userReducer'
 
-type Types = { threadId: string, editing: string, setEditing: React.Dispatch<React.SetStateAction<string>>, imageUrl: string, setImageUrl: React.Dispatch<React.SetStateAction<string>>,  comment: string, setComment: React.Dispatch<React.SetStateAction<string>>, responseTo: string[], setResponseTo: React.Dispatch<React.SetStateAction<string[]>> }
+type Types = { threadId: string, editing: string, setEditing: React.Dispatch<React.SetStateAction<string>>, imageUrl: string, setImageUrl: React.Dispatch<React.SetStateAction<string>>,  comment: string, setComment: React.Dispatch<React.SetStateAction<string>>, responseTo: string[], setResponseTo: React.Dispatch<React.SetStateAction<string[]>>, setPage: React.Dispatch<React.SetStateAction<number>> }
 
-const MakePost = ({ threadId, editing, setEditing, imageUrl, setImageUrl, comment, setComment, responseTo, setResponseTo }: Types ) => {
+const MakePost = ({ threadId, editing, setEditing, imageUrl, setImageUrl, comment, setComment, responseTo, setResponseTo, setPage }: Types ) => {
   const dispatch = useDispatch()
   const user: LoggedUser = useSelector((state: RootState) => state.user)
 
@@ -29,6 +29,7 @@ const MakePost = ({ threadId, editing, setEditing, imageUrl, setImageUrl, commen
     setResponseTo([])
     setEditing('')
     setImageUrl('')
+    setPage(-1)
   }
 
   const cancelEditing = () => {

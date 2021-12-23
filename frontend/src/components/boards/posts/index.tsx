@@ -59,13 +59,15 @@ const Posts = () => {
         comment={comment}
         setComment={setComment}
         responseTo={responseTo}
-        setResponseTo={setResponseTo} />
+        setResponseTo={setResponseTo}
+        setPage={setPage} />
     </div>
   )
 }
 
 const PageButtons = ({ page, setPage, posts}: { page: number, setPage: React.Dispatch<React.SetStateAction<number>>, posts: number }) => {
   if (posts < 11) return null
+  if (page === -1) setPage(Math.ceil(posts / 10) - 1)
 
   const changePage = (i: number) => {
     setPage(i)
