@@ -42,6 +42,7 @@ const App = () => {
         <div style={styles.body}>
           <Routes>
             <Route path="/" element={<Boards />} />
+            <Route path="/boards" element={<Boards />} />
             <Route path="/boards/:boardName" element={<Threads />} />
             <Route path="/boards/:boardName/:threadName" element={<Posts />} />
             <Route path="/search" element={<Search />} />

@@ -48,7 +48,7 @@ const MakeThread = ({ boardId }: { boardId: string}) => {
 
   return (
     <div style={styles.submit}>
-      <h2 style={{ margin: '0px' }}>Make a new Thread</h2>
+      <h2 style={{ margin: '0px' }}>Make a new thread</h2>
       <form onSubmit={handleThreadCreation}>
         <input
           placeholder='image url'
