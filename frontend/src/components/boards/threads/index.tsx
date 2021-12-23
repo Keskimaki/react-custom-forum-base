@@ -16,6 +16,9 @@ const Threads = () => {
   const [page, setPage] = useState(0)
 
   if (!board) return <NotFound />
+  
+  //Sort threads by date of latest post
+  board.threads.sort((a, b) => +new Date(b.posts[b.posts.length - 1].date) - +new Date(a.posts[a.posts.length - 1].date))
 
   return (
     <div>
