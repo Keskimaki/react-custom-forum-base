@@ -16,7 +16,7 @@ const Posts = () => {
   const [comment, setComment] = useState('')
   const [editing, setEditing] = useState('')
   const [mouseover, setMouseover] = useState(['', ''])
-
+  const [page, setPage] = useState(0)
   const { boardName, threadName } = useParams()
   const boards: BoardType[] = useSelector((state: RootState) => state.boards)
   const thread = boards.
@@ -29,9 +29,13 @@ const Posts = () => {
 
   return (
     <div>
+      <PageButtons 
+        page={page}
+        setPage={setPage}
+        posts={thread.posts.length} />
       <h1 style={styles.largeHeader}>{thread.name}</h1>
       {mouseoverPost && <Mouseover post={mouseoverPost} position={mouseover[1].split(' ')} />}
-      {thread.posts.map(post =>
+      {thread.posts.slice(10 * page, 10 + 10 * page).map(post =>
         <Post 
           key={post.id} 
           post={post}
@@ -42,6 +46,10 @@ const Posts = () => {
           setResponseTo={setResponseTo}
           setMouseover={setMouseover}/>
       )}
+      <PageButtons 
+        page={page}
+        setPage={setPage}
+        posts={thread.posts.length} />
       <MakePost 
         threadId={thread.id}
         editing={editing}
@@ -52,6 +60,31 @@ const Posts = () => {
         setComment={setComment}
         responseTo={responseTo}
         setResponseTo={setResponseTo} />
+    </div>
+  )
+}
+
+const PageButtons = ({ page, setPage, posts}: { page: number, setPage: React.Dispatch<React.SetStateAction<number>>, posts: number }) => {
+  if (posts < 11) {
+    return null
+  }
+  
+  const changePage = (i: number) => {
+    setPage(i)
+    window.scrollTo(0, 0)
+  }
+
+  const buttons = []
+  for (let i = 0; i < Math.ceil(posts / 10); i++) {
+    buttons.push(
+      <button onClick={() => changePage(i)} style={page === i ? styles.postButtonFocus : styles.postButton}>
+        {i + 1}
+      </button>)
+  }
+
+  return (
+    <div style={{ ...styles.board }}>
+      {buttons}
     </div>
   )
 }

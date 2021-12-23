@@ -182,11 +182,19 @@ const button: CSS.Properties = {
   fontSize: '20px'
 }
 
-const postButton : CSS.Properties = {
+const postButton: CSS.Properties = {
   backgroundColor: '#0366d6',
   color: '#FFF',
   borderRadius: '5px',
+  marginRight: '5px'
+}
+
+const postButtonFocus: CSS.Properties = {
+  backgroundColor: '#033c7c',
+  color: '#FFF',
+  borderRadius: '5px',
   marginRight: '5px',
+  //border: '2px solid #ede845'
 }
 
 const notification: CSS.Properties = {
@@ -262,6 +270,7 @@ const styles = {
   submit,
   button,
   postButton,
+  postButtonFocus,
   notification,
   negativeNotification,
   positiveNotification,
