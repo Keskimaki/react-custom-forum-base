@@ -85,6 +85,10 @@ const PageButtons = ({ page, setPage, posts}: { page: number, setPage: React.Dis
   return (
     <div style={{ ...styles.board }}>
       {buttons}
+      {page != Math.ceil(posts / 10) - 1 &&
+        <button onClick={() => changePage(page + 1)} style={styles.postButton}>
+          next
+        </button>}
     </div>
   )
 }

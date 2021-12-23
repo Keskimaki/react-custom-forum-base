@@ -29,7 +29,7 @@ const MakePost = ({ threadId, editing, setEditing, imageUrl, setImageUrl, commen
     setResponseTo([])
     setEditing('')
     setImageUrl('')
-    setPage(-1)
+    if (!editing) setPage(-1) //Last page of thread
   }
 
   const cancelEditing = () => {

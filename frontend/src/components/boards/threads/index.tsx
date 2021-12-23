@@ -94,6 +94,10 @@ const PageButtons = ({ page, setPage, threads }: { page: number, setPage: React.
   return (
     <div style={styles.board}>
       {buttons}
+      {page != Math.ceil(threads / 20) - 1 &&
+        <button onClick={() => changePage(page + 1)} style={styles.postButton}>
+          next
+        </button>}
     </div>
   )
 }
