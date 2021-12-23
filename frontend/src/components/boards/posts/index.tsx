@@ -44,7 +44,7 @@ const Posts = () => {
           setComment={setComment}
           responseTo={responseTo}
           setResponseTo={setResponseTo}
-          setMouseover={setMouseover}/>
+          setMouseover={setMouseover} />
       )}
       <PageButtons 
         page={page}
@@ -65,10 +65,8 @@ const Posts = () => {
 }
 
 const PageButtons = ({ page, setPage, posts}: { page: number, setPage: React.Dispatch<React.SetStateAction<number>>, posts: number }) => {
-  if (posts < 11) {
-    return null
-  }
-  
+  if (posts < 11) return null
+
   const changePage = (i: number) => {
     setPage(i)
     window.scrollTo(0, 0)
