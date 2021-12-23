@@ -1,7 +1,8 @@
 import axios from 'axios'
+import env from '../.env'
 import { ThreadType } from '../types'
 
-const baseUrl = 'http://localhost:3003/api/threads'
+const baseUrl = `${env.API_BASE_URL}/api/threads`
 
 const makeThread = async (name: string, user: string, board: string, token: string) => {
   const newThread = {

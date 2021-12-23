@@ -1,7 +1,8 @@
 import axios from 'axios'
+import env from '../.env'
 import { BoardType } from '../types'
 
-const baseUrl = 'http://localhost:3003/api/boards'
+const baseUrl = `${env.API_BASE_URL}/api/boards`
 
 const getAll = async () => {
   const res = await axios.get<BoardType[]>(baseUrl)

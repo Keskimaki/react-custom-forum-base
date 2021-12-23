@@ -14,6 +14,7 @@ void mongoose.connect(env.MONGODB_URI)
 const app = express()
 app.use(cors())
 app.use(express.json())
+//app.use(express.static('build')) //For Heroku
 
 app.use('/api/users', userRouter)
 app.use('/api/login', loginRouter)

@@ -1,7 +1,8 @@
 import axios from 'axios'
+import env from '../.env'
 import { PostType } from '../types'
 
-const baseUrl = 'http://localhost:3003/api/posts'
+const baseUrl = `${env.API_BASE_URL}/api/posts`
 
 const getAll = async () => {
   const res = await axios.get<PostType[]>(baseUrl)

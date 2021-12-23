@@ -1,7 +1,8 @@
 import axios from 'axios'
+import env from '../.env'
 import { UserType, UserDetails } from '../types'
 
-const baseUrl = 'http://localhost:3003/api/users'
+const baseUrl = `${env.API_BASE_URL}/api/users`
 
 const getAll = async () => {
   const res = await axios.get<UserType[]>(baseUrl)

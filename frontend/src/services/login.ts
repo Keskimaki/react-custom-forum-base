@@ -1,7 +1,8 @@
 import axios from 'axios'
+import env from '../.env'
 import { LoggedUser } from '../types'
 
-const baseUrl = 'http://localhost:3003/api/login'
+const baseUrl = `${env.API_BASE_URL}/api/login`
 
 const login = async (username: string, password: string): Promise<LoggedUser | undefined> => {
   try {
