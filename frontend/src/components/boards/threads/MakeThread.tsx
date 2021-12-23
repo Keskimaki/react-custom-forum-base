@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import threadService from '../../../services/threads'
 import postService from '../../../services/posts'
 import { useDispatch, useSelector } from 'react-redux'
-import { LoggedUser } from '../../../types'
+import { LoggedUser, BoardType } from '../../../types'
 import { RootState } from '../../../store'
 import styles from '../../../styles'
 import { initializeBoards } from '../../../reducers/boardReducer'
@@ -16,6 +16,9 @@ const MakeThread = ({ boardId }: { boardId: string}) => {
   const [imageUrl, setImageUrl] = useState('')
 
   const user: LoggedUser = useSelector((state: RootState) => state.user)
+  
+  const boards: BoardType[] = useSelector((state: RootState) => state.boards)
+  const threads = boards.map(board => board.threads).flat()
 
   const handleThreadCreation = async (event: React.SyntheticEvent) => {
     event.preventDefault()
@@ -25,6 +28,10 @@ const MakeThread = ({ boardId }: { boardId: string}) => {
       return null
     } else if (title.length < 5) {
       dispatch(setNotification('Thread title must be at least five characters long', 'negative'))
+      return null
+    } else if (threads.find(thread => thread.name === title )){
+      dispatch(setNotification('Thread title must be unique', 'negative'))
+      return null
     }
     const newThread = await threadService.makeThread(title, user.id, boardId, user.token)
     await postService.makePost(imageUrl, comment, user.id, newThread.id, user.token)
