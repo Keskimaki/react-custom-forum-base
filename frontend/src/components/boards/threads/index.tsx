@@ -83,7 +83,7 @@ const PageButtons = ({ page, setPage, threads }: { page: number, setPage: React.
   const buttons = []
   for (let i = 0; i < Math.ceil(threads / 20); i++) {
     buttons.push(
-      <button onClick={() => changePage(i)} style={page === i ? styles.postButtonFocus : styles.postButton}>
+      <button key={i} onClick={() => changePage(i)} style={page === i ? styles.postButtonFocus : styles.postButton}>
         {i + 1}
       </button>)
   }

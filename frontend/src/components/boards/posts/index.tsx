@@ -77,7 +77,7 @@ const PageButtons = ({ page, setPage, posts}: { page: number, setPage: React.Dis
   const buttons = []
   for (let i = 0; i < Math.ceil(posts / 10); i++) {
     buttons.push(
-      <button onClick={() => changePage(i)} style={page === i ? styles.postButtonFocus : styles.postButton}>
+      <button key={i} onClick={() => changePage(i)} style={page === i ? styles.postButtonFocus : styles.postButton}>
         {i + 1}
       </button>)
   }
