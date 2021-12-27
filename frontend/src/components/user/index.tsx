@@ -30,6 +30,7 @@ const User = () => {
     const thread = threads.find(thread => thread.id === threadId)
     if (!thread) return null
     const board = boards.find(board => board.id === thread?.board)
+    
     return (
       <Link to={`/boards/${(board as BoardType).url}/${thread.name}`}  style={styles.link}>
         <><strong>{thread.name}</strong> in {board?.name}</>

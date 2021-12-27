@@ -35,6 +35,7 @@ const Post = ({ post, editing, setEditing, setComment, responseTo, setResponseTo
   }
 
   const handlePostDeletion = () => {
+    if (!window.confirm('Delete post?')) return
     postService.deletePost(post.id, loginData.id, loginData.token)
     dispatch(initializeBoards())
     dispatch(initializePosts())

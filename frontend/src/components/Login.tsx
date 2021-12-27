@@ -19,6 +19,7 @@ const Login = () => {
 
   const handleLogin = async (event: React.SyntheticEvent) => {
     event.preventDefault()
+    
     if (usernames.some(name => name === username)) {
       const loginData: LoggedUser | undefined = await loginService.login(username, password)
       if (!loginData) {

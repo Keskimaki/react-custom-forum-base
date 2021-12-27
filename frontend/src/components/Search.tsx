@@ -14,12 +14,12 @@ const Search = () => {
         <h1 style={styles.subHeader}>Search Forum</h1>
         <input
           style={styles.textInput} 
-          placeholder="search by thread title"
+          placeholder="title search"
           value={filter}
           onChange={({ target }) => setFilter(target.value)} />
         <input
           style={styles.textInput} 
-          placeholder="search by user"
+          placeholder="user search"
           value={userFilter}
           onChange={({ target }) => setUserFilter(target.value)} />
       </div>
@@ -60,7 +60,6 @@ const SearchResults = ({ filter, userFilter }: { filter: string, userFilter: str
             <br />
             {thread.name} by
             <strong> {users.find(user => user.id === thread.user)?.username}</strong>
-            <span style={styles.threadInfo}>{thread.posts.length} posts</span>
           </div>
         </Link>)}
     </div>

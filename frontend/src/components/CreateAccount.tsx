@@ -35,7 +35,8 @@ const CreateAccount = () => {
     } else {
       await userService.createAccount(username, password, email)
       const loginData = await loginService.login(username, password)
-      dispatch(saveLoginData(loginData as LoggedUser)) //Will alway be LoggedUser and never undefined because the account was just created
+
+      dispatch(saveLoginData(loginData as LoggedUser)) //Never undefined, account just created
       dispatch(initializeUsers())
       navigate('/boards')
       dispatch(setNotification('Account created', 'positive'))
