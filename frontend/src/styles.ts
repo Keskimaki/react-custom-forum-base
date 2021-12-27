@@ -7,7 +7,6 @@ const app: CSS.Properties = {
 
 const header: CSS.Properties = {
   backgroundColor: '#24292e',
-  //paddingRight: '50%',
   height: '100px',
   alignItems: 'center',
   display: 'flex',
@@ -22,25 +21,49 @@ const headerTab: CSS.Properties = {
   fontWeight: 'bold'
 }
 
-const main: CSS.Properties = {
-  display: 'flex',
-  flexGrow: 1,
-  minHeight: 'calc(100vh - 200px)',
-  justifyContent: 'center'
-}
+let main: CSS.Properties
+let body: CSS.Properties
+let infoBar: CSS.Properties
+//Separate styling for desktop and mobile
+if (window.screen.width >= 768) {
+  main = {
+    display: 'flex',
+    flexGrow: 1,
+    minHeight: 'calc(100vh - 200px)',
+    justifyContent: 'center'
+  }
 
-const body: CSS.Properties = {
-  width: '70vw',
-  maxWidth: '1200px',
-  padding: '10px',
-}
+  body = {
+    width: '70vw',
+    maxWidth: '1200px',
+    padding: '10px'
+  }
 
-const infoBar: CSS.Properties = {
-  width: '30vw',
-  maxWidth: '400px',
-  backgroundColor: '#E1E4E8',
-  padding: '10px',
-  paddingTop: '10px'
+  infoBar = {
+    width: '30vw',
+    maxWidth: '400px',
+    backgroundColor: '#E1E4E8',
+    padding: '10px',
+    paddingTop: '10px'
+  }
+
+} else {
+  main = {
+    flexGrow: 1,
+    minHeight: 'calc(100vh - 200px)',
+    justifyContent: 'center'
+  }
+
+  body = {
+    maxWidth: '1200px',
+    padding: '10px'
+  }
+
+  infoBar = {
+    backgroundColor: '#E1E4E8',
+    padding: '10px',
+    paddingTop: '10px'
+  }
 }
 
 const infoBarItem: CSS.Properties = {
@@ -53,8 +76,6 @@ const infoBarItem: CSS.Properties = {
 const board: CSS.Properties = {
   backgroundColor: '#FFF',
   padding: '10px',
-  //border: '2px solid #586069',
-  //marginLeft: '2.5vw',
   marginBottom: '10px',
   fontSize: '20px',
 }

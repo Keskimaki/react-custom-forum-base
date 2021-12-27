@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useParams, useNavigate } from 'react-router'
+import { useParams } from 'react-router'
 import { useSelector } from 'react-redux'
 import CSS from 'csstype'
 import { BoardType, PostType } from '../../../types'
@@ -68,8 +68,8 @@ const Posts = () => {
 const PageButtons = ({ page, setPage, posts}: { page: number, setPage: React.Dispatch<React.SetStateAction<number>>, posts: number }) => {
   if (posts < 11) return null
 
-  const { boardName } = useParams()
-  const navigate = useNavigate()
+  /*const { boardName } = useParams()
+  const navigate = useNavigate()*/
 
   const changePage = (i: number) => {
     setPage(i)
@@ -91,9 +91,9 @@ const PageButtons = ({ page, setPage, posts}: { page: number, setPage: React.Dis
         <button onClick={() => changePage(page + 1)} style={styles.postButton}>
           next
         </button>}
-      <button onClick={() => navigate(`/boards/${boardName}`)} style={styles.postButton}>
+      {/*<button onClick={() => navigate(`/boards/${boardName}`)} style={styles.postButton}>
         close
-      </button>
+      </button>*/}
     </div>
   )
 }
