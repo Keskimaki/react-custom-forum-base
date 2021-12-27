@@ -58,14 +58,15 @@ const Thread = ({ thread }: { thread: ThreadType }) => {
       <div style={styles.board}>
         {lastPoster && lastPost &&
           <div style={styles.threadInfo}>
-            Last post by {lastPoster.username}
-            <br />
-            {lastPost.content.length > 20
-              ? <>{lastPost.content.substring(0, 20)}...</>
+            {/*Last post <strong>{lastPoster.username.substring(0, 8)}</strong>*/}
+            {lastPost.content.length > 15
+              ? <>{lastPost.content.substring(0, 15)}...</>
               : lastPost.content}
             <br />
             at {new Date(thread.posts[thread.posts.length - 1].date)
               .toLocaleString('ger', { day: 'numeric', month: 'numeric', year: '2-digit', hour: 'numeric', minute:'numeric', second:'numeric' })}
+            <br />
+            by {lastPoster.username}
           </div>}
         <strong>{thread.name}</strong> <br />
         created by {username ? username : <>deleted</>} <br />

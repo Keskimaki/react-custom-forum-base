@@ -81,8 +81,10 @@ const board: CSS.Properties = {
 }
 
 const threadInfo: CSS.Properties = {
+  borderLeft: '2px solid #586069',
+  padding: '10px',
   color: '#586069',
-  //fontSize: '16px',
+  fontSize: '16px',
   float: 'right'
 }
 
@@ -92,8 +94,6 @@ const mouseoverPost: CSS.Properties = {
   marginBottom: '10px',
   fontSize: '20px',
   position: 'fixed',
-  //top: '40vh',
-  //left: '40vw',
   border: '2px solid #586069'
 }
 
@@ -110,8 +110,8 @@ const largeHeader: CSS.Properties = {
 }
 
 const subHeader: CSS.Properties = {
-    margin: 0,
-    display: 'inline',
+  margin: 0,
+  display: 'inline',
 }
 
 const form: CSS.Properties = {
@@ -215,7 +215,6 @@ const postButtonFocus: CSS.Properties = {
   color: '#FFF',
   borderRadius: '5px',
   marginRight: '5px',
-  //border: '2px solid #ede845'
 }
 
 const notification: CSS.Properties = {
