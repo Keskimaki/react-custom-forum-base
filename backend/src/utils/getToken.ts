@@ -15,7 +15,6 @@ const getToken = (authorization: string | undefined): string | null => {
     const decodedToken = jwt.verify(token, env.SECRET)
     return (decodedToken as token).id
   } catch {
-    //TODO middleware for error handling
     throw new Error('Invalid token')
   }
 }

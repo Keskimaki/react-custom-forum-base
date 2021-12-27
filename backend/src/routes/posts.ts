@@ -5,7 +5,7 @@ import Thread from '../models/thread'
 import User from '../models/user'
 import getToken from '../utils/getToken'
 import toNewPost, { toEditPost, handleImage } from '../utils/parsers/toNewPost'
-import { PostType } from '../types'
+import { PostType, UserType } from '../types'
 
 const postRouter = express.Router()
 
@@ -20,6 +20,12 @@ postRouter.post('/', async (req, res) => {
   }
   const newPost: PostType = toNewPost(req.body)
   const savedPost: PostType = await new Post(newPost).save()
+
+  const user: UserType | null = await User.findById(newPost.user)
+  const lastPost: PostType | null = await Post.findById(user?.posts[user?.posts.length - 1])
+  if (user && lastPost && (+newPost.date - +lastPost.date < 5000)) {
+    return res.status(403).json({ error: 'wait five seconds between posts'})
+  }
 
   if (req.body.imageUrl) {
     await handleImage(req.body.imageUrl, savedPost.id as ObjectId)
