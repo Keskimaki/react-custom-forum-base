@@ -7,7 +7,6 @@ import { RootState } from '../../../store'
 import MakePost from './MakePost'
 import NotFound from '../../NotFound'
 import styles from '../../../styles'
-
 import Post from './Post'
 
 const Posts = () => {
@@ -86,7 +85,7 @@ const PageButtons = ({ page, setPage, posts}: { page: number, setPage: React.Dis
   }
 
   return (
-    <div style={{ ...styles.board }}>
+    <div style={styles.board}>
       {buttons}
       {page != Math.ceil(posts / 10) - 1 &&
         <button onClick={() => changePage(page + 1)} style={styles.postButton}>

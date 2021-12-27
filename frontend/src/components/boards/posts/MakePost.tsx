@@ -1,4 +1,4 @@
-import React  from 'react'
+import React, { useState }  from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../store'
 import postService from '../../../services/posts'
@@ -7,15 +7,22 @@ import styles from '../../../styles'
 import { initializeBoards } from '../../../reducers/boardReducer'
 import { initializePosts } from '../../../reducers/postReducer'
 import { initializeUsers } from '../../../reducers/userReducer'
+import { setNotification } from '../../../reducers/notificationReducer'
 
 type Types = { threadId: string, editing: string, setEditing: React.Dispatch<React.SetStateAction<string>>, imageUrl: string, setImageUrl: React.Dispatch<React.SetStateAction<string>>,  comment: string, setComment: React.Dispatch<React.SetStateAction<string>>, responseTo: string[], setResponseTo: React.Dispatch<React.SetStateAction<string[]>>, setPage: React.Dispatch<React.SetStateAction<number>> }
 
 const MakePost = ({ threadId, editing, setEditing, imageUrl, setImageUrl, comment, setComment, responseTo, setResponseTo, setPage }: Types ) => {
+  const [canPost, setCanPost] = useState(true)
   const dispatch = useDispatch()
   const user: LoggedUser = useSelector((state: RootState) => state.user)
-
+  
   const handlePost = async (event: React.SyntheticEvent) => {
     event.preventDefault()
+
+    if (!canPost) {
+      dispatch(setNotification('Wait five seconds before posting again', 'negative'))
+      return
+    }
 
     editing
       ? await postService.editPost(imageUrl, comment, responseTo, editing, user.id, user.token)
@@ -24,6 +31,11 @@ const MakePost = ({ threadId, editing, setEditing, imageUrl, setImageUrl, commen
     setTimeout(() => dispatch(initializeBoards()), 500)
     dispatch(initializePosts())
     dispatch(initializeUsers())
+
+    if (!editing) {
+      setCanPost(false)
+      setTimeout(() => setCanPost(true), 5000)
+    }
 
     setComment('')
     setResponseTo([])
