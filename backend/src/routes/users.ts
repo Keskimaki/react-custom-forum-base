@@ -1,7 +1,7 @@
 import express from 'express'
 import bcrypt from 'bcryptjs'
 import User from '../models/user'
-import toNewUser, { toEditUser, toImageUrl } from '../utils/parsers/toNewUser'
+import userParser from '../utils/parsers/userParser'
 import { UserType } from '../types'
 import getToken from '../utils/getToken'
 import imageService from '../utils/imageService'
@@ -15,7 +15,7 @@ userRouter.get('/', async (_req, res) => {
 })
 
 userRouter.post('/', async (req, res) => {
-  const newUser: UserType = await toNewUser(req.body)
+  const newUser: UserType = await userParser.toNewUser(req.body)
   const savedUser = await new User(newUser).save()
   res.status(201).json(savedUser)
 })
@@ -29,7 +29,7 @@ userRouter.put('/:id', async (req, res) => {
     return res.status(400).json({ error: 'invalid id' })
   }
   console.log(req.body)
-  const editData = await toEditUser(req.body)
+  const editData = await userParser.toEditUser(req.body)
   console.log(editData)
   await User.findByIdAndUpdate(req.params.id, editData)
   res.status(204).end()
@@ -43,7 +43,7 @@ userRouter.put('/:id/image', async (req, res) => {
   if (!user) {
     return res.status(400).json({ error: 'invalid id' })
   }
-  const imageUrl = toImageUrl(req.body)
+  const imageUrl = userParser.toImageUrl(req.body)
   await imageService.downloadImage(imageUrl, `${user.username}.png`)
   imageService.uploadImage(env.AWS_BUCKET_NAME_2, `${user.username}.png`)
   await User.findByIdAndUpdate(req.params.id, { image: true })

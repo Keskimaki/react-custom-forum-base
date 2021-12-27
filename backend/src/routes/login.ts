@@ -4,12 +4,12 @@ import bcrypt from 'bcryptjs'
 import User from '../models/user'
 import env from '../utils/config'
 import { UserType } from '../types'
-import { toLogin } from '../utils/parsers/toNewUser'
+import userParser from '../utils/parsers/userParser'
 
 const loginRouter = express.Router()
 
 loginRouter.post('/', async (req, res) => {
-  const loginData = toLogin(req.body)
+  const loginData = userParser.toLogin(req.body)
 
   const user: UserType | null = await User.findOne({ username: loginData.username }).select('+passwordHash')
 

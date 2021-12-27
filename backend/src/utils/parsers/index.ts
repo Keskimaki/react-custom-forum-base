@@ -43,3 +43,14 @@ export const filterWords = (text: string): string => {
   const filteredText = text.split(' ').filter(word => filterWord(word)).join(' ')
   return filteredText
 }
+
+const parser = {
+  isString,
+  isArray,
+  isObjectId,
+  isObjectIdList,
+  parseUser,
+  filterWords
+}
+
+export default parser

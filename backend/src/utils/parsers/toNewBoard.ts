@@ -1,8 +1,8 @@
-import { isString } from '.'
+import parser from '.'
 import { BoardType, BoardStatus } from '../../types'
 
 const parseString = (text: unknown): string => {
-  if (!text || !isString(text)) {
+  if (!text || !parser.isString(text)) {
     throw new Error('Incorrect or missing board name or description')
   }
   return text
@@ -13,7 +13,7 @@ const isStatus = (status: string): status is BoardStatus => {
 }
 
 const parseStatus = (status: unknown): BoardStatus => {
-  if (!status || !isString(status) || !isStatus(status)) {
+  if (!status || !parser.isString(status) || !isStatus(status)) {
     throw new Error('Incorrect status')
   }
   return status
@@ -30,7 +30,7 @@ const checkUrl = (url: string): boolean => {
 } 
 
 const parseUrl = (url: unknown) => {
-  if (!url || !isString(url) || !checkUrl(url)) {
+  if (!url || !parser.isString(url) || !checkUrl(url)) {
     throw new Error('Incorrect or missing url')
   }
   return url

@@ -1,17 +1,17 @@
 import { ObjectId } from 'mongodb'
-import { isString, isObjectId, parseUser, filterWords } from '.'
+import parser from '.'
 import { ThreadType, ThreadStatus } from '../../types'
 
 const parseString = (text: unknown): string => {
-  if (!text || !isString(text) || text.includes('#')) {
+  if (!text || !parser.isString(text) || text.includes('#')) {
     throw new Error('Incorrect or missing name or description')
   }
-  const filteredText = filterWords(text)
+  const filteredText = parser.filterWords(text)
   return filteredText
 }
 
 const parseBoard = (board: unknown): ObjectId => {
-  if (!board || !isObjectId(board)) {
+  if (!board || !parser.isObjectId(board)) {
     throw new Error('Incorrect or missing board ID')
   }
   return board
@@ -22,7 +22,7 @@ const isStatus = (status: string): status is ThreadStatus => {
 }
 
 const parseStatus = (status: unknown): ThreadStatus => {
-  if (!status || !isString(status) || !isStatus(status)) {
+  if (!status || !parser.isString(status) || !isStatus(status)) {
     throw new Error('Incorrect status')
   }
   return status
@@ -33,7 +33,7 @@ type Fields = { name: unknown, description: unknown, user: unknown, board: unkno
 const toNewThread = ({ name, user, board, status }: Fields): ThreadType => {
   const newThread: ThreadType = {
     name: parseString(name),
-    user: parseUser(user),
+    user: parser.parseUser(user),
     board: parseBoard(board),
     status: status ? parseStatus(status) : 'open',
     date: new Date(),

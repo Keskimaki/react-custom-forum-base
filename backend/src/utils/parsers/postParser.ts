@@ -1,26 +1,26 @@
 import { ObjectId } from 'mongodb'
-import { isString, isArray, isObjectId, isObjectIdList, parseUser, filterWords } from '.'
+import parser from '.'
 import { PostType, PostStatus } from '../../types'
 import imageService from '../imageService'
 import env from '../config'
 
 const parseString = (text: unknown): string => {
-  if (!text || !isString(text)) {
+  if (!text || !parser.isString(text)) {
     throw new Error('Incorrect or missing content')
   }
-  const filteredText = filterWords(text)
+  const filteredText = parser.filterWords(text)
   return filteredText
 }
 
 const parseResponses = (responses: unknown): ObjectId[] => {
-  if (!responses || !isArray(responses) || !isObjectIdList(responses)) {
+  if (!responses || !parser.isArray(responses) || !parser.isObjectIdList(responses)) {
     throw new Error('Incorrect responses')
   }
   return responses
 }
 
 const parseThread = (thread: unknown): ObjectId => {
-  if (!thread || !isObjectId(thread)) {
+  if (!thread || !parser.isObjectId(thread)) {
     throw new Error('Incorrect or missing thread ID')
   }
   return thread
@@ -31,7 +31,7 @@ const isStatus = (status: string): status is PostStatus => {
 }
 
 const parseStatus = (status: unknown): PostStatus => {
-  if (!status || !isString(status) || !isStatus(status)) {
+  if (!status || !parser.isString(status) || !isStatus(status)) {
     throw new Error('Incorrect status')
   }
   return status
@@ -42,7 +42,7 @@ type Fields = { content: unknown, user: unknown, responseTo: unknown, thread: un
 const toNewPost = ({ content, user, responseTo, thread, status }: Fields): PostType  => {
   const newPost: PostType = {
     content: parseString(content),
-    user: parseUser(user),
+    user: parser.parseUser(user),
     responseTo: responseTo ? parseResponses(responseTo) : [],
     thread: parseThread(thread),
     status: status ? parseStatus(status) : 'visible',
@@ -58,7 +58,7 @@ type Edit = {
   edited: Date
 }
 
-export const toEditPost = ({ content, responseTo }: { content: unknown, responseTo: unknown }): Edit => {
+const toEditPost = ({ content, responseTo }: { content: unknown, responseTo: unknown }): Edit => {
   const editPost = {
     content: parseString(content),
     responseTo: responseTo ? parseResponses(responseTo) : undefined,
@@ -68,16 +68,22 @@ export const toEditPost = ({ content, responseTo }: { content: unknown, response
 }
 
 const parseImageUrl = (imageUrl: unknown): string => {
-  if (!imageUrl || !isString(imageUrl)) {
+  if (!imageUrl || !parser.isString(imageUrl)) {
     throw new Error('Incorrect or missing image url')
   }
   return imageUrl
 }
 
-export const handleImage = async (imageUrl: unknown, id: ObjectId) => {
+const handleImage = async (imageUrl: unknown, id: ObjectId) => {
   const image = parseImageUrl(imageUrl)
   await imageService.downloadImage(image, `${id}.png`)
   imageService.uploadImage(env.AWS_BUCKET_NAME_1, `${id}.png`)
 }
 
-export default toNewPost
+const postParser = {
+  toNewPost,
+  toEditPost,
+  handleImage
+}
+
+export default postParser

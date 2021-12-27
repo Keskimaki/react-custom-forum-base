@@ -4,7 +4,7 @@ import Post from '../models/post'
 import Thread from '../models/thread'
 import User from '../models/user'
 import getToken from '../utils/getToken'
-import toNewPost, { toEditPost, handleImage } from '../utils/parsers/toNewPost'
+import postParser from '../utils/parsers/postParser'
 import { PostType, UserType } from '../types'
 
 const postRouter = express.Router()
@@ -18,7 +18,7 @@ postRouter.post('/', async (req, res) => {
   if (!getToken(req.get('authorization'))) {
     return res.status(401).json({ error: 'token missing or invalid'} )
   }
-  const newPost: PostType = toNewPost(req.body)
+  const newPost: PostType = postParser.toNewPost(req.body)
   const savedPost: PostType = await new Post(newPost).save()
 
   const user: UserType | null = await User.findById(newPost.user)
@@ -28,7 +28,7 @@ postRouter.post('/', async (req, res) => {
   }
 
   if (req.body.imageUrl) {
-    await handleImage(req.body.imageUrl, savedPost.id as ObjectId)
+    await postParser.handleImage(req.body.imageUrl, savedPost.id as ObjectId)
     await Post.findByIdAndUpdate(savedPost.id, { image: true })
   }
   await Thread.findByIdAndUpdate(newPost.thread, { $push: { posts: savedPost.id } })
@@ -49,9 +49,9 @@ postRouter.put('/:id', async (req, res) => {
   } else if (String(post.user) !== req.body.userId) {
     return res.status(401).json({ error: 'invalid user' })
   }
-  const editData = toEditPost(req.body)
+  const editData = postParser.toEditPost(req.body)
   if (req.body.imageUrl) {
-    await handleImage(req.body.imageUrl, post.id as ObjectId)
+    await postParser.handleImage(req.body.imageUrl, post.id as ObjectId)
     await Post.findByIdAndUpdate(req.params.id, { image: true })
   }
   if (editData.responseTo && post.responseTo !== editData.responseTo) {
