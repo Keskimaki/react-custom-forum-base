@@ -16,6 +16,7 @@ const MakeThread = ({ boardId }: { boardId: string}) => {
   const [imageUrl, setImageUrl] = useState('')
 
   const user: LoggedUser = useSelector((state: RootState) => state.user)
+  if (user.privileges === 'guest') return null
   
   const boards: BoardType[] = useSelector((state: RootState) => state.boards)
   const threads = boards.map(board => board.threads).flat()
@@ -43,8 +44,6 @@ const MakeThread = ({ boardId }: { boardId: string}) => {
     setComment('')
     setImageUrl('')
   }
-
-  if (user.privileges === 'guest') return null
 
   return (
     <div style={styles.submit}>

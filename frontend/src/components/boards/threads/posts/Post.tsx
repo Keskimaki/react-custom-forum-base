@@ -1,25 +1,28 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { PostType } from '../../../types'
+import { PostType } from '../../../../types'
 import CSS from 'csstype'
-import styles from '../../../styles'
-import { LoggedUser } from '../../../types'
-import { RootState } from '../../../store'
-import postService from '../../../services/posts'
-import userService from '../../../services/users'
-import { initializeBoards } from '../../../reducers/boardReducer'
-import { initializeUsers } from '../../../reducers/userReducer'
-import { initializePosts } from '../../../reducers/postReducer'
-import picture from '../../../assets/default.png'
-import env from '../../../.env'
+import styles from '../../../../styles'
+import { LoggedUser } from '../../../../types'
+import { RootState } from '../../../../store'
+import postService from '../../../../services/posts'
+import userService from '../../../../services/users'
+import { initializeBoards } from '../../../../reducers/boardReducer'
+import { initializeUsers } from '../../../../reducers/userReducer'
+import { initializePosts } from '../../../../reducers/postReducer'
+import picture from '../../../../assets/default.png'
+import env from '../../../../.env'
 
 type Types = { post: PostType, editing: string, setEditing: React.Dispatch<React.SetStateAction<string>>, setComment: React.Dispatch<React.SetStateAction<string>>, responseTo: string[], setResponseTo: React.Dispatch<React.SetStateAction<string[]>>, setMouseover: React.Dispatch<React.SetStateAction<string[]>> }
 
 const Post = ({ post, editing, setEditing, setComment, responseTo, setResponseTo, setMouseover }: Types) => {
   const dispatch = useDispatch()
+  //Forces fetching the picture after each reload instead of using cache
+  const [time, setTime] = useState('')
+  //Set focus on image to make it full size
   const [focus, setFocus] = useState(false)
-  const [time, setTime] = useState('') //Forces fetching the picture after each reload instead of using cache
+
   const loginData: LoggedUser = useSelector((state: RootState) => state.user)
   const users = useSelector((state: RootState) => state.users)
   const user = users.find(user => user.username === loginData.username)

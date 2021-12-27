@@ -2,11 +2,11 @@ import React, { useState } from 'react'
 import { useParams } from 'react-router'
 import { useSelector } from 'react-redux'
 import CSS from 'csstype'
-import { BoardType, PostType } from '../../../types'
-import { RootState } from '../../../store'
+import { BoardType, PostType } from '../../../../types'
+import { RootState } from '../../../../store'
 import MakePost from './MakePost'
-import NotFound from '../../NotFound'
-import styles from '../../../styles'
+import NotFound from '../../../NotFound'
+import styles from '../../../../styles'
 import Post from './Post'
 
 const Posts = () => {
@@ -16,6 +16,7 @@ const Posts = () => {
   const [editing, setEditing] = useState('')
   const [mouseover, setMouseover] = useState(['', ''])
   const [page, setPage] = useState(0)
+
   const { boardName, threadName } = useParams()
   const boards: BoardType[] = useSelector((state: RootState) => state.boards)
   const thread = boards.
@@ -23,7 +24,7 @@ const Posts = () => {
     find(thread => thread.name.replace('?', '') === threadName)
 
   if (!thread) return <NotFound />
-  if (page === -1) setPage(Math.ceil(thread.posts.length / 10) - 1)
+  if (page === -1) setPage(Math.ceil(thread.posts.length / 10) - 1) //Last page
   
   const mouseoverPost =  thread.posts.find(post => post.id === mouseover[0])
 
@@ -34,18 +35,22 @@ const Posts = () => {
         setPage={setPage}
         posts={thread.posts.length} />
       <h1 style={styles.largeHeader}><>{thread.name} </></h1>
-      {mouseoverPost && <Mouseover post={mouseoverPost} position={mouseover[1].split(' ')} />}
-      {thread.posts.slice(10 * page, 10 + 10 * page).map(post =>
-        <Post 
-          key={post.id} 
-          post={post}
-          editing={editing}
-          setEditing={setEditing}
-          setComment={setComment}
-          responseTo={responseTo}
-          setResponseTo={setResponseTo}
-          setMouseover={setMouseover} />
-      )}
+      {mouseoverPost &&
+        <Mouseover
+          post={mouseoverPost}
+          position={mouseover[1].split(' ')} />}
+      {thread.posts
+        .slice(10 * page, 10 + 10 * page)
+        .map(post =>
+          <Post 
+            key={post.id} 
+            post={post}
+            editing={editing}
+            setEditing={setEditing}
+            setComment={setComment}
+            responseTo={responseTo}
+            setResponseTo={setResponseTo}
+            setMouseover={setMouseover} /> )}
       <PageButtons 
         page={page}
         setPage={setPage}
@@ -101,7 +106,7 @@ const PageButtons = ({ page, setPage, posts}: { page: number, setPage: React.Dis
 const Mouseover = ({ post, position }: { post: PostType, position: string[] }) => {
   const users = useSelector((state: RootState) => state.users)
   const username = users.find(user => user.id === post.user)?.username
-
+  //Locate mouseover info on cursor location
   const style: CSS.Properties = {
     ...styles.mouseoverPost,
     left: `${Number(position[0]) + 10}px`,

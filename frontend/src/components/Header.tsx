@@ -39,6 +39,7 @@ const HeaderTab = ({ text, link }: { text: string, link: string }) => {
 
 const Logout = () => {
   const dispatch = useDispatch()
+
   const handleLogout = () => {
     window.localStorage.removeItem('loggedForumUser')
     dispatch(logoutUser())
