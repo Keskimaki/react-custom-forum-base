@@ -1,5 +1,10 @@
 {
   "devDependencies": {
     "cypress": "^9.2.0"
+  },
+  "scripts": {
+    "cypress:open": "cypress open",
+    "test:e2e": "cypress run",
+    "test:server": "cd backend && npm run test"
   }
 }

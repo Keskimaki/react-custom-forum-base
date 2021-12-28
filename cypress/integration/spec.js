@@ -1,11 +1,8 @@
-import env from '../../src/config'
-import { LoggedUser } from '../../src/types'
-
 describe('Forum', () => {
   beforeEach(() => {
-    cy.request('POST', `${env.API_BASE_URL}/api/testing/reset`)
-    cy.request('POST', `${env.API_BASE_URL}/api/users`, { username: 'Tester', password: 'password' })
-    cy.visit(env.API_BASE_URL)
+    cy.request('POST', 'http://localhost:3003/api/testing/reset')
+    cy.request('POST', 'http://localhost:3003/api/users', { username: 'Tester', password: 'password' })
+    cy.visit('http://localhost:3003')
   })
 
   it('front page can be opened', () => {
@@ -67,11 +64,11 @@ describe('Forum', () => {
 
   describe('When logged in', () => {
     beforeEach(() => {
-      cy.request('POST', `${env.API_BASE_URL}/api/login`, {username: 'Tester', password: 'password'})
+      cy.request('POST', 'http://localhost:3003/api/login', {username: 'Tester', password: 'password'})
         .then(response => {
           response.body.token = 'bearer ' + response.body.token
           localStorage.setItem('loggedForumUser', JSON.stringify(response.body))
-          cy.visit(env.API_BASE_URL)
+          cy.visit('http://localhost:3003')
         })
       })
 
@@ -118,7 +115,7 @@ describe('Forum', () => {
 
     it('a new thread can be created', () => {
       cy.contains('TEST - testing').click()
-      cy.get('input:last').type(`Cypress Test`)
+      cy.get('input:last').type('Cypress Test')
       cy.get('textarea').type('Testing Thread Creation')
       cy.contains('Create Thread').click()
       cy.contains('Cypress Test').contains('created by Tester').contains('posts: 1')
@@ -126,10 +123,10 @@ describe('Forum', () => {
 
     describe('Thread exists', () => {
       beforeEach(() => {
-        const userData: LoggedUser = JSON.parse(localStorage.getItem('loggedForumUser'))
+        const userData = JSON.parse(localStorage.getItem('loggedForumUser'))
         cy.request({
           method: 'POST',
-          url: `${env.API_BASE_URL}/api/threads`,
+          url: 'http://localhost:3003/api/threads',
           body: {
             name: 'Test Thread',
             user: userData.id,
