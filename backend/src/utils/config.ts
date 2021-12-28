@@ -1,4 +1,9 @@
-import 'dotenv/config'
+import fs from 'fs'
+import path from 'path'
+
+if (fs.existsSync(`${path.dirname(__filename)}/../../.env`)) {
+  require('dotenv').config()
+}
 
 let MONGODB_URI: string | undefined
 
