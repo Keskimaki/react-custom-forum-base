@@ -5,7 +5,7 @@ describe('Forum', () => {
   beforeEach(() => {
     cy.request('POST', `${env.API_BASE_URL}/api/testing/reset`)
     cy.request('POST', `${env.API_BASE_URL}/api/users`, { username: 'Tester', password: 'password' })
-    cy.visit('http://localhost:3000')
+    cy.visit(env.API_BASE_URL)
   })
 
   it('front page can be opened', () => {
@@ -18,18 +18,17 @@ describe('Forum', () => {
   it('account creation form can be opened', () => {
     cy.contains('Create Account').click()
 
-    cy.get('#username').should('exist')
-    cy.get('#password').should('exist')
-    cy.get('#repeatPassword').should('exist')
+    cy.get('h1').contains('Create Account')
+    cy.get('input').should('exist')
     cy.contains('create')
   })
 
   it('account can be created', () => {
     cy.contains('Create Account').click()
 
-    cy.get('#username').type('Testaaja')
-    cy.get('#password').type('salasana')
-    cy.get('#repeatPassword').type('salasana')
+    cy.get('input:first').type('Testaaja')
+    cy.get('input:eq(2)').type('salasana')
+    cy.get('input:last').type('salasana')
     cy.contains('create').click()
 
     cy.contains('Account created')
@@ -39,16 +38,16 @@ describe('Forum', () => {
   it('login form can be opened', () => {
     cy.contains('Login').click()
 
-    cy.get('#username').should('exist')
-    cy.get('#password').should('exist')
+    cy.get('input:first').should('exist')
+    cy.get('input:last').should('exist')
     cy.contains('login')
   })
 
   it('user can log in', () => {
     cy.contains('Login').click()
 
-    cy.get('#username').type('Tester')
-    cy.get('#password').type('password')
+    cy.get('input:first').type('Tester')
+    cy.get('input:last').type('password')
     cy.contains('login').click()
     
     cy.contains('Logged in')
@@ -58,8 +57,8 @@ describe('Forum', () => {
   it('login fails with wrong password', () => {
     cy.contains('Login').click()
     
-    cy.get('#username').type('Tester')
-    cy.get('#password').type('salasana')
+    cy.get('input:first').type('Tester')
+    cy.get('input:last').type('salasana')
     cy.contains('login').click()
 
     cy.contains('Incorrect password')
@@ -68,11 +67,11 @@ describe('Forum', () => {
 
   describe('When logged in', () => {
     beforeEach(() => {
-      cy.request('POST', 'http://localhost:3003/api/login', {username: 'Tester', password: 'password'})
+      cy.request('POST', `${env.API_BASE_URL}/api/login`, {username: 'Tester', password: 'password'})
         .then(response => {
           response.body.token = 'bearer ' + response.body.token
           localStorage.setItem('loggedForumUser', JSON.stringify(response.body))
-          cy.visit('http://localhost:3000')
+          cy.visit(env.API_BASE_URL)
         })
       })
 
@@ -104,8 +103,8 @@ describe('Forum', () => {
 
       cy.contains('Logout').click()
       cy.contains('Login').click()
-      cy.get('#username').type('Tester')
-      cy.get('#password').type('password')
+      cy.get('input:first').type('Tester')
+      cy.get('input:last').type('password')
       cy.contains('login').click()
       cy.contains('Incorrect password')
     })
@@ -159,7 +158,8 @@ describe('Forum', () => {
         cy.contains('Test Thread').click()
         cy.get('textarea').type('Testing Post Creation')
         cy.contains('Submit').click()
-        cy.reload()
+        cy.go('back')
+        cy.go('forward')
         cy.contains('Testing Post Creation')
       })
     })
