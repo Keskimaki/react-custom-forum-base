@@ -45,3 +45,4 @@ jobs:
           command: npm run test:e2e
           start: npm run test:server
           wait-on: 'http://localhost:3003'
+          env: MONGODB_URI=${{secrets.MONGODB_URI}},TEST_MONGODB_URI=${{secrets.TEST_MONGODB_URI}},PORT=${{secrets.PORT}},SECRET=${{secrets.SECRET}},FILTER=${{secrets.FILTER}},AWS_BUCKET_NAME_1=${{secrets.AWS_BUCKET_NAME_1}},AWS_BUCKET_NAME_2=${{AWS_BUCKET_NAME_2}},AWS_ACCESS_KEY_ID=${{AWS_ACCESS_KEY_ID}},AWS_SECRET_ACCESS_KEY=${{AWS_SECRET_ACCESS_KEY}}
