@@ -2,6 +2,7 @@ import fs from 'fs'
 import path from 'path'
 
 if (fs.existsSync(`${path.dirname(__filename)}/../../.env`)) {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-var-requires
   require('dotenv').config()
 }
 
