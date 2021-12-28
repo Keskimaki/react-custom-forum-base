@@ -1,5 +1,5 @@
 import axios from 'axios'
-import env from '../.env'
+import env from '../config'
 import { ThreadType } from '../types'
 
 const baseUrl = `${env.API_BASE_URL}/api/threads`

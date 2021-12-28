@@ -12,7 +12,7 @@ import { initializeBoards } from '../../../../reducers/boardReducer'
 import { initializeUsers } from '../../../../reducers/userReducer'
 import { initializePosts } from '../../../../reducers/postReducer'
 import picture from '../../../../assets/default.png'
-import env from '../../../../.env'
+import env from '../../../../config'
 
 type Types = { post: PostType, editing: string, setEditing: React.Dispatch<React.SetStateAction<string>>, setComment: React.Dispatch<React.SetStateAction<string>>, responseTo: string[], setResponseTo: React.Dispatch<React.SetStateAction<string[]>>, setMouseover: React.Dispatch<React.SetStateAction<string[]>> }
 

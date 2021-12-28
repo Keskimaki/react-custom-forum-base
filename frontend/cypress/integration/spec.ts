@@ -1,4 +1,4 @@
-import env from '../../src/.env'
+import env from '../../src/config'
 import { LoggedUser } from '../../src/types'
 
 describe('Forum', () => {

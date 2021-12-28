@@ -10,7 +10,7 @@ import { initializeUsers } from '../../reducers/userReducer'
 import userService from '../../services/users'
 import styles from '../../styles'
 import picture from '../../assets/default.png'
-import env from '../../.env'
+import env from '../../config'
 
 const User = () => {
   const loginData: LoggedUser = useSelector((state: RootState) => state.user)

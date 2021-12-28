@@ -1,5 +1,5 @@
 import axios from 'axios'
-import env from '../.env'
+import env from '../config'
 import { PostType } from '../types'
 
 const baseUrl = `${env.API_BASE_URL}/api/posts`
