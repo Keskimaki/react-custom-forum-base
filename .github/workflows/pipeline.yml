@@ -28,3 +28,18 @@ jobs:
         run: cd frontend && npm install
       - name: lint
         run: cd frontend && npm run lint
+  integration:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '14.x'
+      - name: frontend build
+        run: cd frontend && npm install && npm run build && mv build ../backend
+      - name: e2e tests
+        uses: cypress-io/github-action@v2
+        with:
+          command: cd frontend && npm run test:e2e
+          start: cd backend && npm run test
+          wait-on: 'http://localhost:3003'
