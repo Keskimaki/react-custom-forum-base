@@ -1,5 +1,13 @@
+import env from '../../src/.env'
+
 describe('Forum', () => {
   beforeEach(() => {
+    cy.request('POST', `${env.API_BASE_URL}/api/testing/reset`)
+    const user = {
+      username: 'Tester',
+      password: 'password'
+    }
+    cy.request('POST', `${env.API_BASE_URL}/api/users`, user)
     cy.visit('http://localhost:3000')
   })
 
@@ -8,6 +16,27 @@ describe('Forum', () => {
     cy.contains('board for testing purposes')
     cy.contains('Create Account')
     cy.contains('Latest Posts')
+  })
+
+  it('account creation form can be opened', () => {
+    cy.contains('Create Account').click()
+
+    cy.get('#username').should('exist')
+    cy.get('#password').should('exist')
+    cy.get('#repeatPassword').should('exist')
+    cy.contains('create')
+  })
+
+  it('account can be created', () => {
+    cy.contains('Create Account').click()
+
+    cy.get('#username').type('Testaaja')
+    cy.get('#password').type('salasana')
+    cy.get('#repeatPassword').type('salasana')
+    cy.contains('create').click()
+
+    cy.contains('Account created')
+    cy.contains('Logout')
   })
 
   it('login form can be opened', () => {
@@ -32,8 +61,8 @@ describe('Forum', () => {
   it('login fails with wrong password', () => {
     cy.contains('Login').click()
     
-    cy.get('input:first').type('Tester')
-    cy.get('input:last').type('salasana')
+    cy.get('#username').type('Tester')
+    cy.get('#password').type('salasana')
     cy.contains('login').click()
 
     cy.contains('Incorrect password')
@@ -59,7 +88,7 @@ describe('Forum', () => {
       cy.contains('TEST - testing').click()
       cy.get('input:last').type(`Cypress Test`)
       cy.get('textarea').type('Testing Thread Creation')
-      cy.contains('Create Thread').click() //TODO testing mode for database
+      cy.contains('Create Thread').click()
       cy.contains('Cypress Test').contains('created by Tester').contains('posts: 1')
     })
   })
