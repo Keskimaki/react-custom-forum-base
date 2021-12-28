@@ -148,7 +148,9 @@ const postImageLarge: CSS.Properties = {
 
 const edit: CSS.Properties = {
   backgroundColor: '#fff',
-  padding: '10px',
+  paddingTop: '10px',
+  paddingLeft: '10px',
+  paddingRight: '10px',
   paddingBottom: '60px'
 }
 

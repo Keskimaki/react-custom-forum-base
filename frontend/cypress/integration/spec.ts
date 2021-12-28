@@ -1,13 +1,10 @@
 import env from '../../src/.env'
+import { LoggedUser } from '../../src/types'
 
 describe('Forum', () => {
   beforeEach(() => {
     cy.request('POST', `${env.API_BASE_URL}/api/testing/reset`)
-    const user = {
-      username: 'Tester',
-      password: 'password'
-    }
-    cy.request('POST', `${env.API_BASE_URL}/api/users`, user)
+    cy.request('POST', `${env.API_BASE_URL}/api/users`, { username: 'Tester', password: 'password' })
     cy.visit('http://localhost:3000')
   })
 
@@ -71,10 +68,46 @@ describe('Forum', () => {
 
   describe('When logged in', () => {
     beforeEach(() => {
+      cy.request('POST', 'http://localhost:3003/api/login', {username: 'Tester', password: 'password'})
+        .then(response => {
+          response.body.token = 'bearer ' + response.body.token
+          localStorage.setItem('loggedForumUser', JSON.stringify(response.body))
+          cy.visit('http://localhost:3000')
+        })
+      })
+
+    it('user info can be entered', () => {
+      cy.contains('Tester').click()
+      cy.get('h1').contains('Tester')
+    })
+
+    it('user info can be edited', () => {
+      cy.contains('Tester').click()
+      cy.contains('edit profile').click()
+      cy.get('input:first').type('Test Tester')
+      cy.get('textarea').type('Testing User Info Editing')
+      cy.contains('Update profile').click()
+
+      cy.contains('Profile updated')
+      cy.contains('Test Tester')
+      cy.contains('Testing User Info Editing')
+    })
+
+    it('user password can be changed', () => {
+      cy.contains('Tester').click()
+      cy.contains('edit profile').click()
+      cy.contains('change password').click()
+      cy.get('input:first').type('salasana')
+      cy.get('input:last').type('salasana')
+      cy.contains('Update Password').click()
+      cy.contains('Password updated')
+
+      cy.contains('Logout').click()
       cy.contains('Login').click()
-      cy.get('input:first').type('Tester')
-      cy.get('input:last').type('password')
+      cy.get('#username').type('Tester')
+      cy.get('#password').type('password')
       cy.contains('login').click()
+      cy.contains('Incorrect password')
     })
 
     it('create thread form exists', () => {
@@ -90,6 +123,45 @@ describe('Forum', () => {
       cy.get('textarea').type('Testing Thread Creation')
       cy.contains('Create Thread').click()
       cy.contains('Cypress Test').contains('created by Tester').contains('posts: 1')
+    })
+
+    describe('Thread exists', () => {
+      beforeEach(() => {
+        const userData: LoggedUser = JSON.parse(localStorage.getItem('loggedForumUser'))
+        cy.request({
+          method: 'POST',
+          url: `${env.API_BASE_URL}/api/threads`,
+          body: {
+            name: 'Test Thread',
+            user: userData.id,
+            board: '61a8a2b1001e88f0184a34ff',
+            status: 'open'
+          },
+          headers: {
+            Authorization: userData.token
+          }
+        })
+        cy.reload()
+        cy.contains('TEST - testing').click()
+      })
+
+      it('thread can be entered', () => {
+        cy.contains('Test Thread').click()
+        cy.get('h1').contains('Test Thread')
+      })
+
+      it('create post form exists', () => {
+        cy.contains('Test Thread').click()
+        cy.get('textarea')
+      })
+
+      it('a new post can be created', () => {
+        cy.contains('Test Thread').click()
+        cy.get('textarea').type('Testing Post Creation')
+        cy.contains('Submit').click()
+        cy.reload()
+        cy.contains('Testing Post Creation')
+      })
     })
   })
 })
