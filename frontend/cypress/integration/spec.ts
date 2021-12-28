@@ -58,7 +58,7 @@ describe('Forum', () => {
       cy.contains('TEST - testing').click()
       cy.get('input:last').type(`Cypress Test`)
       cy.get('textarea').type('Testing Thread Creation')
-      //cy.contains('Create Thread').click() //TODO testing mode for database
+      cy.contains('Create Thread').click() //TODO testing mode for database
       cy.contains('Cypress Test').contains('created by Tester').contains('posts: 1')
     })
   })
