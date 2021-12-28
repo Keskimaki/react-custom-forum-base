@@ -37,6 +37,8 @@ jobs:
           node-version: '14.x'
       - name: frontend build
         run: cd frontend && npm install && npm run build && mv build ../backend
+      - name: backend init
+        run: cd backend && npm install && npm install ts-node typescript
       - name: e2e tests
         uses: cypress-io/github-action@v2
         with:
