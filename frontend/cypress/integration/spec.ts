@@ -12,6 +12,9 @@ describe('Forum', () => {
 
   it('login form can be opened', () => {
     cy.contains('Login').click()
+
+    cy.get('input').should('exist')
+    cy.contains('login')
   })
 
   it('user can log in', () => {
@@ -22,7 +25,18 @@ describe('Forum', () => {
     cy.contains('login').click()
     
     cy.contains('Logged in')
-    cy.contains('Tester')
+    cy.contains('Logout')
+  })
+
+  it('login fails with wrong password', () => {
+    cy.contains('Login').click()
+    
+    cy.get('input:first').type('Tester')
+    cy.get('input:last').type('salasana')
+    cy.contains('login').click()
+
+    cy.contains('Incorrect password')
+    cy.contains('Logout').should('not.exist')
   })
 
   describe('When logged in', () => {
