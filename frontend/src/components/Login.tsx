@@ -40,6 +40,7 @@ const Login = () => {
       <form onSubmit={handleLogin}>
         <input
           required
+          id="username"
           style={styles.textInput}
           placeholder="username"
           value={username}
@@ -47,6 +48,7 @@ const Login = () => {
         <br />
         <input
           required
+          id="password"
           style={styles.textInput}
           type="password"
           placeholder="password"

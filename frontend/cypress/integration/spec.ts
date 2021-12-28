@@ -13,15 +13,16 @@ describe('Forum', () => {
   it('login form can be opened', () => {
     cy.contains('Login').click()
 
-    cy.get('input').should('exist')
+    cy.get('#username').should('exist')
+    cy.get('#password').should('exist')
     cy.contains('login')
   })
 
   it('user can log in', () => {
     cy.contains('Login').click()
 
-    cy.get('input:first').type('Tester')
-    cy.get('input:last').type('password')
+    cy.get('#username').type('Tester')
+    cy.get('#password').type('password')
     cy.contains('login').click()
     
     cy.contains('Logged in')

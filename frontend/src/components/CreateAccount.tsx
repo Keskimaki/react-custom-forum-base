@@ -49,6 +49,7 @@ const CreateAccount = () => {
       <form onSubmit={handleAccountCreation}>
         <input
           required
+          id="username"
           style={styles.textInput}
           placeholder="username"
           value={username}
@@ -63,6 +64,7 @@ const CreateAccount = () => {
         <br />
         <input
           required
+          id="password"
           style={styles.textInput}
           type="password"
           placeholder="password"
@@ -71,6 +73,7 @@ const CreateAccount = () => {
         <br />
         <input
           required
+          id="repeatPassword"
           style={styles.textInput}
           type="password"
           placeholder="repeat password"
