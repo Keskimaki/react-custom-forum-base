@@ -32,7 +32,7 @@ const editPost = async (imageUrl: string, content: string, responseTo: string[],
 }
 
 const deletePost = async (postId: string, userId: string, token: string) => {
-  await axios.delete<PostType>(`${baseUrl}/${postId}`, { headers: { Authorization: token }, data: { userId } })
+  await axios.delete(`${baseUrl}/${postId}`, { headers: { Authorization: token }, data: { userId } })
 }
 
 const postService = {

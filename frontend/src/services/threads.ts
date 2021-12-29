@@ -15,8 +15,13 @@ const makeThread = async (name: string, user: string, board: string, token: stri
   return res.data
 }
 
+const deleteThread = async (threadId: string, userId: string, token: string) => {
+  await axios.delete(`${baseUrl}/${threadId}`, { headers: { Authorization: token }, data: { userId } })
+}
+
 const threadService = {
-  makeThread
+  makeThread,
+  deleteThread
 }
 
 export default threadService

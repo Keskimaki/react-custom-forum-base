@@ -36,8 +36,9 @@ threadRouter.delete('/:id', async (req, res) => {
   } else if (String(thread.user) !== req.body.userId && user?.privileges === 'user') {
     return res.status(401).json({ error: 'invalid user' })
   }
-  Post.deleteMany({ thread: req.params.id})
-  Thread.findByIdAndDelete(req.params.id)
+  await Post.deleteMany({ thread: req.params.id})
+  await Thread.findByIdAndDelete(req.params.id)
+  res.status(204).end()
 })
 
 export default threadRouter
