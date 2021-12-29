@@ -34,9 +34,9 @@ const Post = ({ post, editing, setEditing, setComment, responseTo, setResponseTo
     setEditing(post.id)
   }
 
-  const handlePostDeletion = () => {
+  const handlePostDeletion = async () => {
     if (!window.confirm('Delete post?')) return
-    postService.deletePost(post.id, loginData.id, loginData.token)
+    await postService.deletePost(post.id, loginData.id, loginData.token)
     dispatch(initializeBoards())
     dispatch(initializePosts())
     setResponseTo([])
