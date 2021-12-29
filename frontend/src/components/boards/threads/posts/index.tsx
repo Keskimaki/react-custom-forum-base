@@ -1,9 +1,14 @@
 import React, { useState } from 'react'
-import { useParams } from 'react-router'
-import { useSelector } from 'react-redux'
+import { useParams, useNavigate } from 'react-router'
+import { useDispatch, useSelector } from 'react-redux'
+import { initializeBoards } from '../../../../reducers/boardReducer'
+import { initializeUsers } from '../../../../reducers/userReducer'
+import { initializePosts } from '../../../../reducers/postReducer'
+import { setNotification } from '../../../../reducers/notificationReducer'
 import CSS from 'csstype'
-import { BoardType, PostType } from '../../../../types'
+import { BoardType, PostType, LoggedUser } from '../../../../types'
 import { RootState } from '../../../../store'
+import threadService from '../../../../services/threads'
 import MakePost from './MakePost'
 import NotFound from '../../../NotFound'
 import styles from '../../../../styles'
@@ -17,8 +22,11 @@ const Posts = () => {
   const [mouseover, setMouseover] = useState(['', ''])
   const [page, setPage] = useState(0)
 
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
   const { boardName, threadName } = useParams()
   const boards: BoardType[] = useSelector((state: RootState) => state.boards)
+  const loginData: LoggedUser = useSelector((state: RootState) => state.user)
   const thread = boards.
     find(board => board.url === boardName)?.threads.
     find(thread => thread.name.replace('?', '') === threadName)
@@ -28,13 +36,33 @@ const Posts = () => {
   
   const mouseoverPost =  thread.posts.find(post => post.id === mouseover[0])
 
+  const handleThreadDeletion = async () => {
+    if (!window.confirm('Delete thread?')) return
+    await threadService.deleteThread(thread.id, loginData.id, loginData.token)
+    dispatch(initializeBoards())
+    dispatch(initializePosts())
+    dispatch(initializeUsers())
+    navigate(`/boards/${boardName}`)
+    dispatch(setNotification('Thread deleted', 'neutral'))
+  }
+
   return (
     <div>
       <PageButtons 
         page={page}
         setPage={setPage}
         posts={thread.posts.length} />
-      <h1 style={styles.largeHeader}><>{thread.name} </></h1>
+      <h1 style={styles.largeHeader}>
+        <>{thread.name} </>
+        {(loginData.id === thread.user && thread.posts.length <= 3) &&
+          <button style={styles.postButton} onClick={handleThreadDeletion}>
+            delete thread  
+          </button>}
+        {(loginData.privileges === 'admin' || loginData.privileges === 'mod') &&
+          <button style={styles.postButton} onClick={handleThreadDeletion}>
+            remove thread  
+          </button>}
+      </h1>
       {mouseoverPost &&
         <Mouseover
           post={mouseoverPost}
@@ -73,9 +101,6 @@ const Posts = () => {
 const PageButtons = ({ page, setPage, posts}: { page: number, setPage: React.Dispatch<React.SetStateAction<number>>, posts: number }) => {
   if (posts < 11) return null
 
-  /*const { boardName } = useParams()
-  const navigate = useNavigate()*/
-
   const changePage = (i: number) => {
     setPage(i)
     window.scrollTo(0, 0)
@@ -96,9 +121,6 @@ const PageButtons = ({ page, setPage, posts}: { page: number, setPage: React.Dis
         <button onClick={() => changePage(page + 1)} style={styles.postButton}>
           next
         </button>}
-      {/*<button onClick={() => navigate(`/boards/${boardName}`)} style={styles.postButton}>
-        close
-      </button>*/}
     </div>
   )
 }
