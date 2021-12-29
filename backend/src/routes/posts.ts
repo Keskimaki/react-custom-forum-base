@@ -1,8 +1,8 @@
 import express from 'express'
 import { ObjectId } from 'mongodb'
 import Post from '../models/post'
-import Thread from '../models/thread'
 import User from '../models/user'
+import Thread from '../models/thread'
 import getToken from '../utils/getToken'
 import postParser from '../utils/parsers/postParser'
 import { PostType, UserType } from '../types'
@@ -44,9 +44,10 @@ postRouter.put('/:id', async (req, res) => {
     return res.status(401).json({ error: 'token missing or invalid'} )
   }
   const post: PostType | null = await Post.findById(req.params.id)
+  const user: UserType | null = await User.findById(req.body.userId)
   if (!post) {
     return res.status(400).json({ error: 'invalid id' })
-  } else if (String(post.user) !== req.body.userId) {
+  } else if (String(post.user) !== req.body.userId && user?.privileges === 'user') {
     return res.status(401).json({ error: 'invalid user' })
   }
   const editData = postParser.toEditPost(req.body)
@@ -72,9 +73,10 @@ postRouter.delete('/:id', async (req, res) => {
     return res.status(401).json({ error: 'token missing or invalid'} )
   }
   const post: PostType | null = await Post.findById(req.params.id)
+  const user: UserType | null = await User.findById(req.body.userId)
   if (!post) {
     return res.status(400).json({ error: 'invalid id' })
-  } else if (String(post.user) !== req.body.userId) {
+  } else if (String(post.user) !== req.body.userId && user?.privileges === 'user') {
     return res.status(401).json({ error: 'invalid user' })
   }
   await Thread.findByIdAndUpdate(post.thread, { $pull: { posts: post.id } })
