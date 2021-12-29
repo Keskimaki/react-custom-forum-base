@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { ThreadType } from '../../../types'
 import styles from '../../../styles'
-import { UserType, PostType } from '../../../types'
+import { UserType, PostType, ThreadStatus } from '../../../types'
 import { RootState } from '../../../store'
 
 
@@ -24,7 +24,8 @@ const Thread = ({ thread }: { thread: ThreadType }) => {
     <Link to={`/boards/${boardName}/${thread.name}`} style={styles.link}>
       <div style={styles.board}>
         {lastPoster && lastPost &&
-          <LatestPost 
+          <LatestPost
+            status={thread.status}
             lastPoster={lastPoster}
             lastPost={lastPost} />}
         <strong>{thread.name}</strong> <br />
@@ -35,7 +36,15 @@ const Thread = ({ thread }: { thread: ThreadType }) => {
   )
 }
 
-const LatestPost = ({ lastPoster, lastPost }: { lastPoster: UserType, lastPost: PostType }) => {
+const LatestPost = ({ status, lastPoster, lastPost }: { status: ThreadStatus, lastPoster: UserType, lastPost: PostType }) => {
+  if (status !== 'open') {
+    return (
+      <div style={styles.threadInfo}>
+        <p>closed</p>
+      </div>
+    )
+  }
+  
   return (
     <div style={styles.threadInfo}>
       {lastPost.content.length > 15

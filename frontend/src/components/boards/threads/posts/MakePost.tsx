@@ -36,7 +36,7 @@ const MakePost = ({ threadId, editing, setEditing, imageUrl, setImageUrl, commen
 
     if (!editing) {
       setCanPost(false)
-      setTimeout(() => setCanPost(true), 5000)
+      setTimeout(() => setCanPost(true), 30000)
     }
 
     setComment('')
