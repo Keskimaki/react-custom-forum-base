@@ -122,6 +122,10 @@ const Post = ({ post, editing, setEditing, setComment, responseTo, setResponseTo
               </button>
             </>
           : null}
+        {(loginData.privileges === 'admin' || loginData.privileges === 'mod') &&
+          <button style={styles.postButton} onClick={handlePostDeletion}>
+            remove
+          </button>}
         {post.repliesTo.length > 0 &&
           <span style ={styles.secondaryText}>
             <>replies: </> 
