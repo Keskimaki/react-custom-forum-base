@@ -6,7 +6,7 @@ import { initializeUsers } from '../../../../reducers/userReducer'
 import { initializePosts } from '../../../../reducers/postReducer'
 import { setNotification } from '../../../../reducers/notificationReducer'
 import CSS from 'csstype'
-import { BoardType, PostType, LoggedUser } from '../../../../types'
+import { BoardType, PostType, LoggedUser, ThreadStatus } from '../../../../types'
 import { RootState } from '../../../../store'
 import threadService from '../../../../services/threads'
 import MakePost from './MakePost'
@@ -46,6 +46,12 @@ const Posts = () => {
     dispatch(setNotification('Thread deleted', 'neutral'))
   }
 
+  const closeThread = async (status: ThreadStatus) => {
+    if (!window.confirm(`Set thread as ${status}?`)) return
+    await threadService.editThread(status, thread.id, loginData.id, loginData.token)
+    dispatch(initializeBoards())
+  }
+
   return (
     <div>
       <PageButtons 
@@ -59,9 +65,19 @@ const Posts = () => {
             delete thread  
           </button>}
         {(loginData.privileges === 'admin' || loginData.privileges === 'mod') &&
-          <button style={styles.postButton} onClick={handleThreadDeletion}>
-            remove thread  
-          </button>}
+          <span>
+            <button style={styles.postButton} onClick={handleThreadDeletion}>
+              remove thread  
+            </button>
+            {thread.status === 'open'
+              ? <button style={styles.postButton} onClick={() => closeThread('closed')}>
+                close thread
+              </button>
+              : <button style={styles.postButton} onClick={() => closeThread('open')}>
+                open thread
+              </button>
+            }
+          </span>}
       </h1>
       {mouseoverPost &&
         <Mouseover
@@ -83,17 +99,21 @@ const Posts = () => {
         page={page}
         setPage={setPage}
         posts={thread.posts.length} />
-      <MakePost 
-        threadId={thread.id}
-        editing={editing}
-        setEditing={setEditing}
-        imageUrl={imageUrl}
-        setImageUrl={setImageUrl}
-        comment={comment}
-        setComment={setComment}
-        responseTo={responseTo}
-        setResponseTo={setResponseTo}
-        setPage={setPage} />
+      {thread.status === 'open'
+        ?
+        <MakePost 
+          threadId={thread.id}
+          editing={editing}
+          setEditing={setEditing}
+          imageUrl={imageUrl}
+          setImageUrl={setImageUrl}
+          comment={comment}
+          setComment={setComment}
+          responseTo={responseTo}
+          setResponseTo={setResponseTo}
+          setPage={setPage} />
+        :
+        <h1 style={styles.largeHeader}>Thread closed</h1>}
     </div>
   )
 }
