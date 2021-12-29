@@ -10,7 +10,7 @@ import { PostType, UserType } from '../types'
 const postRouter = express.Router()
 
 postRouter.get('/', async (_req, res) => {
-  const posts: PostType[] = await Post.find({})//.populate('thread')
+  const posts: PostType[] = await Post.find({})
   res.send(posts)
 })
 
