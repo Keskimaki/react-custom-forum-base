@@ -42,4 +42,18 @@ const toNewThread = ({ name, user, board, status }: Fields): ThreadType => {
   return newThread
 }
 
-export default toNewThread
+type Edit = { status: ThreadStatus}
+
+const toEditThread = ({ status }: { status: unknown }): Edit => {
+  const editThread: Edit = {
+    status: parseStatus(status)
+  }
+  return editThread
+}
+
+const threadParser = {
+  toNewThread,
+  toEditThread
+}
+
+export default threadParser

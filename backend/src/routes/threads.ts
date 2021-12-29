@@ -4,7 +4,7 @@ import Thread from '../models/thread'
 import Board from '../models/board'
 import User from '../models/user'
 import getToken from '../utils/getToken'
-import toNewThread from '../utils/parsers/toNewThread'
+import threadParser from '../utils/parsers/threadParser'
 import { ThreadType, UserType } from '../types'
 
 const threadRouter = express.Router()
@@ -18,11 +18,27 @@ threadRouter.post('/', async (req, res) => {
   if (!getToken(req.get('authorization'))) {
     return res.status(401).json({ error: 'token missing or invalid'} )
   }
-  const newThread: ThreadType = toNewThread(req.body)
+  const newThread: ThreadType = threadParser.toNewThread(req.body)
   const savedThread: ThreadType = await new Thread(newThread).save()
 
   await Board.findByIdAndUpdate(newThread.board, { $push: { threads: savedThread.id } })
   res.status(201).json(savedThread)
+})
+
+threadRouter.put('/:id', async (req, res) => {
+  if (!getToken(req.get('authorization'))) {
+    return res.status(401).json({ error: 'token missing or invalid'} )
+  }
+  const thread: ThreadType | null = await Thread.findById(req.params.id)
+  const user: UserType | null = await User.findById(req.body.userId)
+  if (!thread) {
+    return res.status(400).json({ error: 'invalid id' })
+  } else if (!user || user.privileges === 'user') {
+    return res.status(401).json({ error: 'invalid user' })
+  }
+  const editData = threadParser.toEditThread(req.body)
+  await Thread.findByIdAndUpdate(req.params.id, editData)
+  res.status(204).end()
 })
 
 threadRouter.delete('/:id', async (req, res) => {
