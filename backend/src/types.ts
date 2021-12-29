@@ -4,9 +4,9 @@ export type Privileges = 'admin' | 'mod' | 'user' | 'guest'
 
 export type BoardStatus = 'open' | 'closed'
 
-export type ThreadStatus = 'open' | 'closed' | 'removed' | 'waiting'
+export type ThreadStatus = 'open' | 'closed'
 
-export type PostStatus = 'visible' | 'removed' | 'deleted' | 'waiting'
+export type PostStatus = 'visible'
 
 export interface UserDetails {
   name?: string
@@ -38,7 +38,6 @@ export interface BoardType {
 
 export interface ThreadType {
   name: string
-  description?: string //Delete?
   user: ObjectId
   date: Date
   status: ThreadStatus

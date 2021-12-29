@@ -18,7 +18,7 @@ const parseBoard = (board: unknown): ObjectId => {
 }
 
 const isStatus = (status: string): status is ThreadStatus => {
-  return ['open', 'closed', 'removed', 'waiting'].includes(status)
+  return ['open', 'closed'].includes(status)
 }
 
 const parseStatus = (status: unknown): ThreadStatus => {

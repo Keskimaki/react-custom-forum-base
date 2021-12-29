@@ -27,7 +27,7 @@ const parseThread = (thread: unknown): ObjectId => {
 }
 
 const isStatus = (status: string): status is PostStatus => {
-  return ['visible', 'removed', 'deleted', 'waiting'].includes(status)
+  return ['visible'/*, 'removed', 'deleted', 'waiting'*/].includes(status)
 }
 
 const parseStatus = (status: unknown): PostStatus => {
