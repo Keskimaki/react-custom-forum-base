@@ -35,7 +35,10 @@ threadRouter.delete('/:id', async (req, res) => {
     return res.status(400).json({ error: 'invalid id' })
   } else if (String(thread.user) !== req.body.userId && user?.privileges === 'user') {
     return res.status(401).json({ error: 'invalid user' })
+  } else if(user?.privileges === 'user' && thread.posts.length > 3) {
+    return res.status(401).json({ error: 'user cannot delete active thread' })
   }
+  await Board.findByIdAndUpdate(thread.board, { $pull: { threads: thread.id }})
   await Post.deleteMany({ thread: req.params.id})
   await Thread.findByIdAndDelete(req.params.id)
   res.status(204).end()
