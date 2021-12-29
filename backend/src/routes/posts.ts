@@ -5,7 +5,7 @@ import User from '../models/user'
 import Thread from '../models/thread'
 import getToken from '../utils/getToken'
 import postParser from '../utils/parsers/postParser'
-import { PostType, UserType } from '../types'
+import { PostType, UserType, ThreadType } from '../types'
 
 const postRouter = express.Router()
 
@@ -19,13 +19,17 @@ postRouter.post('/', async (req, res) => {
     return res.status(401).json({ error: 'token missing or invalid'} )
   }
   const newPost: PostType = postParser.toNewPost(req.body)
-  const savedPost: PostType = await new Post(newPost).save()
 
   const user: UserType | null = await User.findById(newPost.user)
+  const thread: ThreadType | null = await Thread.findById(newPost.thread)
+  if (thread?.status !== 'open') {
+    return res.status(403).json({ error: 'thread is closed' })
+  } 
   const lastPost: PostType | null = await Post.findById(user?.posts[user?.posts.length - 1])
-  if (user && lastPost && (+newPost.date - +lastPost.date < 5000)) {
-    return res.status(403).json({ error: 'wait five seconds between posts'})
+  if (user && lastPost && (+newPost.date - +lastPost.date < 30000)) {
+    return res.status(403).json({ error: 'wait 30 seconds between posts'})
   }
+  const savedPost: PostType = await new Post(newPost).save()
 
   if (req.body.imageUrl) {
     await postParser.handleImage(req.body.imageUrl, savedPost.id as ObjectId)

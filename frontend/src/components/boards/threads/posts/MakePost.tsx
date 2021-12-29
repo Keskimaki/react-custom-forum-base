@@ -22,7 +22,7 @@ const MakePost = ({ threadId, editing, setEditing, imageUrl, setImageUrl, commen
     event.preventDefault()
 
     if (!canPost) {
-      dispatch(setNotification('Wait five seconds before posting again', 'negative'))
+      dispatch(setNotification('Wait 30 seconds before posting again', 'negative'))
       return
     }
 
