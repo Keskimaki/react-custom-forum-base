@@ -99,6 +99,9 @@ const Post = ({ post, editing, setEditing, setComment, responseTo, setResponseTo
                 onClick={() => setFocus(!focus)}
                 style={imageStyle} />
             </>}
+          <br />
+          {post.edited &&
+            <span style={styles.secondaryText}>edited {new Date(post.edited).toLocaleString('ger', { day: 'numeric', month: 'numeric', year: '2-digit', hour: 'numeric', minute:'numeric', second:'numeric' })}</span>}
         </div>
       </div>
       {loginData.privileges !== 'guest' && 
