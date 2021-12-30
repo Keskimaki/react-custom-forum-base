@@ -55,6 +55,10 @@ postRouter.put('/:id', async (req, res) => {
     return res.status(401).json({ error: 'invalid user' })
   }
   const editData = postParser.toEditPost(req.body)
+  const thread: ThreadType | null = await Thread.findById(post.thread)
+  if (thread?.status !== 'open') {
+    return res.status(403).json({ error: 'thread is closed' })
+  } 
   if (req.body.imageUrl) {
     await postParser.handleImage(req.body.imageUrl, post.id as ObjectId)
     await Post.findByIdAndUpdate(req.params.id, { image: true })

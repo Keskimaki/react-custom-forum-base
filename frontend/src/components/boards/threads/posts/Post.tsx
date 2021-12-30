@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { PostType } from '../../../../types'
+import { PostType, ThreadStatus } from '../../../../types'
 import CSS from 'csstype'
 import styles from '../../../../styles'
 import { LoggedUser } from '../../../../types'
@@ -14,9 +14,9 @@ import { initializePosts } from '../../../../reducers/postReducer'
 import picture from '../../../../assets/default.png'
 import env from '../../../../config'
 
-type Types = { post: PostType, editing: string, setEditing: React.Dispatch<React.SetStateAction<string>>, setComment: React.Dispatch<React.SetStateAction<string>>, responseTo: string[], setResponseTo: React.Dispatch<React.SetStateAction<string[]>>, setMouseover: React.Dispatch<React.SetStateAction<string[]>> }
+type Types = { post: PostType, editing: string, status: ThreadStatus, setEditing: React.Dispatch<React.SetStateAction<string>>, setComment: React.Dispatch<React.SetStateAction<string>>, responseTo: string[], setResponseTo: React.Dispatch<React.SetStateAction<string[]>>, setMouseover: React.Dispatch<React.SetStateAction<string[]>> }
 
-const Post = ({ post, editing, setEditing, setComment, responseTo, setResponseTo, setMouseover }: Types) => {
+const Post = ({ post, editing, status, setEditing, setComment, responseTo, setResponseTo, setMouseover }: Types) => {
   const dispatch = useDispatch()
   //Forces fetching the picture after each reload instead of using cache
   const [time, setTime] = useState('')
@@ -104,15 +104,15 @@ const Post = ({ post, editing, setEditing, setComment, responseTo, setResponseTo
             <span style={styles.secondaryText}>edited {new Date(post.edited).toLocaleString('ger', { day: 'numeric', month: 'numeric', year: '2-digit', hour: 'numeric', minute:'numeric', second:'numeric' })}</span>}
         </div>
       </div>
-      {loginData.privileges !== 'guest' && 
+      {loginData.privileges !== 'guest' && status === 'open' &&
         <button style={styles.postButton} onClick={addToReplies}>
           reply
         </button>}
       {loginData.id === post.user
         ? <>
-            <button style={styles.postButton} onClick={handlePostEditing}>
+            {status === 'open' && <button style={styles.postButton} onClick={handlePostEditing}>
               edit
-            </button>
+            </button>}
             <button style={styles.postButton} onClick={handlePostDeletion}>
               delete
             </button>

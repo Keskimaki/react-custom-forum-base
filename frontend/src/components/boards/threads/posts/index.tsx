@@ -89,6 +89,7 @@ const Posts = () => {
           <Post 
             key={post.id} 
             post={post}
+            status={thread.status}
             editing={editing}
             setEditing={setEditing}
             setComment={setComment}
