@@ -56,7 +56,7 @@ const User = () => {
 
   return (
     <div>
-      <div style={{ ...styles.board, minHeight: '200px' }}>
+      <div style={styles.board}>
         <ProfilePicture image={user.image} />
         <h1 style={styles.subHeader}>{user.username} </h1>
         {user.privileges !== 'user' && user.privileges}
@@ -81,7 +81,7 @@ const User = () => {
               {user.details.description}
             </>
           : 
-            <>no details <br /></>}
+            <>no details</>}
         <br />
         <strong>Posts:</strong> {user.posts.length}
         <br />
