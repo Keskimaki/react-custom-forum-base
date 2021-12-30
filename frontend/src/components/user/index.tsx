@@ -23,7 +23,7 @@ const User = () => {
   const boards = useSelector((state: RootState) => state.boards)
   const threads = boards.map(board => board.threads).flat()
 
-  const user = users.find(user => user.username === username/*loginData.username*/)
+  const user = users.find(user => user.username === username)
   if (!user || user.username === "") return null
 
   const findThread = (threadId: string) => {
@@ -82,6 +82,8 @@ const User = () => {
             </>
           : 
             <>no details <br /></>}
+        <br />
+        <strong>Posts:</strong> {user.posts.length}
         <br />
         {loginData.username === username &&
         <>
