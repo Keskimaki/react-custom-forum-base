@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 import supertest from 'supertest'
 import app from '../app'
 import Post from '../models/post'
-import { initialPosts, newPost } from './variables'
+import { initialPosts, newPost, initialUser } from './variables'
 
 beforeEach(async () => {
   await Post.deleteMany({})
@@ -31,6 +31,32 @@ test('post content is correct', async () => {
   const res = await api.get('/api/posts')
 
   expect(res.body[1].content).toBe(initialPosts[1].content)
+})
+
+test('post can be edited', async () => {
+  const editData = {
+    content: 'Test Editing Post',
+    userId: initialUser._id
+  }
+
+  await api
+    .put(`/api/posts/${initialPosts[0]._id}`)
+    .send(editData)
+    .expect(204)
+
+    const res = await api.get('/api/posts')
+  
+    expect(res.body[0].content).toBe(editData.content)
+})
+
+test('post can be deleted', async () => {
+  await api
+    .delete(`/api/posts/${initialPosts[0]._id}`)
+    .expect(204)
+
+  const res = await api.get('/api/posts')
+  
+  expect(res.body).toHaveLength(initialPosts.length - 1)
 })
 
 test('new post can be created', async () => {

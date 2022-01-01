@@ -14,6 +14,10 @@ interface ThreadTypeDB extends ThreadType {
   _id: ObjectId
 }
 
+interface PostTypeDB extends PostType {
+  _id: ObjectId
+}
+
 export const initialUser: UserTypeDB = {
   _id: new mongoose.Types.ObjectId('61cd6a10ab77c6914acf188a'),
   username: 'Tester',
@@ -80,8 +84,9 @@ export const newThread: ThreadType = {
   posts: []
 }
 
-export const initialPosts: PostType[] = [
+export const initialPosts: PostTypeDB[] = [
   {
+    _id: new mongoose.Types.ObjectId('61d035dec78ef1a9a08db634'),
     content: 'Test Comment 1',
     status: 'visible',
     date: new Date(),
@@ -91,6 +96,7 @@ export const initialPosts: PostType[] = [
     thread: initialThreads[0]._id
   },
   {
+    _id: new mongoose.Types.ObjectId('61d035dec78ef1a9a08db636'),
     content: 'Test Comment 2',
     status: 'visible',
     date: new Date(),
@@ -100,6 +106,7 @@ export const initialPosts: PostType[] = [
     thread: initialThreads[0]._id
   },
   {
+    _id: new mongoose.Types.ObjectId('61d035dec78ef1a9a08db638'),
     content: 'Test Comment 3',
     status: 'visible',
     date: new Date(),
