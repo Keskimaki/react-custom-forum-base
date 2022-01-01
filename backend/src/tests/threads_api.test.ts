@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 import supertest from 'supertest'
 import app from '../app'
 import Thread from '../models/thread'
-import { initialThreads, newThread, initialUser } from './variables'
+import { initialThreads, newThread, initialUsers } from './variables'
 
 beforeEach(async () => {
   await Thread.deleteMany({})
@@ -36,7 +36,7 @@ test('thread name is correct', async () => {
 test('thread can be edited', async () => {
   const editData = {
     status: 'closed',
-    userId: initialUser._id
+    userId: initialUsers[1]._id
   }
 
   await api

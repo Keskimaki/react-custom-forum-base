@@ -32,7 +32,7 @@ export interface BoardType {
   description: string
   status: BoardStatus
   url: string
-  threads: ThreadType[]
+  threads: ObjectId[] //ThreadType[]
   id?: ObjectId
 }
 
@@ -42,7 +42,7 @@ export interface ThreadType {
   date: Date
   status: ThreadStatus
   board: ObjectId
-  posts: PostType[]
+  posts: ObjectId[] //PostType[]
   id?: ObjectId
 }
 

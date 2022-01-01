@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 import supertest from 'supertest'
 import app from '../app'
 import Post from '../models/post'
-import { initialPosts, newPost, initialUser } from './variables'
+import { initialPosts, newPost, initialUsers } from './variables'
 
 beforeEach(async () => {
   await Post.deleteMany({})
@@ -36,7 +36,7 @@ test('post content is correct', async () => {
 test('post can be edited', async () => {
   const editData = {
     content: 'Test Editing Post',
-    userId: initialUser._id
+    userId: initialUsers[1]._id
   }
 
   await api
