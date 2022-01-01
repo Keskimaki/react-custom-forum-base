@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { PostType, ThreadStatus } from '../../../../types'
+import { PostType, Privileges, ThreadStatus } from '../../../../types'
 import CSS from 'csstype'
 import styles from '../../../../styles'
 import { LoggedUser } from '../../../../types'
@@ -68,8 +68,9 @@ const Post = ({ post, editing, status, setEditing, setComment, responseTo, setRe
 
   let username: string | undefined
   let image: boolean | undefined
+  let privileges: Privileges | undefined
   const poster = users.find(user => user.id === post.user)
-  poster ? { username, image } = poster : username = undefined
+  poster ? { username, image, privileges } = poster : username = undefined
   
   const imageStyle: CSS.Properties = focus ? styles.postImageLarge : styles.postImageSmall
 
@@ -87,7 +88,11 @@ const Post = ({ post, editing, status, setEditing, setComment, responseTo, setRe
               <>{response} </>
             </span>)}
           {post.responseTo.length > 0 && <br />}
-          <strong>{username ? username : <>deleted</>} </strong>
+          <strong>
+            {username
+              ? <>{username} <span style={styles.secondaryText}>{privileges !== 'user' && privileges}</span> </>
+              : <>deleted</>}
+          </strong>
           <span style={styles.secondaryText}>{new Date(post.date).toLocaleString('ger', { day: 'numeric', month: 'numeric', year: '2-digit', hour: 'numeric', minute:'numeric', second:'numeric' })}</span>
           <br />
           {post.content}
