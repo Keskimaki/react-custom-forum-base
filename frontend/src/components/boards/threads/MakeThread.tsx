@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import threadService from '../../../services/threads'
 import postService from '../../../services/posts'
 import { useDispatch, useSelector } from 'react-redux'
-import { LoggedUser, BoardType } from '../../../types'
+import { LoggedUser, UserType, BoardType } from '../../../types'
 import { RootState } from '../../../store'
 import styles from '../../../styles'
 import { initializeBoards } from '../../../reducers/boardReducer'
@@ -15,8 +15,11 @@ const MakeThread = ({ boardId }: { boardId: string}) => {
   const [ comment, setComment ] = useState('')
   const [imageUrl, setImageUrl] = useState('')
 
-  const user: LoggedUser = useSelector((state: RootState) => state.user)
-  if (user.privileges === 'guest') return null
+  const loginData: LoggedUser = useSelector((state: RootState) => state.user)
+  const users: UserType[] = useSelector((state: RootState) => state.users)
+  const user = users.find(user => user.username === loginData.username)
+
+  if (!user || user.privileges === 'guest') return null
   
   const boards: BoardType[] = useSelector((state: RootState) => state.boards)
   const threads = boards.map(board => board.threads).flat()
@@ -33,9 +36,12 @@ const MakeThread = ({ boardId }: { boardId: string}) => {
     } else if (threads.find(thread => thread.name === title )){
       dispatch(setNotification('Thread title must be unique', 'negative'))
       return null
+    } else if (+new Date() - +new Date(user.posts[user.posts.length - 1].date) < 30000) {
+      dispatch(setNotification('Wait 30 seconds before posting again', 'negative'))
+      return null
     }
-    const newThread = await threadService.makeThread(title, user.id, boardId, user.token)
-    await postService.makePost(imageUrl, comment, user.id, newThread.id, user.token)
+    const newThread = await threadService.makeThread(title, user.id, boardId, loginData.token)
+    await postService.makePost(imageUrl, comment, user.id, newThread.id, loginData.token)
 
     dispatch(initializeBoards())
     dispatch(initializePosts())
