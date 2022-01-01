@@ -1,6 +1,14 @@
 import mongoose from 'mongoose'
 import supertest from 'supertest'
 import app from '../app'
+import Board from '../models/board'
+import { initialBoard } from './variables'
+
+beforeEach(async () => {
+  await Board.deleteMany({})
+  const newBoard = new Board(initialBoard)
+  await newBoard.save()
+})
 
 const api = supertest(app)
 
