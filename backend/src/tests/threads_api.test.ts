@@ -33,7 +33,7 @@ test('thread name is correct', async () => {
   expect(res.body[1].name).toBe(initialThreads[1].name)
 })
 
-test('new thread can be added', async () => {
+test('new thread can be created', async () => {
   await api
     .post('/api/threads')
     .send(newThread)
