@@ -22,7 +22,7 @@ export const initialBoard: BoardTypeDB = {
 export const newBoard: BoardType = {
   name: 'NEW - new board',
   description: 'create a new board',
-  status: 'closed',
+  status: 'open',
   url: 'new',
   threads: []
 }
@@ -34,7 +34,7 @@ export const initialThreads: ThreadTypeDB[] = [
     date: new Date(),
     status: 'open',
     user: new mongoose.Types.ObjectId(),
-    board: initialBoard._id as ObjectId,
+    board: initialBoard._id,
     posts: []
   },
   {
@@ -52,7 +52,7 @@ export const newThread: ThreadType = {
   date: new Date(),
   status: 'open',
   user: new mongoose.Types.ObjectId(),
-  board: initialBoard._id as ObjectId,
+  board: initialBoard._id,
   posts: []
 }
 

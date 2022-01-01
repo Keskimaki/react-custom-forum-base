@@ -7,7 +7,7 @@ import { initialPosts, newPost } from './variables'
 beforeEach(async () => {
   await Post.deleteMany({})
   for (let i = 0; i < initialPosts.length; i++) {
-    let postObject = new Post(initialPosts[i])
+    const postObject = new Post(initialPosts[i])
     await postObject.save()
   }
 })

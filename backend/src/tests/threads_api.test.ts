@@ -7,7 +7,7 @@ import { initialThreads, newThread } from './variables'
 beforeEach(async () => {
   await Thread.deleteMany({})
   for (let i = 0; i < initialThreads.length; i++) {
-    let threadObject = new Thread(initialThreads[i])
+    const threadObject = new Thread(initialThreads[i])
     await threadObject.save()
   }
 })
