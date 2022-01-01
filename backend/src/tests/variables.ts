@@ -1,13 +1,36 @@
 import mongoose from 'mongoose'
 import { ObjectId } from 'mongodb'
-import { BoardType, ThreadType, PostType } from '../types'
+import { UserType, BoardType, ThreadType, PostType } from '../types'
+
+interface UserTypeDB extends UserType {
+  _id: ObjectId
+}
 
 interface BoardTypeDB extends BoardType {
   _id: ObjectId
 }
 
 interface ThreadTypeDB extends ThreadType {
-  _id?: ObjectId
+  _id: ObjectId
+}
+
+export const initialUser: UserTypeDB = {
+  _id: new mongoose.Types.ObjectId('61cd6a10ab77c6914acf188a'),
+  username: 'Tester',
+  passwordHash: '$2a$10$4FyopXOHLvL0TBsi2vE9nu3b5/LrPlDWoCYwDqUHlr72XunSGOK9S',
+  date: new Date(),
+  posts: [],
+  following: [],
+  privileges: 'admin'
+}
+
+export const newUser = {
+  username: 'NewUser',
+  password: 'password',
+  date: new Date(),
+  posts: [],
+  following: [],
+  privileges: 'user'
 }
 
 export const initialBoard: BoardTypeDB = {
@@ -33,15 +56,16 @@ export const initialThreads: ThreadTypeDB[] = [
     name: 'Test Thread 1',
     date: new Date(),
     status: 'open',
-    user: new mongoose.Types.ObjectId(),
+    user: initialUser._id,
     board: initialBoard._id,
     posts: []
   },
   {
+    _id: new mongoose.Types.ObjectId('61d02e4ee29cb3bb820f62a1'),
     name: 'Test Thread 2',
     date: new Date(),
     status: 'closed',
-    user: new mongoose.Types.ObjectId(),
+    user: initialUser._id,
     board: initialBoard._id,
     posts: []
   }
@@ -51,7 +75,7 @@ export const newThread: ThreadType = {
   name: 'New Thread',
   date: new Date(),
   status: 'open',
-  user: new mongoose.Types.ObjectId(),
+  user: initialUser._id,
   board: initialBoard._id,
   posts: []
 }
@@ -63,8 +87,8 @@ export const initialPosts: PostType[] = [
     date: new Date(),
     responseTo: [],
     repliesTo: [],
-    user: new mongoose.Types.ObjectId(),
-    thread: initialThreads[0]._id as ObjectId
+    user: initialUser._id,
+    thread: initialThreads[0]._id
   },
   {
     content: 'Test Comment 2',
@@ -72,8 +96,8 @@ export const initialPosts: PostType[] = [
     date: new Date(),
     responseTo: [],
     repliesTo: [],
-    user: new mongoose.Types.ObjectId(),
-    thread: initialThreads[0]._id as ObjectId
+    user: initialUser._id,
+    thread: initialThreads[0]._id
   },
   {
     content: 'Test Comment 3',
@@ -81,8 +105,8 @@ export const initialPosts: PostType[] = [
     date: new Date(),
     responseTo: [],
     repliesTo: [],
-    user: new mongoose.Types.ObjectId(),
-    thread: initialThreads[0]._id as ObjectId
+    user: initialUser._id,
+    thread: initialThreads[0]._id
   }
 ]
 
@@ -92,6 +116,6 @@ export const newPost: PostType = {
   date: new Date(),
   responseTo: [],
   repliesTo: [],
-  user: new mongoose.Types.ObjectId(),
-  thread: initialThreads[0]._id as ObjectId
+  user: initialUser._id,
+  thread: initialThreads[0]._id
 }
