@@ -123,37 +123,26 @@ describe('Forum', () => {
 
     describe('Thread exists', () => {
       beforeEach(() => {
-        const userData = JSON.parse(localStorage.getItem('loggedForumUser'))
-        cy.request({
-          method: 'POST',
-          url: 'http://localhost:3003/api/threads',
-          body: {
-            name: 'Test Thread',
-            user: userData.id,
-            board: '61a8a2b1001e88f0184a34ff',
-            status: 'open'
-          },
-          headers: {
-            Authorization: userData.token
-          }
-        })
-        cy.reload()
         cy.contains('TEST - testing').click()
+        cy.get('input:last').type('Cypress Test')
+        cy.get('textarea').type('Testing Thread Creation')
+        cy.contains('Create Thread').click()
       })
 
       it('thread can be entered', () => {
-        cy.contains('Test Thread').click()
-        cy.get('h1').contains('Test Thread')
+        cy.contains('Cypress Test').click()
+        cy.get('h1').contains('Cypress Test')
       })
 
       it('create post form exists', () => {
-        cy.contains('Test Thread').click()
+        cy.contains('Cypress Test').click()
         cy.get('textarea')
       })
 
       it('a new post can be created', () => {
-        cy.contains('Test Thread').click()
+        cy.contains('Cypress Test').click()
         cy.get('textarea').type('Testing Post Creation')
+        cy.wait(30000) //Wait for spam prevention
         cy.contains('Submit').click()
         cy.go('back')
         cy.go('forward')
