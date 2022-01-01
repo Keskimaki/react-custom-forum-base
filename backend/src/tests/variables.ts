@@ -1,9 +1,13 @@
 import mongoose from 'mongoose'
 import { ObjectId } from 'mongodb'
-import { BoardType, ThreadType } from '../types'
+import { BoardType, ThreadType, PostType } from '../types'
 
 interface BoardTypeDB extends BoardType {
   _id: ObjectId
+}
+
+interface ThreadTypeDB extends ThreadType {
+  _id?: ObjectId
 }
 
 export const initialBoard: BoardTypeDB = {
@@ -23,8 +27,9 @@ export const newBoard: BoardType = {
   threads: []
 }
 
-export const initialThreads: ThreadType[] = [
+export const initialThreads: ThreadTypeDB[] = [
   {
+    _id: new mongoose.Types.ObjectId('61d01a094b8886eb7deb9b34'),
     name: 'Test Thread 1',
     date: new Date(),
     status: 'open',
@@ -37,7 +42,7 @@ export const initialThreads: ThreadType[] = [
     date: new Date(),
     status: 'closed',
     user: new mongoose.Types.ObjectId(),
-    board: initialBoard._id as ObjectId,
+    board: initialBoard._id,
     posts: []
   }
 ]
@@ -49,4 +54,44 @@ export const newThread: ThreadType = {
   user: new mongoose.Types.ObjectId(),
   board: initialBoard._id as ObjectId,
   posts: []
+}
+
+export const initialPosts: PostType[] = [
+  {
+    content: 'Test Comment 1',
+    status: 'visible',
+    date: new Date(),
+    responseTo: [],
+    repliesTo: [],
+    user: new mongoose.Types.ObjectId(),
+    thread: initialThreads[0]._id as ObjectId
+  },
+  {
+    content: 'Test Comment 2',
+    status: 'visible',
+    date: new Date(),
+    responseTo: [],
+    repliesTo: [],
+    user: new mongoose.Types.ObjectId(),
+    thread: initialThreads[0]._id as ObjectId
+  },
+  {
+    content: 'Test Comment 3',
+    status: 'visible',
+    date: new Date(),
+    responseTo: [],
+    repliesTo: [],
+    user: new mongoose.Types.ObjectId(),
+    thread: initialThreads[0]._id as ObjectId
+  }
+]
+
+export const newPost: PostType = {
+  content: 'New Comment',
+  status: 'visible',
+  date: new Date(),
+  responseTo: [],
+  repliesTo: [],
+  user: new mongoose.Types.ObjectId(),
+  thread: initialThreads[0]._id as ObjectId
 }
