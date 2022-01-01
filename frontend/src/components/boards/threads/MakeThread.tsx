@@ -37,7 +37,7 @@ const MakeThread = ({ boardId }: { boardId: string}) => {
     } else if (threads.find(thread => thread.name === title )){
       dispatch(setNotification('Thread title must be unique', 'negative'))
       return null
-    } else if (+new Date() - +new Date(user.posts[user.posts.length - 1].date) < 30000) {
+    } else if (user.posts.length > 0 && (+new Date() - +new Date(user.posts[user.posts.length - 1].date) < 30000)) {
       dispatch(setNotification('Wait 30 seconds before posting again', 'negative'))
       return null
     }
