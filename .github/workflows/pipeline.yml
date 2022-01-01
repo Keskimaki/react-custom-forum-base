@@ -67,3 +67,4 @@ jobs:
           command: npm run test:e2e
           start: npm run test:server
           wait-on: 'http://localhost:3003'
+
