@@ -7,6 +7,7 @@ import { RootState } from '../../../store'
 import styles from '../../../styles'
 import { initializeBoards } from '../../../reducers/boardReducer'
 import { initializePosts } from '../../../reducers/postReducer'
+import { initializeUsers } from '../../../reducers/userReducer'
 import { setNotification } from '../../../reducers/notificationReducer'
 
 const MakeThread = ({ boardId }: { boardId: string}) => {
@@ -45,6 +46,7 @@ const MakeThread = ({ boardId }: { boardId: string}) => {
 
     dispatch(initializeBoards())
     dispatch(initializePosts())
+    dispatch(initializeUsers())
 
     setTitle('')
     setComment('')

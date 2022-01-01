@@ -1,8 +1,8 @@
-import React, { useState }  from 'react'
+import React  from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../../store'
 import postService from '../../../../services/posts'
-import { LoggedUser } from '../../../../types'
+import { LoggedUser, UserType } from '../../../../types'
 import styles from '../../../../styles'
 import { initializeBoards } from '../../../../reducers/boardReducer'
 import { initializePosts } from '../../../../reducers/postReducer'
@@ -12,32 +12,29 @@ import { setNotification } from '../../../../reducers/notificationReducer'
 type Types = { threadId: string, editing: string, setEditing: React.Dispatch<React.SetStateAction<string>>, imageUrl: string, setImageUrl: React.Dispatch<React.SetStateAction<string>>,  comment: string, setComment: React.Dispatch<React.SetStateAction<string>>, responseTo: string[], setResponseTo: React.Dispatch<React.SetStateAction<string[]>>, setPage: React.Dispatch<React.SetStateAction<number>> }
 
 const MakePost = ({ threadId, editing, setEditing, imageUrl, setImageUrl, comment, setComment, responseTo, setResponseTo, setPage }: Types ) => {
-  const [canPost, setCanPost] = useState(true)
   const dispatch = useDispatch()
 
-  const user: LoggedUser = useSelector((state: RootState) => state.user)
-  if (user.privileges === 'guest') return null
+  const loginData: LoggedUser = useSelector((state: RootState) => state.user)
+  const users: UserType[] = useSelector((state: RootState) => state.users)
+  const user = users.find(user => user.username === loginData.username)
+
+  if (!user || user.privileges === 'guest') return null
 
   const handlePost = async (event: React.SyntheticEvent) => {
     event.preventDefault()
 
-    if (!canPost) {
+    if (+new Date() - +new Date(user.posts[user.posts.length - 1].date) < 30000) {
       dispatch(setNotification('Wait 30 seconds before posting again', 'negative'))
-      return
+      return null
     }
 
     editing
-      ? await postService.editPost(imageUrl, comment, responseTo, editing, user.id, user.token)
-      : await postService.makePost(imageUrl, comment, user.id, threadId, user.token, responseTo)
+      ? await postService.editPost(imageUrl, comment, responseTo, editing, user.id, loginData.token)
+      : await postService.makePost(imageUrl, comment, user.id, threadId, loginData.token, responseTo)
 
     setTimeout(() => dispatch(initializeBoards()), 500)
     dispatch(initializePosts())
     dispatch(initializeUsers())
-
-    if (!editing) {
-      setCanPost(false)
-      setTimeout(() => setCanPost(true), 30000)
-    }
 
     setComment('')
     setResponseTo([])
