@@ -1,3 +1,4 @@
+import mongoose from 'mongoose'
 import { BoardType } from '../types'
 
 export const initialBoard: BoardType = {
@@ -15,3 +16,22 @@ export const newBoard: BoardType = {
   url: 'new',
   threads: []
 }
+
+export const initialThreads = [
+  {
+    name: 'Test Thread 1',
+    date: new Date(),
+    status: 'open',
+    user: new mongoose.Types.ObjectId(),
+    board: new mongoose.Types.ObjectId(),
+    posts: []
+  },
+  {
+    name: 'Test Thread 2',
+    date: new Date(),
+    status: 'open',
+    user: new mongoose.Types.ObjectId(),
+    board: new mongoose.Types.ObjectId(),
+    posts: []
+  }
+]
