@@ -32,6 +32,36 @@ test('username and privileges are correct', async () => {
   expect(res.body[0].privileges).toBe(initialUser.privileges)
 })
 
+test('user can be edited', async () => {
+  const editData = {
+    email: 'test@email.com',
+    details: {
+      name: 'Test Tester'
+    }
+  }
+
+  await api
+    .put(`/api/users/${initialUser._id}`)
+    .send(editData)
+    .expect(204)
+
+  const res = await api.get('/api/users')
+
+  expect(res.body[0].email).toBe(editData.email)
+  expect(res.body[0].details.name).toBe(editData.details.name)
+})
+
+test('user can be deleted', async () => {
+  await api
+    .delete(`/api/users/${initialUser._id}`)
+    .send({ password: 'password' })
+    .expect(204)
+  
+  const res = await api.get('/api/users')
+  
+  expect(res.body).toHaveLength(0)
+})
+
 test('new user can be added', async () => {
   await api
     .post('/api/users')
