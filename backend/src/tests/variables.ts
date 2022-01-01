@@ -7,3 +7,11 @@ export const initialBoard: BoardType = {
   url: 'test',
   threads: []
 }
+
+export const newBoard: BoardType = {
+  name: 'NEW - new board',
+  description: 'create a new board',
+  status: 'closed',
+  url: 'new',
+  threads: []
+}
