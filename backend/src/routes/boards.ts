@@ -7,7 +7,7 @@ const boardRouter = express.Router()
 
 boardRouter.get('/', async (_req, res) => {
   const boards: BoardType[] = await Board.
-    find({}).
+    find({ status: 'open' }).
     populate({
       path: 'threads',
       populate: {
@@ -16,7 +16,7 @@ boardRouter.get('/', async (_req, res) => {
     })
   res.send(boards)
 })
-
+//Boards can be created manually on MongoDB, no need for frontend functionality
 if (process.env.NODE_ENV === 'test') {
   boardRouter.post('/', async (req, res) => {
     const newBoard: BoardType = toNewBoard(req.body)
