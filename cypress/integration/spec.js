@@ -72,7 +72,7 @@ describe('Forum', () => {
         })
       })
 
-    it('user info can be entered', () => {
+    it('user info can be viewed', () => {
       cy.contains('Tester').click()
       cy.get('h1').contains('Tester')
     })
