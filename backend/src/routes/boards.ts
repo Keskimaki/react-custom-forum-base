@@ -17,11 +17,12 @@ boardRouter.get('/', async (_req, res) => {
   res.send(boards)
 })
 
-boardRouter.post('/', async (req, res) => {
-  //TODO board creation authentication
-  const newBoard: BoardType = toNewBoard(req.body)
-  const savedBoard = await new Board(newBoard).save()
-  res.status(201).json(savedBoard)
-})
+if (process.env.NODE_ENV === 'test') {
+  boardRouter.post('/', async (req, res) => {
+    const newBoard: BoardType = toNewBoard(req.body)
+    const savedBoard = await new Board(newBoard).save()
+    res.status(201).json(savedBoard)
+  })
+}
 
 export default boardRouter
