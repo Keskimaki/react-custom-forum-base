@@ -23,7 +23,7 @@ const MakePost = ({ threadId, editing, setEditing, imageUrl, setImageUrl, commen
   const handlePost = async (event: React.SyntheticEvent) => {
     event.preventDefault()
 
-    if (+new Date() - +new Date(user.posts[user.posts.length - 1].date) < 30000) {
+    if (user.posts.length > 0 && (+new Date() - +new Date(user.posts[user.posts.length - 1].date) < 30000)) {
       dispatch(setNotification('Wait 30 seconds, before posting again', 'negative'))
       return null
     }
