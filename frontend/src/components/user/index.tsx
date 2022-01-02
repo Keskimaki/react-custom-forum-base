@@ -95,6 +95,7 @@ const User = () => {
           <button style={styles.postButton} onClick={handleUserDeletion}>
             delete user
           </button>
+          <br /> <br />
         </>}
       </div>
       <h2 style={styles.subHeader}>Posts: </h2>

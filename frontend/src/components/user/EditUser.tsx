@@ -122,6 +122,7 @@ const EditUser = () => {
           placeholder="Tell about yourself"
           value={description}
           onChange={({ target }) => setDescription(target.value)} />
+        <br />
         <button style={styles.submitButton} type="submit">
           Update profile
         </button>
