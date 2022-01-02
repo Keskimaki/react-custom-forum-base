@@ -237,7 +237,8 @@ const postButtonFocus: CSS.Properties = {
 const notification: CSS.Properties = {
   backgroundColor: '#d8eaed',
   color: '#0366d6',
-  width: '600px',
+  width: '50vw',
+  maxWidth: '600px',
   border: '2px solid #0366d6',
   borderRadius: '5px',
   padding: '15px',
@@ -248,7 +249,8 @@ const notification: CSS.Properties = {
 const negativeNotification: CSS.Properties = {
   backgroundColor: '#f0cccc',
   color: '#a31c1c',
-  width: '600px',
+  width: '50vw',
+  maxWidth: '600px',
   border: '2px solid #a31c1c',
   borderRadius: '5px',
   padding: '15px',
@@ -260,7 +262,8 @@ const negativeNotification: CSS.Properties = {
 const positiveNotification: CSS.Properties = {
   backgroundColor: '#98f5d0',
   color: '#09613e',
-  width: '600px',
+  width: '50vw',
+  maxWidth: '600px',
   border: '2px solid #09613e',
   borderRadius: '5px',
   padding: '15px',
