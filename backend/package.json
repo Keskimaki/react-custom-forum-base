@@ -5,6 +5,7 @@
   "main": "index.ts",
   "scripts": {
     "tsc": "tsc",
+    "start": "NODE_ENV=production node dist/index.js",
     "dev": "NODE_ENV=development ts-node-dev src/index.ts",
     "lint": "eslint --ext .ts .",
     "test": "NODE_ENV=test jest --verbose --runInBand --forceExit",
