@@ -4,7 +4,7 @@ import styles from '../styles'
 const Footer = () => {
   return (
     <div style={styles.footer}>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      Lorem ipsum dolor sit amet, consectetur.
     </div>
   )
 }

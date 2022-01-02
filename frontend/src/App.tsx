@@ -36,7 +36,7 @@ const App = () => {
   }, [dispatch])
 
   return (
-    <div style={styles.app}>
+    <div>
       <Header />
       <div style={styles.main}>
         <div style={styles.body}>

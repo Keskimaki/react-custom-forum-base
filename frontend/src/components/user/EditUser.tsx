@@ -99,20 +99,20 @@ const EditUser = () => {
       </button>
       <form onSubmit={handleProfileUpdating}>
         <input 
-          style={styles.textInput}
+          style={styles.textInputSmaller}
           placeholder="name"
           value={name}
           onChange={({ target }) => setName(target.value) } />
         <br />
         <input 
-          style={styles.textInput}
+          style={styles.textInputSmaller}
           type="email"
           placeholder="email"
           value={email}
           onChange={({ target }) => setEmail(target.value) } />
         <br />
         <input 
-          style={styles.textInput}
+          style={styles.textInputSmaller}
           placeholder="location"
           value={location}
           onChange={({ target }) => setLocation(target.value) } />
@@ -122,12 +122,12 @@ const EditUser = () => {
           placeholder="Tell about yourself"
           value={description}
           onChange={({ target }) => setDescription(target.value)} />
-        <button style={styles.button} type="submit">
+        <button style={styles.submitButton} type="submit">
           Update profile
         </button>
         <> </>
         <Link to={`/${user.username}`}>
-          <button style={styles.button}>
+          <button style={styles.submitButton}>
             cancel
           </button>
         </Link>

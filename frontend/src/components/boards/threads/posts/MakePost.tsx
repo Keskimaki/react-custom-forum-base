@@ -73,7 +73,7 @@ const MakePost = ({ threadId, editing, setEditing, imageUrl, setImageUrl, commen
           value={comment}
           onChange={({ target }) => setComment(target.value)} />
         <br />
-        <button style={styles.button} type="submit">
+        <button style={styles.submitButton} type="submit">
           Submit
         </button>
       </form>

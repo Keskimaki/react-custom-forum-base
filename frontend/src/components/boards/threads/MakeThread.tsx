@@ -76,7 +76,7 @@ const MakeThread = ({ boardId }: { boardId: string}) => {
           onChange={({ target }) => setComment(target.value)}
         />
         <br />
-        <button style={styles.button} type="submit">
+        <button style={styles.submitButton} type="submit">
           Create Thread
         </button>
       </form>

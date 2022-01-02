@@ -1,10 +1,5 @@
 import CSS from 'csstype'
 
-const app: CSS.Properties = {
-  //marginLeft: '300px',
-  //marginRight: '300px'
-}
-
 const header: CSS.Properties = {
   backgroundColor: '#24292e',
   height: '100px',
@@ -160,8 +155,20 @@ const secondaryText:CSS.Properties = {
 }
 
 const textInput: CSS.Properties = {
-  height: '3vw',
+  minWidth: '10em',
   width: '25vw',
+  maxWidth: '400px',
+  justifyContent: 'center',
+  alignItems: 'center',
+  borderRadius: '5px',
+  marginTop: '10px',
+  fontSize: '25px'
+}
+
+const textInputSmaller: CSS.Properties = {
+  minWidth: '10em',
+  width: '25vw',
+  maxWidth: '400px',
   justifyContent: 'center',
   alignItems: 'center',
   borderRadius: '5px',
@@ -190,16 +197,24 @@ const textArea: CSS.Properties = {
 
 const submit:CSS.Properties = {
   backgroundColor: '#fff',
-  padding: '10px'
+  padding: '10px',
 }
 
 const button: CSS.Properties = {
   backgroundColor: '#0366d6',
   color: '#FFF',
-  height: '4vw',
-  width: '25vw',
-  justifyContent: 'center',
-  alignItems: 'center',
+  width: '10.2em',
+  margin: '0 auto',
+  display: 'block',
+  borderRadius: '5px',
+  marginTop: '10px',
+  fontSize: '25px'
+}
+
+const submitButton: CSS.Properties = {
+  backgroundColor: '#0366d6',
+  color: '#FFF',
+  width: '10.2em',
   borderRadius: '5px',
   marginTop: '10px',
   fontSize: '20px'
@@ -239,8 +254,7 @@ const negativeNotification: CSS.Properties = {
   padding: '15px',
   margin: '10px auto',
   fontSize: '1.5em',
-  display: 'flex',
-  //justifyContent: 'center'
+  display: 'flex'
 }
 
 const positiveNotification: CSS.Properties = {
@@ -266,7 +280,6 @@ const footer: CSS.Properties = {
 }
 
 const styles = {
-  app,
   header,
   headerTab,
   main,
@@ -287,10 +300,12 @@ const styles = {
   edit,
   secondaryText,
   textInput,
+  textInputSmaller,
   threadInput,
   textArea,
   submit,
   button,
+  submitButton,
   postButton,
   postButtonFocus,
   notification,
