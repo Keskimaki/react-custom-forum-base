@@ -23,7 +23,7 @@ describe('Forum', () => {
   it('account can be created', () => {
     cy.contains('Create Account').click()
 
-    cy.get('input:first').type('Testaaja')
+    cy.get('input:first').type('Cypress')
     cy.get('input:eq(2)').type('salasana')
     cy.get('input:last').type('salasana')
     cy.contains('create').click()
