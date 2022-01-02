@@ -38,7 +38,7 @@ const MakeThread = ({ boardId }: { boardId: string}) => {
       dispatch(setNotification('Thread title must be unique', 'negative'))
       return null
     } else if (user.posts.length > 0 && (+new Date() - +new Date(user.posts[user.posts.length - 1].date) < 30000)) {
-      dispatch(setNotification('Wait 30 seconds before posting again', 'negative'))
+      dispatch(setNotification('Wait 30 seconds, before posting again', 'negative'))
       return null
     }
     const newThread = await threadService.makeThread(title, user.id, boardId, loginData.token)

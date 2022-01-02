@@ -24,7 +24,7 @@ const MakePost = ({ threadId, editing, setEditing, imageUrl, setImageUrl, commen
     event.preventDefault()
 
     if (+new Date() - +new Date(user.posts[user.posts.length - 1].date) < 30000) {
-      dispatch(setNotification('Wait 30 seconds before posting again', 'negative'))
+      dispatch(setNotification('Wait 30 seconds, before posting again', 'negative'))
       return null
     }
 
@@ -32,7 +32,10 @@ const MakePost = ({ threadId, editing, setEditing, imageUrl, setImageUrl, commen
       ? await postService.editPost(imageUrl, comment, responseTo, editing, user.id, loginData.token)
       : await postService.makePost(imageUrl, comment, user.id, threadId, loginData.token, responseTo)
 
-    setTimeout(() => dispatch(initializeBoards()), 500)
+    imageUrl
+      ? setTimeout(() => dispatch(initializeBoards()), 1000)
+      : dispatch(initializeBoards())
+
     dispatch(initializePosts())
     dispatch(initializeUsers())
 
