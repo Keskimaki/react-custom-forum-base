@@ -47,3 +47,5 @@ Run Cypress tests in the root folder after setting up backend and frontend
 `npm run test:server`
 
 `npm run test:e2e`
+
+[työaikakirjanpito](https://github.com/Keskimaki/react-custom-forum-base/blob/master/tuntikirjanpito.md)
