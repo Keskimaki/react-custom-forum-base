@@ -279,7 +279,6 @@ const footer: CSS.Properties = {
   alignItems: 'center',
   display: 'flex',
   justifyContent: 'space-around',
-  marginTop: '40px'
 }
 
 const styles = {
