@@ -122,7 +122,7 @@ const Post = ({ post, editing, status, setEditing, setComment, responseTo, setRe
               delete
             </button>
           </>
-        : username
+        : loginData.privileges !== 'guest'
           ?
             <> 
               <button style={styles.postButton} onClick={() => handleUserFollowing(post.user)}>

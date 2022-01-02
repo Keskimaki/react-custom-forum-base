@@ -133,6 +133,7 @@ const profilePictureSmall: CSS.Properties = {
 
 const postImageSmall: CSS.Properties = {
   width: '300px',
+  maxWidth: '50vw',
   maxHeight: '600px'
 }
 
