@@ -16,7 +16,8 @@ void mongoose.connect(env.MONGODB_URI)
 const app = express()
 app.use(cors())
 app.use(express.json())
-app.use(express.static(path.join(__dirname, 'build')))
+app.use(express.static('build'))
+//app.use(express.static(path.join(__dirname, 'build')))
 
 //Allow reseting testing database
 if (process.env.NODE_ENV === 'test') {
